@@ -142,12 +142,78 @@ var GPTS_Dim = [
     "Pers_9", "Pers_10",
 ]
 
-// Inventory of Personality Organization: Reality Testing dimension (Lenzenweger et al., 2001)
+// Self-Concept Clarity (Campbell et al., 1996)
+var SCC = [
+    "My beliefs about myself often conflict with one another.",  //(R)
+    "On one day I might have one opinion of myself and on another day I might have a different opinion.",  //(R)
+    "I spend a lot of time wondering about what kind of person I really am",  //(R)
+    "Sometimes I feel that I am not really the person that I appear to be",     //(R)
+    "When I think about the kind of person I have been in the past, I'm not sure what I was really like",  //(R)
+    "I seldom experience conflict between the different aspects of my personality",
+    "Sometimes I think I know other people better than I know myself.",    //(R)
+    "My beliefs about myself seem to change very frequently", //(R)
+    "If I were asked to describe my personality, my description might end up being different from one day to another day.",  //(R)
+    "Even ill wanted to, I don't think I could tell someone what I'm really like",  //(R)
+    "In general, I have a clear sense of who I am and what I am.",
+    "It is often hard for me to make up my mind about things because I don't really know what I want."  //(R)
+]
+
+// Illusory Beliefs Inventory (Kingdon, et al., 2011)
+var IBI = [
+    "I use prayer to ward off misfortune",
+    "I have sometimes changed my plans because I had a bad feeling",
+    "The soul does not continue to exist after death", // (R)
+    "I believe in magic",
+    "I sometimes perform special rituals for protection",
+    "If I think too much about something bad, it will happen",
+    "Magical forces have impacted on my life",
+    "It is just a matter of time until science can explain everything",  // (R)
+    "I do something special to prevent bad luck",
+    "Sometimes I get a feeling that something is going to happen before it happens",
+    "It is not possible to cast a magical spell",  //(R)
+    "Magic causes miracles to happen",
+    "Life is nothing more than a series of random events",  //(R)
+    "Good luck charms do not work",  //(R)
+    "If I think too much about something, it will happen",
+    "I avoid unlucky numbers",
+    "Most things that happen to us are the result of fate",
+    "I believe guardian angels or other spiritual forces protect me",
+    "Science is the key to understanding how things happen",  //(R)
+    "My thoughts alone can alter reality",
+    "There is an invisible force guiding us all",
+    "You should never tempt fate",
+    "I do not believe in a spiritual presence",  //(R)
+    "I believe in a higher power or God"
+    ]
+
+var IBI_Dim = [
+    "Spirit_1", "Int_2", "Spirit_3",
+    "Magic_4", "Magic_5", "Int_6",
+    "Magic_7", "Spirit_8", "Int_9",
+    "Int_10", "Magic_11", "Magic_12",
+    "Spirit_13", "Magic_14", "Int_15",
+    "Int_16", "Int_17", "Spirit_18",
+    "Spirit_19", "Int_20", "Spirit_21",
+    "Spirit_22", "Spirit_23", "Spirit_24"]
 
 
-// paranormal and supernatural beliefs
 
-// anxiety (PANAS)
+// State Trait Anxiety Index - Short (Zsido et al., 2020)
+var STAIS = [
+    "I feel upset",
+    "I feel frightened",
+    "I feel nervous",
+    "I am jittery",
+    "I feel confused"
+]
+
+var STAIT = [
+    "I feel that difficulties are piling up so that I cannot overcome them",
+    "I worry too much over something that really doesn't matter",
+    "Some unimportant thoughts run through my mind and bothers me",
+    "I take disappointment so keenly that I can't put them out of my mind",
+    "I get in a state of tension or turmoil as I think over my recent concerns and interests"
+]
 
 
 

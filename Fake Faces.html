@@ -87,6 +87,19 @@
 
     // Participant information
     var participant_id = jsPsych.randomization.randomID(15);
+    var sex = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [
+            {
+                prompt: "What is your assigned sex?",
+                options: ["Male", "Female", "Other", "Prefer not to say"],
+                name: "sex"
+            }
+        ],
+        data: {
+            screen: 'demographics'
+        }
+    }
     var participant_info = {
         type: jsPsychSurveyText,
         questions: [
@@ -95,16 +108,11 @@
                 name: "age"
             },
             {
-                prompt: "What is your assigned sex?"
-                placeholder: "Male / Female / Other / Prefer not to say"
-                name: "gender identity"
-            },
-            {
-                prompt: "What gender orientation do you most identify with?"
+                prompt: "What gender orientation do you most identify with?",
                 name: "gender orientation"
             }
         ],
-        on_finish: function(){
+        on_finish: function () {
             jsPsych.data.addProperties({"participant_id": participant_id});
         },
         data: {
@@ -370,7 +378,142 @@
         }
     };
 
-    /* Paranormal Thinking *==========================*/
+    /* Magical Thinking *==========================*/
+    var Magical_Thinking = []
+
+    for (const [index, element] of IBI.entries()) {
+        Magical_Thinking.push({
+            prompt: element,
+            name: IBI_Dim[index],
+            ticks: scale1,
+            required: false
+        })
+    }
+
+    var MT = {
+        type: jsPsychMultipleSlider,
+        questions: Magical_Thinking,
+        randomize_question_order: false,
+        preamble: "<p>Please read each of the statements carefully and indicate the extent to which each of these feelings apply to you.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'Magical Ideation',
+        }
+    }
+
+    /* Anxiety *==========================*/
+
+    var state_anxiety = []
+    for (const [index, element] of STAIS.entries()) {
+        state_anxiety.push({
+            prompt: element,
+            name: "State_Anx_" + (index + 1),
+            ticks: scale1,
+            required: false
+        })
+    }
+
+    var state_anx = {
+        type: jsPsychMultipleSlider,
+        questions: state_anxiety,
+        randomize_question_order: false,
+        preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
+            "Please read each statement and indicates <b>how you feel right now</b>, that is, at this moment</p>." +
+            "<p>There are no right or wrong answers.</p>" +
+            "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'anxiety',
+        }
+    }
+
+    var trait_anxiety = []
+    for (const [index, element] of STAIT.entries()) {
+        trait_anxiety.push({
+            prompt: element,
+            name: "Trait_Anx_" + (index + 1),
+            ticks: scale1,
+            required: false
+        })
+    }
+
+    var trait_anx = {
+        type: jsPsychMultipleSlider,
+        questions: trait_anxiety,
+        randomize_question_order: false,
+        preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
+            "Please read each statement and indicates <b>how you generally feel</b></p>." +
+            "<p>There are no right or wrong answers.</p>" +
+            "<p>Do not spend too much time on any one statement but give the answer which seems to describe how you generally feel best.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'anxiety',
+        }
+    }
+
+    /* Self Concept *==========================*/
+
+    var self_concept = []
+
+    for (const [index, element] of SCC.entries()) {
+        self_concept.push({
+            prompt: element,
+            name: "SCC_" + (index + 1),
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var self_concept_clarity = {
+        type: jsPsychMultipleSlider,
+        questions: self_concept,
+        randomize_question_order: false,
+        preamble: "<p>Please read each of the statements carefully and indicate the extent to which you agree with each statement.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'self_concept',
+        }
+    }
 
 
 
@@ -388,9 +531,10 @@
 
 
     /* Run the experiment=====================================================*/
-    var timeline = [preload_stimuli, fullscreen, participant_info,
-            instructions, trial_instructions, test_procedure,
-            personality, narcissism, paranoia, end_screen, fullscreen_off];
+    var timeline = [preload_stimuli, fullscreen, sex, participant_info,
+        instructions, trial_instructions, test_procedure,
+        personality, narcissism, paranoia, MT, state_anx, trait_anx,
+        self_concept_clarity, end_screen, fullscreen_off];
 
     jsPsych.run(timeline);
 

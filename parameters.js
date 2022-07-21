@@ -72,7 +72,7 @@ var IPIP_Dim = [
     "Ext_16", "Agr_17", "Con_18", "Neu_19", "Int_20"
 ]
 
-// Five Factor Narcissism Inventory - Brief Form ()
+// Five Factor Narcissism Inventory - Brief Form (Jauk et al., 2022)
 var FFNI_BF = [
     "I aspire for greatness.",
     "Others say I brag too much, but everything I say is true.",
@@ -111,7 +111,7 @@ var FFNI_Dim = [
     "Man_11", "Admir_12", "Shame_13", "Accl_14", "Arrog_15",
     "Author_16", "Distrust_17", "Ent_18", "Exh_19", "Expl_20",
     "GF_21", "Indiff(R)_22", "LOE_23", "Man_24", "Admir_25", "Shame_26"
-]  // reactive anger and thrill-seeking subscales are not included
+]  // reactive anger and thrill-seeking subscales have been excluded
 
 // Paranoia: R-GPTS (Freeman et al., 2019)
 var R_GPTS =[

@@ -128,7 +128,7 @@
         stimulus: "<div style='font-size:60px;'><b>Instructions</p></b></div>" +
             "<p>In this experiment, we are interested in the perception of real and computer-generated faces.</p>" +
             "<p> During the first part of the experiment, images of faces will appear on the center of the screen </p>" +
-            "<p>About half of these images are of <b>real faces</b> and the other half are <b>computer generated</b>.</p>" +
+            "<p>About half of these images are of <b>real faces</b> and the other half are <b>computer-generated</b>.</p>" +
             "<p>Your task is to tell whether you think these images are <b>real</b> or <b>fake</b>.</p></br>",
         choices: ['Continue'],
         data: {screen: "instructions"},
@@ -199,7 +199,7 @@
     trait_items1.push({
         prompt: [""],
         name: "Real_Fake",
-        ticks: ["<b>Real</b>", "<b>Fake</b>"],
+        ticks: ["<b>Fake</b>", "<b>Real</b>"],
         required: false
     })
 
@@ -218,7 +218,7 @@
         questions: trait_items1,
         randomize_question_order: false,
         preamble: "<p> Please respond based on your gut feeling. </p></br>" +
-            "<p>You found the face</p>",
+            "<p>You found the face...</p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -250,7 +250,7 @@
         type: jsPsychMultipleSlider,
         questions: trait_items2,
         randomize_question_order: false,
-        preamble: "<p>Would you find someone who looks like this </p>",
+        preamble: "<p>Would you find someone who looks like this... </p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -282,7 +282,7 @@
         IPIP.push({
             prompt: element,
             name: IPIP_Dim[index],
-            ticks: scale1,
+            ticks: scale2,
             required: false
         })
     }
@@ -291,7 +291,7 @@
         type: jsPsychMultipleSlider,
         questions: IPIP,
         randomize_question_order: false,
-        preamble: "<p>For this part of the questionnaire, we are interested in measuring your traits and attributes.</p>" +
+        preamble: "<p>For this part of the questionnaire, we are interested in finding out more about your traits and attributes.</p>" +
             "<p>Please answer the following questions based on how accurately each statement describes you.</p>" +
             "<p>I...</p>",
         require_movement: false,
@@ -359,9 +359,8 @@
         type: jsPsychMultipleSlider,
         questions: GPTS,
         randomize_question_order: false,
-        preamble: "<p>Please read each of the statements carefully.</p>" +
-            "<p>They refer to thoughts and feelings you may have had <b>about others over the last month.</b></p>" +
-            "<p>Please think about the last month and indicate the extent to which each of these feelings apply to you.</p>",
+        preamble: "<p>In this part of the questionnaire, each statement below refers to thoughts and feelings you may have had <b>about others over the last month.</b></p>" +
+        "<p>Please think about the last month and indicate the extent to which you think each of these feelings apply to you.</p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -394,7 +393,7 @@
         type: jsPsychMultipleSlider,
         questions: Magical_Thinking,
         randomize_question_order: false,
-        preamble: "<p>Please read each of the statements carefully and indicate the extent to which each of these feelings apply to you.</p>",
+        preamble: "<p>Please read the statements below carefully and indicate the extent to which each of these feelings apply to you.</p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -411,7 +410,7 @@
         }
     }
 
-    /* Anxiety *==========================*/
+    /* Trait and State Anxiety *==========================*/
 
     var state_anxiety = []
     for (const [index, element] of STAIS.entries()) {
@@ -428,9 +427,9 @@
         questions: state_anxiety,
         randomize_question_order: false,
         preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
-            "Please read each statement and indicates <b>how you feel right now</b>, that is, at this moment</p>." +
-            "<p>There are no right or wrong answers.</p>" +
-            "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
+        "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment</p>." +
+        "<p>There are no right or wrong answers.</p>" +
+        "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -462,9 +461,9 @@
         questions: trait_anxiety,
         randomize_question_order: false,
         preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
-            "Please read each statement and indicates <b>how you generally feel</b></p>." +
-            "<p>There are no right or wrong answers.</p>" +
-            "<p>Do not spend too much time on any one statement but give the answer which seems to describe how you generally feel best.</p>",
+        "Please read each statement and indicate <b>how you generally feel</b></p>." +
+        "<p>There are no right or wrong answers.</p>" +
+        "<p>Do not spend too much time on any one statement but give the answer which seems to describe how you generally feel best.</p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -481,7 +480,7 @@
         }
     }
 
-    /* Self Concept *==========================*/
+    /* Self Concept Clarity*==========================*/
 
     var self_concept = []
 
@@ -493,12 +492,19 @@
             required: false
         })
     }
+    // var self_concept = self_concept.map(item =>{
+    //     if (item.name != 'SCC_6' && item.name != 'SCC_11')
+    //         item["Reverse-Code"]= "False"
+    //     else
+    //         item["Reverse-Code"]= "True";
+    //     return item;
+    // });
 
     var self_concept_clarity = {
         type: jsPsychMultipleSlider,
         questions: self_concept,
         randomize_question_order: false,
-        preamble: "<p>Please read each of the statements carefully and indicate the extent to which you agree with each statement.</p>",
+        preamble: "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -512,6 +518,7 @@
         },
         data: {
             screen: 'self_concept',
+            reverse_code: "Reverse-Code"
         }
     }
 
@@ -520,7 +527,8 @@
     /* End Experiment *=========================================*/
     var end_screen = {
         type: jsPsychHtmlButtonResponse,
-        stimulus: "<p>Thank you for participating in this study!</p>",
+        stimulus: "<p>You have come to the end of this study. </p>" +
+        "<p>Thank you for participating!</p>",
         choices: ['End'],
     }
 
@@ -535,6 +543,7 @@
         instructions, trial_instructions, test_procedure,
         personality, narcissism, paranoia, MT, state_anx, trait_anx,
         self_concept_clarity, end_screen, fullscreen_off];
+
 
     jsPsych.run(timeline);
 

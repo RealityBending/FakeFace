@@ -360,7 +360,7 @@
         questions: GPTS,
         randomize_question_order: false,
         preamble: "<p>In this part of the questionnaire, each statement below refers to thoughts and feelings you may have had <b>about others over the last month.</b></p>" +
-        "<p>Please think about the last month and indicate the extent to which you think each of these feelings apply to you.</p>",
+            "<p>Please think about the last month and indicate the extent to which you think each of these feelings apply to you.</p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -427,9 +427,9 @@
         questions: state_anxiety,
         randomize_question_order: false,
         preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
-        "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment</p>." +
-        "<p>There are no right or wrong answers.</p>" +
-        "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
+            "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment</p>." +
+            "<p>There are no right or wrong answers.</p>" +
+            "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -461,9 +461,9 @@
         questions: trait_anxiety,
         randomize_question_order: false,
         preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
-        "Please read each statement and indicate <b>how you generally feel</b></p>." +
-        "<p>There are no right or wrong answers.</p>" +
-        "<p>Do not spend too much time on any one statement but give the answer which seems to describe how you generally feel best.</p>",
+            "Please read each statement and indicate <b>how you generally feel</b></p>." +
+            "<p>There are no right or wrong answers.</p>" +
+            "<p>Do not spend too much time on any one statement but give the answer which seems to describe how you generally feel best.</p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -487,7 +487,7 @@
     for (const [index, element] of SCC.entries()) {
         self_concept.push({
             prompt: element,
-            name: "SCC_" + (index + 1),
+            name: IUS_Dim[index] + "_" + (index + 1),
             ticks: scale2,
             required: false
         })
@@ -522,13 +522,44 @@
         }
     }
 
+    /* Intolerance to Uncertainty *==========================*/
 
+    var IUS_items = []
+    for (const [index, element] of IUS.entries()) {
+        IUS_items.push({
+            prompt: element,
+            name: "IUS_" + (index + 1),
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var intolerance = {
+        type: jsPsychMultipleSlider,
+        questions: IUS_items,
+        randomize_question_order: false,
+        preamble: "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'IUS',
+        }
+    }
 
     /* End Experiment *=========================================*/
     var end_screen = {
         type: jsPsychHtmlButtonResponse,
         stimulus: "<p>You have come to the end of this study. </p>" +
-        "<p>Thank you for participating!</p>",
+            "<p>Thank you for participating!</p>",
         choices: ['End'],
     }
 
@@ -542,7 +573,7 @@
     var timeline = [preload_stimuli, fullscreen, sex, participant_info,
         instructions, trial_instructions, test_procedure,
         personality, narcissism, paranoia, MT, state_anx, trait_anx,
-        self_concept_clarity, end_screen, fullscreen_off];
+        self_concept_clarity, intolerance, end_screen, fullscreen_off];
 
 
     jsPsych.run(timeline);

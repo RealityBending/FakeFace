@@ -215,6 +215,25 @@ var STAIT = [
     "I get in a state of tension or turmoil as I think over my recent concerns and interests"
 ]
 
+// Intolerance to Uncertainty (Carleton et al., 2007)
+var IUS = [
+    "Unforeseen events upset me greatly",
+    "It frustrates me not having all the information I need",
+    "One should always look ahead so as to avoid surprises",
+    "A small unforeseen event can ruin everything, even with the best of planning",
+    "I always want to know what the future has in store for me",
+    "I can't stand being taken by surprise",
+    "I should be able to organize everything in advance",
+    "Uncertainty keeps me from sleeping soundly",
+    "When its time to act, uncertainty paralyses me",
+    "When I am uncertain, I can't function very well",
+    "The smallest doubt can stop me from acting",
+    "I must get away from all uncertain situations"
+]
+
+var IUS_Dim = [
+    "Prospective_Anx", "Inhibitory_Anx"
+]
 
 
 

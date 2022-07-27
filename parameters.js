@@ -220,7 +220,7 @@ var STAIT = [
     "I get in a state of tension or turmoil as I think over my recent concerns and interests"
 ]
 
-// Intolerance to Uncertainty (Carleton et al., 2007)
+// Intolerance of Uncertainty (Carleton et al., 2007)
 var IUS = [
     "Unforeseen events upset me greatly",
     "It frustrates me not having all the information I need",

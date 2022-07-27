@@ -9,7 +9,7 @@ A paradigm to investigate the perception of real and computer-generated faces an
 - Magical Thinking: Illusory Beliefs Inventory (IBI) ([Kingdon et al., 2011]( https://doi.org/10.1017/S1352465811000245))
 - Anxiety: Spielberger State-Trait Anxiety Inventory - Short (STAIS-5 and STAIT-5) ([Zsido et al., 2020](https://www.sciencedirect.com/science/article/pii/S0165178120300834))     
 - Self-Concept Clarity: Self-Concept Clarity Scale (SCCS) ([Campbell et al., 1996](https://www.researchgate.net/publication/228079768_Self-Concept_Clarity_Measurement_Personality_Correlates_and_Cultural_Boundaries)) 
-- Intolerance of Uncertainty: Intolerance of Uncertainty - Short Form (IUS-12) ([Carleeton et al., 2007](https://www.sciencedirect.com/science/article/abs/pii/S088761850600051X))
+- Intolerance of Uncertainty: Intolerance of Uncertainty - Short Form (IUS-12) ([Carleton et al., 2007](https://www.sciencedirect.com/science/article/abs/pii/S088761850600051X))
 
 # Stimuli 
 [American Multiracial Face Database](https://jacquelinemchen.wixsite.com/sciplab/face-database)

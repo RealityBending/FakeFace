@@ -42,6 +42,7 @@ var dimensions2 = [
     "Similarity"  //Similarity (Van Vugt et al., 2006)
 ]
 
+// Mini IPIP scale
 var Mini_IPIP = [
     "Am the life of the party",
     "Sympathize with others' feelings",
@@ -158,6 +159,11 @@ var SCC = [
     "It is often hard for me to make up my mind about things because I don't really know what I want."  //(R)
 ]
 
+var SCC_Dim = [
+    "SCC_1R", "SCC_2R", "SCC_3R", "SCC_4R", "SCC_5R",
+    "SCC_6", "SCC_7R", "SCC_8R", "SCC_9R", "SCC_10R",
+    "SCC_11", "SCC_12R"]
+
 // Illusory Beliefs Inventory (Kingdon, et al., 2011)
 var IBI = [
     "I use prayer to ward off misfortune",
@@ -195,7 +201,6 @@ var IBI_Dim = [
     "Int_16", "Int_17", "Spirit_18",
     "Spirit_19", "Int_20", "Spirit_21",
     "Spirit_22", "Spirit_23", "Spirit_24"]
-
 
 
 // State Trait Anxiety Index - Short (Zsido et al., 2020)
@@ -242,34 +247,34 @@ var IUS_Dim = [
 /*===============================================================*/
 
 // Merge survey responses without overwriting
-const merge = (...arguments) => {
+// const merge = (...arguments) => {
 
-    // create a new object
-    let target = {};
+//     // create a new object
+//     let target = {};
 
-    // deep merge the object into the target object
-    const merger = (obj) => {
-        for (let prop in obj) {
-            if (obj.hasOwnProperty(prop)) {
-                if (Object.prototype.toString.call(obj[prop]) === '[object Object]') {
-                    // if the property is a nested object
-                    target[prop] = merge(target[prop], obj[prop]);
-                } else {
-                    // for regular property
-                    target[prop] = obj[prop];
-                }
-            }
-        }
-    };
+//     // deep merge the object into the target object
+//     const merger = (obj) => {
+//         for (let prop in obj) {
+//             if (obj.hasOwnProperty(prop)) {
+//                 if (Object.prototype.toString.call(obj[prop]) === '[object Object]') {
+//                     // if the property is a nested object
+//                     target[prop] = merge(target[prop], obj[prop]);
+//                 } else {
+//                     // for regular property
+//                     target[prop] = obj[prop];
+//                 }
+//             }
+//         }
+//     };
 
-    // iterate through all objects and
-    // deep merge them with target
-    for (let i = 0; i < arguments.length; i++) {
-        merger(arguments[i]);
-    }
+//     // iterate through all objects and
+//     // deep merge them with target
+//     for (let i = 0; i < arguments.length; i++) {
+//         merger(arguments[i]);
+//     }
 
-    return target;
-};
+//     return target;
+// };
 
 
 

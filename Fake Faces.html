@@ -137,12 +137,12 @@
     var trial_instructions = {
         type: jsPsychHtmlButtonResponse,
         stimulus: "<div style='text-align: left'><p>As we are interested in your first impressions, each image will be flashed very briefly.</p>" +
-            "<p>Afterwards, you will be asked a series of questions related to the image you saw.</p>" +
+            "<p>Afterwards, you will be asked a series of questions related to the facial image you saw.</p>" +
             "<p>This includes questions about:</p></br>" +
             "<p><b>Attractiveness</b>: how aesthetically pleasing you find it</p>" +
             "<p><b>Sociability</b>: how warm and friendly you find it</p>" +  /*Jaegeret al., 2022*/
-            "<p><b>Confidence</b>: how much it looks like someone sure of themselves </p>" +
-            "<p><b>Familiarity</b>: how much it feels like someone you know</p>" +
+            "<p><b>Confidence</b>: how much you think it looks like someone sure of themselves</p>" +
+            "<p><b>Familiarity</b>: how much you think it looks like someone you know</p>" +
             "<p><b>Similarity</b>: how much you think it looks like you </p></br></div>" +
             "<p>Please go with your gut and respond intuitively.</p>" +
             "<p>Click 'Continue' to begin</p>",
@@ -195,7 +195,7 @@
     /* Questionnaires*======================================================================*/
     var trait_items1 = []
 
-    // Add Attractiveness Questions
+    // Add Item on Perception of Realness
     trait_items1.push({
         prompt: [""],
         name: "Real_Fake",
@@ -203,7 +203,7 @@
         required: false
     })
 
-    // Add Trait Items
+    // Add Items on Confidence and Attractiveness
     for (const [index, element] of items.entries()) {
         trait_items1.push({
             prompt: element,
@@ -218,7 +218,7 @@
         questions: trait_items1,
         randomize_question_order: false,
         preamble: "<p> Please respond based on your gut feeling. </p></br>" +
-            "<p>You found the face...</p>",
+            "<p><b>You found the face...</b></p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -235,8 +235,8 @@
         }
     };
 
+    // Add Items on Sociability, Approachability, Similarity, Trustworthiness and Familiarity
     var trait_items2 = []
-
     for (const [index, element] of items2.entries()) {
         trait_items2.push({
             prompt: element,
@@ -250,7 +250,7 @@
         type: jsPsychMultipleSlider,
         questions: trait_items2,
         randomize_question_order: false,
-        preamble: "<p>Would you find someone who looks like this... </p>",
+        preamble: "<p><b>Would you find someone who looks like this...</b></p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -275,11 +275,10 @@
         repetitions: 0
     };
 
-    /* Personality *==========================*/
-    var IPIP = []
-
+    /* Big 6 Traits *==========================*/
+    var IPIP_items = []
     for (const [index, element] of Mini_IPIP.entries()) {
-        IPIP.push({
+        IPIP_items.push({
             prompt: element,
             name: IPIP_Dim[index],
             ticks: scale2,
@@ -289,11 +288,11 @@
 
     var personality = {
         type: jsPsychMultipleSlider,
-        questions: IPIP,
+        questions: IPIP_items,
         randomize_question_order: false,
         preamble: "<p>For this part of the questionnaire, we are interested in finding out more about your traits and attributes.</p>" +
             "<p>Please answer the following questions based on how accurately each statement describes you.</p>" +
-            "<p>I...</p>",
+            "<p><b>I...</b></p>",
         require_movement: false,
         slider_width: 800,
         min: 0,
@@ -306,15 +305,14 @@
                 ).style.display = "inline")
         },
         data: {
-            screen: 'personality',
+            screen: 'IPIP6',
         }
     };
 
     /* Narcissism *==========================*/
-    var FFNI = []
-
+    var FFNI_items = []
     for (const [index, element] of FFNI_BF.entries()) {
-        FFNI.push({
+        FFNI_items.push({
             prompt: element,
             name: FFNI_Dim[index],
             ticks: scale2,
@@ -324,7 +322,7 @@
 
     var narcissism = {
         type: jsPsychMultipleSlider,
-        questions: FFNI,
+        questions: FFNI_items,
         randomize_question_order: false,
         preamble: "<p>Please respond based on how much you agree or disagree with each each statement.</p>",
         require_movement: false,
@@ -344,10 +342,9 @@
     };
 
     /* Paranoia *==========================*/
-    var GPTS = []
-
+    var GPTS_items = []
     for (const [index, element] of R_GPTS.entries()) {
-        GPTS.push({
+        GPTS_items.push({
             prompt: element,
             name: GPTS_Dim[index],
             ticks: scale1,
@@ -357,7 +354,7 @@
 
     var paranoia = {
         type: jsPsychMultipleSlider,
-        questions: GPTS,
+        questions: GPTS_items,
         randomize_question_order: false,
         preamble: "<p>In this part of the questionnaire, each statement below refers to thoughts and feelings you may have had <b>about others over the last month.</b></p>" +
             "<p>Please think about the last month and indicate the extent to which you think each of these feelings apply to you.</p>",
@@ -378,10 +375,9 @@
     };
 
     /* Magical Thinking *==========================*/
-    var Magical_Thinking = []
-
+    var IBI_items = []
     for (const [index, element] of IBI.entries()) {
-        Magical_Thinking.push({
+        IBI_items.push({
             prompt: element,
             name: IBI_Dim[index],
             ticks: scale1,
@@ -389,9 +385,9 @@
         })
     }
 
-    var MT = {
+    var MagicIdeation = {
         type: jsPsychMultipleSlider,
-        questions: Magical_Thinking,
+        questions: IBI_items,
         randomize_question_order: false,
         preamble: "<p>Please read the statements below carefully and indicate the extent to which each of these feelings apply to you.</p>",
         require_movement: false,
@@ -406,28 +402,27 @@
                 ).style.display = "inline")
         },
         data: {
-            screen: 'Magical Ideation',
+            screen: 'magical_ideation',
         }
     }
 
     /* Trait and State Anxiety *==========================*/
-
-    var state_anxiety = []
+    var state_anxiety_items = []
     for (const [index, element] of STAIS.entries()) {
-        state_anxiety.push({
+        state_anxiety_items.push({
             prompt: element,
             name: "State_Anx_" + (index + 1),
-            ticks: scale1,
+            ticks: scale2,
             required: false
         })
     }
 
     var state_anx = {
         type: jsPsychMultipleSlider,
-        questions: state_anxiety,
+        questions: state_anxiety_items,
         randomize_question_order: false,
         preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
-            "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment</p>." +
+            "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment.</p>" +
             "<p>There are no right or wrong answers.</p>" +
             "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
         require_movement: false,
@@ -442,26 +437,26 @@
                 ).style.display = "inline")
         },
         data: {
-            screen: 'anxiety',
+            screen: 'state_anxiety',
         }
     }
 
-    var trait_anxiety = []
+    var trait_anxiety_items = []
     for (const [index, element] of STAIT.entries()) {
-        trait_anxiety.push({
+        trait_anxiety_items.push({
             prompt: element,
             name: "Trait_Anx_" + (index + 1),
-            ticks: scale1,
+            ticks: scale2,
             required: false
         })
     }
 
     var trait_anx = {
         type: jsPsychMultipleSlider,
-        questions: trait_anxiety,
+        questions: trait_anxiety_items,
         randomize_question_order: false,
         preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
-            "Please read each statement and indicate <b>how you generally feel</b></p>." +
+            "Please read each statement and indicate <b>how you generally feel.</b></p>" +
             "<p>There are no right or wrong answers.</p>" +
             "<p>Do not spend too much time on any one statement but give the answer which seems to describe how you generally feel best.</p>",
         require_movement: false,
@@ -476,18 +471,16 @@
                 ).style.display = "inline")
         },
         data: {
-            screen: 'anxiety',
+            screen: 'trait_anxiety',
         }
     }
 
     /* Self Concept Clarity*==========================*/
-
-    var self_concept = []
-
+    var self_concept_items = []
     for (const [index, element] of SCC.entries()) {
-        self_concept.push({
+        self_concept_items.push({
             prompt: element,
-            name: IUS_Dim[index] + "_" + (index + 1),
+            name: SCC_Dim[index],
             ticks: scale2,
             required: false
         })
@@ -502,7 +495,7 @@
 
     var self_concept_clarity = {
         type: jsPsychMultipleSlider,
-        questions: self_concept,
+        questions: self_concept_items,
         randomize_question_order: false,
         preamble: "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
         require_movement: false,
@@ -517,13 +510,11 @@
                 ).style.display = "inline")
         },
         data: {
-            screen: 'self_concept',
-            reverse_code: "Reverse-Code"
+            screen: 'self_concept_clarity',
         }
     }
 
     /* Intolerance to Uncertainty *==========================*/
-
     var IUS_items = []
     for (const [index, element] of IUS.entries()) {
         IUS_items.push({
@@ -551,7 +542,7 @@
                 ).style.display = "inline")
         },
         data: {
-            screen: 'IUS',
+            screen: 'uncertainty_intolerance',
         }
     }
 
@@ -571,8 +562,8 @@
 
     /* Run the experiment=====================================================*/
     var timeline = [preload_stimuli, fullscreen, sex, participant_info,
-        instructions, trial_instructions, test_procedure,
-        personality, narcissism, paranoia, MT, state_anx, trait_anx,
+        instructions, trial_instructions, //test_procedure,
+        personality, narcissism, paranoia, MagicIdeation, state_anx, trait_anx,
         self_concept_clarity, intolerance, end_screen, fullscreen_off];
 
 

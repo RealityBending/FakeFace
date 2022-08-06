@@ -43,7 +43,7 @@ var dimensions2 = [
 ]
 
 // Mini IPIP scale
-var Mini_IPIP = [
+var IPIP = [
     "Am the life of the party",
     "Sympathize with others' feelings",
     "Get chores done right away",
@@ -51,28 +51,31 @@ var Mini_IPIP = [
     "Have a vivid imagination",
     "Do not talk a lot",
     "Am not interested in other people's problems",
-    "Often forget to put things back in their proper place",
-    "Am relaxed most of the time",
-    "Am not interested in abstract ideas",
-    "Talk to a lot of different people at parties",
-    "Feel others' emotions",
-    "Like order",
-    "Get upset easily",
     "Have difficulty understanding abstract ideas",
+    "Like order",
+    "Make a mess of things",
+    "Deserve more things in life",
+    "Do not have a good imagination",
+    "Feel other's emotions",
+    "Am relaxed most of the time",
+    "Get upset easily",
+    "Seldom feel blue",
+    "would like to be seen driving around in a very expensive car",
     "Keep in the background",
     "Am not really interested in others",
-    "Make a mess of things",
-    "Seldom feel blue",
-    "Do not have a good imagination"
+    "Am not interested in abstract ideas",
+    "Often forget to put things back in their proper place",
+    "Talk to a lot of different people at parties",
+    "Would get a lot of pleasure from owning expensive luxury goods"
 ]
 
-var IPIP_Dim = [
-    "Ext_1", "Agr_2", "Con_3", "Neu_4", "Int_5",
-    "Ext_6", "Agr_7", "Con_8", "Neu_9", "Int_10",
-    "Ext_11", "Agr_12", "Con_13", "Neu_14", "Int_15",
-    "Ext_16", "Agr_17", "Con_18", "Neu_19", "Int_20"
+var IPIP_dim = [
+    "Ext_1", "Agr_2", "Con_3", "Neu_4", "Open_5",
+    "HH_6_R", "Ext_7_R", "Agr_8_R", "Open_9_R", "Con_10",
+    "Con_11_R", "HH_12_R", "Open_13_R", "Agr_14", "Neu_15_R",
+    "Neu_16", "Neu_17_R", "HH_18_R", "Ext_19_R", "Agr_20_R",
+    "Open_21_R", "Con_22_R", "Ext_23", "HH_24_R"
 ]
-
 // Five Factor Narcissism Inventory - Brief Form (Jauk et al., 2022)
 var FFNI_BF = [
     "I aspire for greatness.",

@@ -5,8 +5,14 @@ var scale2 = ["Strongly Disagree", "Strongly Agree"]
 
 // Oosterhof and Todorov (2008) - 9 point scale (Not at all to Extremely)
 var items = [
-    "<b>Attractive</b>",
-    "<b>Confident</b>",
+    "The face looked real to me",
+    "The face looked attractive to me",
+    "The face looked confident to me",
+    "The face looked approachable to me",
+    "The face looked familiar to me",
+    "The face looked trustworthy to me",
+    "The face looked sociable to me",
+    "The face looked similar to me",
     // "How weird is the face you saw?",   // include eeriness as well? (cf uncanny valley effect)
     // "How dominant is the face you saw?",
     //"How musculine/feminine is the face you saw?",
@@ -20,62 +26,87 @@ var items = [
 ]
 
 var dimensions = [
+    "Real",
     "Attractiveness",
-    "Confidence"
-    // "Weirdness",
-    // "Dominance",
-]
-
-var items2 = [
-    "<b>Approachable</b>",
-    "<b>Familiar</b>",
-    "<b>Trustworthy</b>",
-    "<b>Sociable</b>",
-    "<b>Similar</b>"
-]
-
-var dimensions2 = [
+    "Confidence",
     "Approachability",
     "Familiarity",   // Familiarity (van vugt et al., 2010)
     "Trustworthiness",
     "Sociability",
-    "Similarity"  //Similarity (Van Vugt et al., 2006)
+    "Similarity"
 ]
+
+// var items2 = [
+//     "<b>Approachable</b>",
+//     "<b>Familiar</b>",
+//     "<b>Trustworthy</b>",
+//     "<b>Sociable</b>",
+//     "<b>Similar</b>"
+// ]
+
+// var dimensions2 = [
+//     "Approachability",
+//     "Familiarity",   // Familiarity (van vugt et al., 2010)
+//     "Trustworthiness",
+//     "Sociability",
+//     "Similarity"  //Similarity (Van Vugt et al., 2006)
+// ]
 
 // Mini IPIP scale
 var IPIP = [
-    "Am the life of the party",
-    "Sympathize with others' feelings",
-    "Get chores done right away",
-    "Have frequent mood swings",
-    "Have a vivid imagination",
-    "Do not talk a lot",
-    "Am not interested in other people's problems",
-    "Have difficulty understanding abstract ideas",
-    "Like order",
-    "Make a mess of things",
-    "Deserve more things in life",
-    "Do not have a good imagination",
-    "Feel other's emotions",
-    "Am relaxed most of the time",
-    "Get upset easily",
-    "Seldom feel blue",
-    "would like to be seen driving around in a very expensive car",
-    "Keep in the background",
-    "Am not really interested in others",
-    "Am not interested in abstract ideas",
-    "Often forget to put things back in their proper place",
-    "Talk to a lot of different people at parties",
-    "Would get a lot of pleasure from owning expensive luxury goods"
+    "I am the life of the party<br>",
+    "I sympathize with others' feelings<br>",
+    "I get chores done right away<br>",
+    "I have frequent mood swings<br>",
+    "I have a vivid imagination<br>",
+    "I feel entitled to more of everything<br",
+    "I do not talk a lot<br>",
+    "I am not interested in other people's problems<br>",
+    "I have difficulty understanding abstract ideas<br>",
+    "I like order<br>",
+    "I make a mess of things<br>",
+    "I deserve more things in life<br>",
+    "I do not have a good imagination<br>",
+    "I feel other's emotions<br>",
+    "I am relaxed most of the time<br>",
+    "I get upset easily<br>",
+    "I seldom feel blue<br>",
+    "I would like to be seen driving around in a very expensive car<br>",
+    "I keep in the background<br>",
+    "I am not really interested in others<br>",
+    "I am not interested in abstract ideas<br>",
+    "I often forget to put things back in their proper place<br>",
+    "I talk to a lot of different people at parties<br>",
+    "I would get a lot of pleasure from owning expensive luxury goods<br>",
 ]
 
 var IPIP_dim = [
-    "Ext_1", "Agr_2", "Con_3", "Neu_4", "Open_5",
-    "HH_6_R", "Ext_7_R", "Agr_8_R", "Open_9_R", "Con_10",
-    "Con_11_R", "HH_12_R", "Open_13_R", "Agr_14", "Neu_15_R",
-    "Neu_16", "Neu_17_R", "HH_18_R", "Ext_19_R", "Agr_20_R",
-    "Open_21_R", "Con_22_R", "Ext_23", "HH_24_R"
+    "Extraversion_1",
+    "Agreeableness_2",
+    "Conscientiousness_3",
+    "Neuroticism_4",
+    "Openness_5",
+    "HonestyHumility_6_R",
+    "Extraversion_7_R",
+    "Agreeableness_8_R",
+    "Openness_9_R",
+    "Conscientiousness_10",
+    "Conscientiousness_11_R",
+    "HonestyHumility_12_R",
+    "Openness_13_R",
+    "Agreeableness_14",
+    "Neuroticism_15_R",
+    "Neuroticism_16",
+    "Neuroticism_17_R",
+    "HonestyHumility_18_R",
+    "Extraversion_19_R",
+    "Agreeableness_20_R",
+    "Openness_21_R",
+    "Conscientiousness_22_R",
+    "Extraversion_23",
+    "HonestyHumility_24_R",
 ]
+
 // Five Factor Narcissism Inventory - Brief Form (Jauk et al., 2022)
 var FFNI_BF = [
     "I aspire for greatness.",
@@ -87,11 +118,12 @@ var FFNI_BF = [
     "Sometimes to succeed you need to use other people.",
     "I often fantasize about someday being famous.",
     "When people judge me, I just don't care.",
+    "I don't generally pay much attention to the woes of others",
     "I'm pretty good at manipulating people.",
     "I often feel as if I need compliments from others in order to be sure of myself.",
-    // "I have at times gone into a rage when not treated rightly.",
+    "I have at times gone into a rage when not treated rightly.",
     "I feel ashamed when people judge me.",
-    // "I would risk injury to do something exciting.",
+    "I would risk injury to do something exciting.",
     "I am driven to succeed.",
     "I do not waste my time hanging out with people who are beneath me.",
     "I tend to take charge of most situations.",
@@ -104,18 +136,43 @@ var FFNI_BF = [
     "I don't get upset with the suffering of others.",
     "I can talk my way into and out of anything.",
     "I wish I didn't care so much about what others think of me.",
-    // "It really makes me angry when I don’t get what I deserve.",
-    "I feel foolish when I make a mistake in front of others."
-    // "I like doing things that are risky or dangerous."
+    "It really makes me angry when I don't get what I deserve.",
+    "I feel foolish when I make a mistake in front of others",
+    "I like doing things that are risky or dangerous."
 ]
 
-var FFNI_Dim = [
-    "Accl_1", "Arrog_2", "Author_3", "Distrust_4", "Ent_5",
-    "Exh_6", "Expl_7", "GF_8", "Indiff(R)_9", "LOE_10",
-    "Man_11", "Admir_12", "Shame_13", "Accl_14", "Arrog_15",
-    "Author_16", "Distrust_17", "Ent_18", "Exh_19", "Expl_20",
-    "GF_21", "Indiff(R)_22", "LOE_23", "Man_24", "Admir_25", "Shame_26"
-]  // reactive anger and thrill-seeking subscales have been excluded
+var FFNI_dim = [
+    "Acclaim_Seeking_1",
+    "Arrogance_2",
+    "Authoritativeness_3",
+    "Distrust_4",
+    "Entitlement_5",
+    "Exhibitionism_6",
+    "Exploitativeness_7",
+    "Grandiose_Fantasies_8",
+    "Indifference_9_R",
+    "Lack_of_Empathy_10",
+    "Manipulativeness_11",
+    "Need_for_Admiration_12",
+    "Reactive_Anger_13",
+    "Shame_14",
+    "Thrill_Seeking_15",
+    "Acclaim_Seeking_16",
+    "Arrogance_17",
+    "Authoritativeness_18",
+    "Distrust_19",
+    "Entitlement_20",
+    "Exhibitionism_21",
+    "Exploitativeness_22",
+    "Grandiose_Fantasies_23",
+    "Indifference_24_R",
+    "Lack_of_Empathy_25",
+    "Manipulativeness_26",
+    "Need_for_Admiration_27",
+    "Reactive_Anger_28",
+    "Shame_29",
+    "Thrill_Seeking_30"
+]
 
 // Paranoia: R-GPTS (Freeman et al., 2019)
 var R_GPTS =[
@@ -123,6 +180,7 @@ var R_GPTS =[
     "I often heard people referring to me",
     "I have been upset by friends and colleagues judging me critically",
     "People definitely laughed at me behind my back",
+    "I have been thinking a lot about people avoiding me",
     "People have been dropping hints for me",
     "I believed that certain people were not what they seemed",
     "People talking about me behind my back upset me",
@@ -138,12 +196,25 @@ var R_GPTS =[
     "I was angry that someone wanted to hurt me",
 ]
 
-var GPTS_Dim = [
-    "Ref_1", "Ref_2", "Ref_3", "Ref_4",
-    "Ref_5", "Ref_6", "Ref_7", "Ref_8",
-    "Pers_1", "Pers_2", "Pers_3", "Pers_4",
-    "Pers_5", "Pers_6", "Pers_7","Pers_8",
-    "Pers_9", "Pers_10",
+var GPTS_dim = [
+    "Reference_1",
+    "Reference_2",
+    "Reference_3",
+    "Reference_4",
+    "Reference_5",
+    "Reference_6",
+    "Reference_7",
+    "Reference_8",
+    "Persecution_9",
+    "Persecution_10",
+    "Persecution_11",
+    "Persecution_12",
+    "Persecution_13",
+    "Persecution_14",
+    "Persecution_15",
+    "Persecution_16",
+    "Persecution_17",
+    "Persecution_18",
 ]
 
 // Self-Concept Clarity (Campbell et al., 1996)
@@ -157,18 +228,27 @@ var SCC = [
     "Sometimes I think I know other people better than I know myself.",    //(R)
     "My beliefs about myself seem to change very frequently", //(R)
     "If I were asked to describe my personality, my description might end up being different from one day to another day.",  //(R)
-    "Even ill wanted to, I don't think I could tell someone what I'm really like",  //(R)
+    "Even if I wanted to, I don't think I could tell someone what I'm really like",  //(R)
     "In general, I have a clear sense of who I am and what I am.",
     "It is often hard for me to make up my mind about things because I don't really know what I want."  //(R)
 ]
 
-var SCC_Dim = [
-    "SCC_1R", "SCC_2R", "SCC_3R", "SCC_4R", "SCC_5R",
-    "SCC_6", "SCC_7R", "SCC_8R", "SCC_9R", "SCC_10R",
-    "SCC_11", "SCC_12R"]
+var SCC_dim = [
+    "SCC_1R",
+    "SCC_2R",
+    "SCC_3R",
+    "SCC_4R",
+    "SCC_5R",
+    "SCC_6",
+    "SCC_7R",
+    "SCC_8R",
+    "SCC_9R",
+    "SCC_10R",
+    "SCC_11",
+    "SCC_12R"]
 
 // Illusory Beliefs Inventory (Kingdon, et al., 2011)
-var IBI = [
+var IBI_kingdon = [
     "I use prayer to ward off misfortune",
     "I have sometimes changed my plans because I had a bad feeling",
     "The soul does not continue to exist after death", // (R)
@@ -195,19 +275,35 @@ var IBI = [
     "I believe in a higher power or God"
     ]
 
-var IBI_Dim = [
-    "Spirit_1", "Int_2", "Spirit_3",
-    "Magic_4", "Magic_5", "Int_6",
-    "Magic_7", "Spirit_8", "Int_9",
-    "Int_10", "Magic_11", "Magic_12",
-    "Spirit_13", "Magic_14", "Int_15",
-    "Int_16", "Int_17", "Spirit_18",
-    "Spirit_19", "Int_20", "Spirit_21",
-    "Spirit_22", "Spirit_23", "Spirit_24"]
+var IBI_dim = [
+    "Spirituality_1",
+    "Internal_State_2",
+    "Spirituality_3_R",
+    "Magical_Beliefs_4",
+    "Magical_Beliefs_5",
+    "Internal_State_6",
+    "Magical_Beliefs_7",
+    "Spirituality_8_R",
+    "Internal_State_9",
+    "Internal_State_10",
+    "Magical_Beliefs_11_R",
+    "Magical_Beliefs_12",
+    "Spirituality_13_R",
+    "Magical_Beliefs_14_R",
+    "Internal_State_15",
+    "Internal_State_16",
+    "Internal_State_17",
+    "Spirituality_18",
+    "Spirituality_19_R",
+    "Internal_State_20",
+    "Spirituality_21",
+    "Spirituality_22",
+    "Spirituality_23_R",
+    "Spirituality_24"]
 
 
-// State Trait Anxiety Index - Short (Zsido et al., 2020)
-var STAIS = [
+// State and Trait Anxiety Index - Short (Zsido et al., 2020)
+var STAIS_S = [
     "I feel upset",
     "I feel frightened",
     "I feel nervous",
@@ -215,7 +311,7 @@ var STAIS = [
     "I feel confused"
 ]
 
-var STAIT = [
+var STAIS_T = [
     "I feel that difficulties are piling up so that I cannot overcome them",
     "I worry too much over something that really doesn't matter",
     "Some unimportant thoughts run through my mind and bothers me",
@@ -239,10 +335,47 @@ var IUS = [
     "I must get away from all uncertain situations"
 ]
 
-var IUS_Dim = [
-    "Prospective_Anx", "Inhibitory_Anx"
+var IUS_dim = [
+    "Prospective_Anxiety_1",
+    "Prospective_Anxiety_2",
+    "Prospective_Anxiety_3",
+    "Prospective_Anxiety_4",
+    "Prospective_Anxiety_5",
+    "Prospective_Anxiety_6",
+    "Prospective_Anxiety_7",
+    "Inhibitory_Anxiety_8",
+    "Inhibitory_Anxiety_9",
+    "Inhibitory_Anxiety_10",
+    "Inhibitory_Anxiety_11",
+    "Inhibitory_Anxiety_12"
 ]
 
+var SPS_6a =[
+    "I get nervous that people are staring at me as I walk down the street",
+    "I worry about shaking or trembling when I'm watched by other people",
+    "I would get tense if I had to sit facing other people on a bus or a train",
+    "I worry I might do something to attract the attention of others",
+    "When in an elevator I am tense if people look at me",
+    "I can feel conspicuous standing in a queue"
+]
+
+var SIAS_6a = [
+" I have difficulty making eye-contact with others",
+"I find difficulty mixing comfortably with the people I work with",
+"When mixing socially, I am uncomfortable",
+"I am at ease meeting people at parties, etc",
+"I find it easy to think of things to talk about",
+"I have difficulty talking to attractive persons of the opposite sex"
+]
+
+var SIAS_dim = [
+    "SIAS_1",
+    "SIAS_2",
+    "SIAS_3",
+    "SIAS_4_R",
+    "SIAS_5_R",
+    "SIAS_6"
+]
 
 
 /*===============================================================*/
@@ -314,4 +447,145 @@ var IUS_Dim = [
 // ]
 
 
+
+// Psychosis of participant
+    // var scale4 = ["Never", "Sometimes", "Often", "Nearly always"];
+    // var scale5 = ["Not distressed", "A bit distressed", "Quite distressed", "Very distressed"]
+    // var CAPE42 = {
+    //     type: jsPsychSurveyLikert,
+    //     questions: [
+    //         {prompt: "1. Do you ever feel sad?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+    //         {prompt: "2. Do you ever feel as if people seem to drop hints about you or say things with a double meaning?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+    //         {prompt: "3. Do you ever feel that you are not a very animated person?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "4. Do you ever feel that you are not much of a talker when you are conversing with other people?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "5. Do you ever feel as if things in magazines or on TV were written especially for you?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "6. Do you ever feel as if some people are not what they seem to be?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "7. Do you ever feel as if you are being persecuted in some way?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "8. Do you ever feel that you experience few or no emotions at important events?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "9. Do you ever feel pessimistic about everything?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "10. Do you ever feel as if there is a conspiracy against you?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "11. Do you ever feel as if you are destined to be someone very important?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "12. Do you ever feel as if there is no future for you?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "13. Do you ever feel that you are a very special or unusual person?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "14. Do you ever feel as if you do not want to live anymore?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "15. Do you ever think that people can communicate telepathically?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "16. Do you ever feel that you have no interest to be with other people?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "17. Do you ever feel as if electrical devices such as computers can influence the way you think?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "18. Do you ever feel that you are lacking in motivation to do things?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "19. Do you ever cry about nothing?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "20. Do you believe in the power of witchcraft, voodoo or the occult?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "21. Do you ever feel that you are lacking in energy?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "22. Do you ever feel that people look at you oddly because of your appearance?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "23. Do you ever feel that your mind is empty?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "24. Do you ever feel as if the thoughts in your head are being taken away from you?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "25. Do you ever feel that you are spending all your days doing nothing?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "26. Do you ever feel as if the thoughts in your head are not your own?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "27. Do you ever feel that your feelings are lacking in intensity?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "28. Have your thoughts ever been so vivid that you were worried other people would hear them?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "29. Do you ever feel that you are lacking in spontaneity?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "30. Do you ever hear your own thoughts being echoed back to you?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "31. Do you ever feel as if you are under the control of some force or power other than yourself?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "32. Do you ever feel that your emotions are blunted?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "33. Do you ever hear voices when you are alone?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "34. Do you ever hear voices talking to each other when you are alone?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "35. Do you ever feel that you are neglecting your appearance or personal hygiene?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "36. Do you ever feel that you can never get things done?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "37. Do you ever feel that you have only few hobbies or interests?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "38. Do you ever feel guilty?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "39. Do you ever feel like a failure?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "40. Do you ever feel tense?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "41. Do you ever feel as if a double has taken the place of a family member, friend or acquaintance?", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+    //         {prompt: "42. Do you ever see objects, people or animals that other people cannot see? ", required: true, labels: scale4},
+    //         {prompt: "If you selected never, please go to the next question.  If you selected sometimes, often or nearly always please indicate how distressed you are by this experience", required: false, labels: scale5},
+
+
+    //     ],
+    //     randomize_question_order: false,
+    //     scale_width: 1200,
+    //     save_trial_parameters: {
+    //         choices: true,
+    //         prompt: true
+    //     }
+    // }
+    // //   timeline.push(Personality_intro, BFI10, CAPE42);
 

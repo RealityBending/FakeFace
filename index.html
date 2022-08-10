@@ -1,0 +1,796 @@
+<!-- Load jsPsych-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--create title shown in tab; not the same as header on webpage-->
+    <title>Real_Fake</title>
+    <!--load the jsPsych library; set src to own path-->
+    <script src="utils/jspsych/jspsych.js"></script>
+
+    <!--Load all necessary plugins-->
+    <script src="utils/jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="utils/jspsych/plugin-html-button-response.js"></script>
+    <script src="utils/jspsych/plugin-fullscreen.js"></script>
+    <script src="utils/jspsych/plugin-survey-text.js"></script>
+    <script src="utils/jspsych/plugin-preload.js"></script>
+    <script src="utils/jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="utils/jspsych/plugin-survey-multi-choice.js"></script>
+    <script src="utils/jspsych/plugin-browser-check.js"></script>
+    <script src="utils/jspsych/plugin-survey-likert.js"></script>
+    <script src="utils/jspsych/plugin-image-button-response.js"></script>
+    <script src="utils/jspsych/plugin-external-html.js"></script>
+
+    <!--Load Stimuli and custom plugins-->
+    <script src="https://realitybending.github.io/JSmisc/misc/utils.js"></script>
+    <!--<script src = "utils/jspsych/plugin-jspsych-pavlovia-2021.js"></script>-->
+    <script src="parameters.js"></script>
+    <script src="utils/images.js"></script>
+    <script src="utils/plugin-survey-multiple-slider.js"></script>
+
+    <!-- Default CSS -->
+    <link href="utils/jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <!--<script type="text/javascript" src="lib/vendors/jquery-2.2.0.min.js"></script>-->
+    <style>
+        #jspsych-image-keyboard-response-stimulus {
+            /*adjust image stimuli params to fit screen*/
+            height: auto;
+            width: 800px;
+        }
+
+        body {
+            /*Hide scrollbar while keeping it functional */
+            overflow-y: scroll;
+            overflow-x: flow;
+        }
+
+        Body::-webkit-scrollbar {
+            display: none
+        }
+
+        /* set canvas to be full screen */
+        .jspsych-content {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body></body>
+
+<script>
+    timeline = []
+
+    /* Initialize connection to Pavlovia ----*/
+    // var pavloviaInfo
+
+    // var pavlovia_init = {
+    //     type: jsPsychPavlovia,
+    //     command: "init",
+    //     setPavloviaInfo: function (info) {
+    //         console.log(info);
+    //         pavloviaInfo = info;
+    //     }
+    // }
+
+    // timeline.push(pavlovia_init)
+
+    /* Initialize jsPsych ================================================================*/
+    var jsPsych = initJsPsych({
+        show_progress_bar: true,
+        message_progress_bar: "Completion",
+        on_finish: function () {
+            jsPsych.data.displayData("json")
+            jsPsych.data
+                .get()
+                .localSave(
+                    "json",
+                    `${jsPsych.data.get().values()[0]["participant_id"]
+                    }_FF.json`
+                )
+        //    window.location = "https://app.prolific.co/submissions/complete?cc=XXXXX" /* redirect to prolific when experiment is finished */
+        },
+    });
+
+
+    /* Initialize Experiment  =============================================================*/
+    // Preload image stimuli to prevent lagging during experiment
+    timeline.push({
+        type: jsPsychPreload,
+        images: stimuli.map((a) => a.stimulus),  // stimuli is a variable defined in utils/images.js
+    })
+
+    // Fullscreen Mode
+    timeline.push({
+        type: jsPsychFullscreen,
+        fullscreen_mode: true
+    })
+
+    // Retrieve and save browser info
+    var browser_check = {
+        type: jsPsychBrowserCheck,
+        data: {
+            screen: "browser_info",
+            version: "1.0",
+            date: new Date().toLocaleDateString("fr-FR"),
+            time: new Date().toLocaleTimeString("fr-FR"),
+        },
+        on_finish: function () {
+            data = jsPsych.data.get().filter({screen: "browser_info"}).values()[0]
+            jsPsych.data.addProperties({
+                ["screen_height"]: data["height"],
+                ["screen_width"]: data["width"],
+            })
+            for (var key in data) {
+                if (
+                    [
+                        "vsync_rate",
+                        "os",
+                        "mobile",
+                        "browser",
+                        "browser_version",
+                    ].includes(key)
+                ) {
+                    jsPsych.data.addProperties({
+                        [key]: data[key],
+                    })
+                }
+            }
+            jsPsych.data.addProperties()
+        },
+    }
+    timeline.push(browser_check)
+
+    // Participant information
+    var prolific_id = jsPsych.data.getURLVariable("PROLIFIC_PID")
+    var jspsych_id = jsPsych.randomization.randomID(5)
+    var participant_id = `${prolific_id}_${jspsych_id}`
+    var study_id = jsPsych.data.getURLVariable("STUDY_ID")
+    var session_id = jsPsych.data.getURLVariable("SESSION_ID")
+
+    var participant_info = {
+        type: jsPsychSurveyText,
+        questions: [
+            {
+                prompt: "Please enter your age (in years, e.g., '31')",
+                name: "age",
+                required: true,
+            },
+            {
+                prompt: "Please enter your country of birth (e.g., 'France')",
+                name: "nationality",
+                required: true,
+            },
+            {
+                prompt: "Please enter your ethnicity (e.g., 'Caucasian')",
+                name: "ethnicity",
+                required: true,
+            }
+        ],
+        on_finish: function () {
+            jsPsych.data.addProperties({
+                participant_id: participant_id,
+                study_id: study_id,
+                session_id: session_id,
+            })
+        },
+        data: {
+            screen: "demographics",
+        },
+    }
+
+    var demographics = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [
+            {
+                prompt: "What is your assigned sex?",
+                options: ["Male", "Female", "Other", "Prefer not to say"],
+                name: "sex",
+                required: true
+            },
+            {
+                prompt: "What is your highest completed education level?",
+                options: ["University (doctorate)", "University (master)", "University (bachelor)", "High school", "Other", "Prefer not to say"],
+                name: "education",
+                required: true,
+            }
+        ],
+        data: {
+            screen: 'demographics'
+        }
+    }
+
+    var gender_orientation = {
+        type: jsPsychSurveyText,
+        questions: [
+            {
+                prompt: "What gender orientation do you most identify with?",
+                name: "gender orientation",
+                required: true
+            }
+        ],
+        data: {
+            screen: "demographics"
+        }
+    }
+
+    timeline.push(participant_info, demographics, gender_orientation);
+
+    // Instructions
+    var general_instructions = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: "<div style='font-size:48px;'>Instructions</p></div>" +
+            "<p>In this experiment, we are interested in the perception of real and computer-generated faces.</p>" +
+            "<p> During the first part of the experiment, images of faces will appear on the center of the screen </p>" +
+            "<p>About half of these images are of <b>real faces</b> and the other half are <b>computer-generated</b>.</p>" +
+            "<p>Your task is to tell whether you think these images are <b>real</b> or <b>fake</b>.</p></br>",
+        choices: ['Continue'],
+        data: {screen: "general_instructions"},
+    };
+
+    var task_instructions = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: "<div style='text-align: left'><p>As we are interested in your first impressions, each image will be flashed very briefly.</p>" +
+            "<p>Afterwards, you will be asked a series of questions related to the facial image you saw.</p>" +
+            "<p>This includes questions about:</p></br>" +
+            "<p><b>Attractiveness</b>: how aesthetically pleasing you find it</p>" +
+            "<p><b>Sociability</b>: how warm and friendly you find it</p>" +  /*Jaegeret al., 2022*/
+            "<p><b>Confidence</b>: how much you think it looks like someone sure of themselves</p>" +
+            "<p><b>Familiarity</b>: how much you think it looks like someone you know</p>" +
+            "<p><b>Similarity</b>: how much you think it looks like you </p></br></div>" +
+            "<p>Please go with your gut and respond intuitively.</p>" +
+            "<p>Click 'Continue' to begin</p>",
+        choices: ['Continue'],
+        data: {screen: "task_instructions"}
+    }
+
+    timeline.push(general_instructions, task_instructions);
+
+    var trial_number = 1 // trial indexing variable starts at 1 for convenience
+
+    // Fixation cross
+    var fixation = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: '<div style="font-size:60px;">+</div>',
+        choices: "NO_KEYS",
+        trial_duration: function () {
+            return randomInteger(500, 1000)
+        },
+        // trial_duration: 0,  // for testing
+        on_start: function () {
+            ; (document.body.style.cursor = "none"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "none")
+        },
+        save_trial_parameters: {
+            trial_duration: true,
+        },
+        data: {screen: "fixation"},
+    };
+
+    //Stimuli block
+    // var images = [];
+    // for (var i = 10; i < 20; i++) {
+    //     images.push({stimulus: "utils/Faces/NS1" + i + ".jpg"});
+    // }
+
+    // Loop through stimuli
+    var stimuli_trial = {
+        type: jsPsychImageKeyboardResponse,
+        stimulus: jsPsych.timelineVariable('stimulus'),
+        choices: "NO_KEYS",
+        trial_duration: 500,   // jitter between 300 to 600?
+        on_start: function () {
+            ; (document.body.style.cursor = "none"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "none")
+        },
+        save_trial_parameters: {
+            trial_duration: true,
+        },
+        on_finish: function (data) {
+            data.trial_number = trial_number
+            trial_number += 1
+        },
+        data: {screen: "stimuli"},
+    };
+
+    /*======================================================================*/
+    /*---------------------Psychometric Scales------------------------------*/
+    /*======================================================================*/
+    var trait_items = []
+
+    // // Add Item on Perception of Realness
+    // trait_items1.push({
+    //     prompt: [""],
+    //     name: "Real_Fake",
+    //     ticks: ["<b>Fake</b>", "<b>Real</b>"],
+    //     required: false
+    // })
+
+    // Add Items on Confidence and Attractiveness
+    for (const [index, element] of items.entries()) {
+        trait_items.push({
+            prompt: element,
+            name: dimensions[index],
+            ticks: scale1,
+            required: false
+        })
+    }
+
+    var questionnaire = {
+        type: jsPsychMultipleSlider,  // this is a custom plugin in utils
+        questions: trait_items,
+        randomize_question_order: false,
+        preamble: "<p>Below is a list of characteristics based on the image you just saw.</p>" +
+            "<p>Please respond to each statement by indicating how much you agree or disagree with each characteristic.</p>" +
+            "<p>Please respond based on your gut feeling. Do not spend too much time on any one statement.</p></br>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'questionnaire',
+        }
+    };
+
+    // Add Items on Sociability, Approachability, Similarity, Trustworthiness and Familiarity
+    // var trait_items2 = []
+    // for (const [index, element] of items2.entries()) {
+    //     trait_items2.push({
+    //         prompt: element,
+    //         name: dimensions2[index],
+    //         ticks: scale1,
+    //         required: false
+    //     })
+    // }
+
+    // var questionnaire2 = {
+    //     type: jsPsychMultipleSlider,
+    //     questions: trait_items2,
+    //     randomize_question_order: false,
+    //     preamble: "<p>Below is a list of characteristics based on the image you just saw.</p>" +
+    //         "<p>Please respond to each statement by indicating how much you agree or disagree with each characteristic.</p>" +
+    //         "<p>Please respond based on your gut feeling. Do not spend too much time on any one statement.</p></br>",
+    //     require_movement: false,
+    //     slider_width: 800,
+    //     min: 0,
+    //     max: 100,
+    //     slider_start: 50,
+    //     on_start: function () {
+    //         ; (document.body.style.cursor = "auto"),
+    //             (document.querySelector(
+    //                 "#jspsych-progressbar-container"
+    //             ).style.display = "inline")
+    //     },
+    //     data: {
+    //         screen: 'questionnaire',
+    //     }
+    // };
+
+    //Loop through fixation, stimuli and questionnaire blocks
+    var test_procedure = {
+        timeline: [fixation, stimuli_trial, questionnaire],
+        timeline_variables: stimuli,
+        randomize_order: true,
+        repetitions: 0
+    };
+
+    timeline.push(test_procedure);
+
+    /* Mini IPIP *==========================*/
+    var IPIP_items = []
+    for (const [index, element] of IPIP.entries()) {
+        IPIP_items.push({
+            prompt: element,
+            name: IPIP_dim[index],
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var IPIP6 = {
+        type: jsPsychMultipleSlider,
+        questions: IPIP_items,
+        randomize_question_order: false,
+        preamble: "<p>For this part of the questionnaire, we are interested in finding out more about your traits.</p>" +
+            "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'IPIP6',
+        }
+    };
+
+    timeline.push(IPIP6);
+
+    /* Social Phobia and Social Interaction Anxiety *==========================*/
+    var SPS_items = []
+    for (const [index, element] of SPS_6a.entries()) {
+        SPS_items.push({
+            prompt: element,
+            name: "Social_Phobia_" + (index + 1),
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var SPS = {
+        type: jsPsychMultipleSlider,
+        questions: SPS_items,
+        randomize_question_order: false,
+        preamble:
+            "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        }
+    };
+
+    timeline.push(SPS);
+
+    var SIAS_items = []
+    for (const [index, element] of SIAS_6a.entries()) {
+        SIAS_items.push({
+            prompt: element,
+            name: SIAS_dim[index],
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var SIAS = {
+        type: jsPsychMultipleSlider,
+        questions: SIAS_items,
+        randomize_question_order: false,
+        preamble:
+            "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        }
+    };
+
+    timeline.push(SIAS);
+
+    /* Narcissism *==========================*/
+    var FFNI_items = []
+    for (const [index, element] of FFNI_BF.entries()) {
+        FFNI_items.push({
+            prompt: element,
+            name: FFNI_dim[index],
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var FFNI = {
+        type: jsPsychMultipleSlider,
+        questions: FFNI_items,
+        randomize_question_order: false,
+        preamble: "<p>Please respond based on how much you agree or disagree with each each statement.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'FFNI-BF',
+        }
+    };
+
+    timeline.push(FFNI);
+
+    /* Paranoia *==========================*/
+    var GPTS_items = []
+    for (const [index, element] of R_GPTS.entries()) {
+        GPTS_items.push({
+            prompt: element,
+            name: GPTS_dim[index],
+            ticks: scale1,
+            required: false
+        })
+    }
+
+    var GPTS = {
+        type: jsPsychMultipleSlider,
+        questions: GPTS_items,
+        randomize_question_order: false,
+        preamble: "<p>In this part of the questionnaire, each statement below refers to thoughts and feelings you may have had <b>about others over the last month.</b></p>" +
+            "<p>Please think about the last month and indicate the extent to which you think each of these feelings apply to you.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'GPTS',
+        }
+    };
+
+    timeline.push(GPTS);
+
+    /* Magical Thinking *==========================*/
+    var IBI_items = []
+    for (const [index, element] of IBI_kingdon.entries()) {
+        IBI_items.push({
+            prompt: element,
+            name: IBI_dim[index],
+            ticks: scale1,
+            required: false
+        })
+    }
+
+    var IBI = {
+        type: jsPsychMultipleSlider,
+        questions: IBI_items,
+        randomize_question_order: false,
+        preamble: "<p>Please read the statements below carefully and indicate the extent to which each of these feelings apply to you.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'IBI',
+        }
+    }
+
+    timeline.push(IBI);
+
+    /* Trait and State Anxiety *==========================*/
+    var state_anxiety_items = []
+    for (const [index, element] of STAIS_S.entries()) {
+        state_anxiety_items.push({
+            prompt: element,
+            name: "State_Anxiety_" + (index + 1),
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var STAIS_State = {
+        type: jsPsychMultipleSlider,
+        questions: state_anxiety_items,
+        randomize_question_order: false,
+        preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
+            "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment.</p>" +
+            "<p>There are no right or wrong answers.</p>" +
+            "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'STAIS_S',
+        }
+    }
+
+    var trait_anxiety_items = []
+    for (const [index, element] of STAIS_T.entries()) {
+        trait_anxiety_items.push({
+            prompt: element,
+            name: "Trait_Anxiety_" + (index + 1),
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var STAIS_Trait = {
+        type: jsPsychMultipleSlider,
+        questions: trait_anxiety_items,
+        randomize_question_order: false,
+        preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
+            "Please read each statement and indicate <b>how you generally feel.</b></p>" +
+            "<p>There are no right or wrong answers.</p>" +
+            "<p>Do not spend too much time on any one statement but give the answer which seems to describe how you generally feel best.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'STAIS_T',
+        }
+    }
+
+    timeline.push(STAIS_State, STAIS_Trait);
+
+    /* Self Concept Clarity*==========================*/
+    var self_concept_items = []
+    for (const [index, element] of SCC.entries()) {
+        self_concept_items.push({
+            prompt: element,
+            name: SCC_dim[index],
+            ticks: scale2,
+            required: false
+        })
+    }
+    // var self_concept = self_concept.map(item =>{
+    //     if (item.name != 'SCC_6' && item.name != 'SCC_11')
+    //         item["Reverse-Code"]= "False"
+    //     else
+    //         item["Reverse-Code"]= "True";
+    //     return item;
+    // });
+
+    var self_concept_clarity = {
+        type: jsPsychMultipleSlider,
+        questions: self_concept_items,
+        randomize_question_order: false,
+        preamble: "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'SCC',
+        }
+    }
+
+    timeline.push(self_concept_clarity);
+
+    /* Intolerance to Uncertainty *==========================*/
+    var IUS_items = []
+    for (const [index, element] of IUS.entries()) {
+        IUS_items.push({
+            prompt: element,
+            name: IUS_dim[index],
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var uncertainty_intolerance_scale = {
+        type: jsPsychMultipleSlider,
+        questions: IUS_items,
+        randomize_question_order: false,
+        preamble: "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        },
+        data: {
+            screen: 'IUS',
+        }
+    }
+
+    timeline.push(uncertainty_intolerance_scale);
+
+    /*============================================================*/
+    /*==================== End of Experiment =====================*/
+    /*===========================================================*/
+    var end_screen = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: "<p>You have come to the end of this study. </p>" +
+            "<p>Thank you for participating!</p>",
+        choices: ['End'],
+    }
+
+    timeline.push(end_screen)
+
+    // Fullscreen mode
+    timeline.push({
+        type: jsPsychFullscreen,
+        fullscreen_mode: false,
+    })
+
+    // /* Close connection to Pavlovia---*/
+    // var pavlovia_finish = {
+    //     type: jsPsychPavlovia,
+    //     command: "finish",
+    //     participantId: participant_id,
+    //     completedCallback: function (){
+    //         window.location.replace('https://app.prolific.co/submissions/complete?cc=XXXXX');
+    //     }
+    // }
+
+    // timeline.push(pavlovia_finish)
+
+    /* Run the experiment=====================================================*/
+
+    jsPsych.run(timeline);
+
+
+     // Add Real/Fake Questions
+    //Real or Fake Trial Block
+    // var real_fake_items = {
+    //     type: jsPsychSurveyMultiChoice,
+    //     questions: [{
+    //         prompt: "The face you just saw is",
+    //         name: 'Real_Fake',
+    //         options: ["Real", "Fake"],
+    //         required: false
+    //     }],
+    //     data: {screen: 'real_fake'},
+    //     on_start: function () {
+    //         ; (document.body.style.cursor = "auto"),
+    //             (document.querySelector(
+    //                 "#jspsych-progressbar-container"
+    //             ).style.display = "inline")
+    //     },
+    //     on_finish: function (data) {
+    //         data.trial_number = trial_number
+    //         trial_number += 1
+    //     }
+    // };
+
+</script>
+
+</html>

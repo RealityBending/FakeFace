@@ -109,36 +109,36 @@ var IPIP_dim = [
 
 // Five Factor Narcissism Inventory - Brief Form (Jauk et al., 2022)
 var FFNI_BF = [
-    "I aspire for greatness.",
-    "Others say I brag too much, but everything I say is true.",
-    "I am comfortable taking on positions of authority.",
-    "When someone does something nice for me, I wonder what they want from me",
-    "It may seem unfair, but I deserve extra (i.e., attention, privileges, rewards).",
-    "I like being noticed by others.",
-    "Sometimes to succeed you need to use other people.",
-    "I often fantasize about someday being famous.",
-    "When people judge me, I just don't care.",
-    "I don't generally pay much attention to the woes of others",
-    "I'm pretty good at manipulating people.",
-    "I often feel as if I need compliments from others in order to be sure of myself.",
-    "I have at times gone into a rage when not treated rightly.",
-    "I feel ashamed when people judge me.",
-    "I would risk injury to do something exciting.",
-    "I am driven to succeed.",
-    "I do not waste my time hanging out with people who are beneath me.",
-    "I tend to take charge of most situations.",
-    "I often think that others aren't telling me the whole truth.",
-    "I believe I am entitled to special accommodations.",
-    "I like being the most popular person at a party.",
-    "I'm willing to exploit others to further my own goals.",
-    "I often fantasize about having lots of success and power.",
-    "Others' opinions of me are of little concern to me.",
-    "I don't get upset with the suffering of others.",
-    "I can talk my way into and out of anything.",
-    "I wish I didn't care so much about what others think of me.",
-    "It really makes me angry when I don't get what I deserve.",
-    "I feel foolish when I make a mistake in front of others",
-    "I like doing things that are risky or dangerous."
+    "I aspire for greatness<br>",
+    "Others say I brag too much, but everything I say is true<br>",
+    "I am comfortable taking on positions of authority<br>",
+    "When someone does something nice for me, I wonder what they want from me<br>",
+    "It may seem unfair, but I deserve extra (i.e., attention, privileges, rewards)<br>",
+    "I like being noticed by others<br>",
+    "Sometimes to succeed you need to use other people<br>",
+    "I often fantasize about someday being famous<br>",
+    "When people judge me, I just don't care<br>",
+    "I don't generally pay much attention to the woes of others<br>",
+    "I'm pretty good at manipulating people<br>",
+    "I often feel as if I need compliments from others in order to be sure of myself<br>",
+    "I have at times gone into a rage when not treated rightly<br>",
+    "I feel ashamed when people judge me<br>",
+    "I would risk injury to do something exciting<br>",
+    "I am driven to succeed<br>",
+    "I do not waste my time hanging out with people who are beneath me<br>",
+    "I tend to take charge of most situations<br>",
+    "I often think that others aren't telling me the whole truth<br>",
+    "I believe I am entitled to special accommodations<br>",
+    "I like being the most popular person at a party<br>",
+    "I'm willing to exploit others to further my own goals<br>",
+    "I often fantasize about having lots of success and power<br>",
+    "Others' opinions of me are of little concern to me<br>",
+    "I don't get upset with the suffering of others<br>",
+    "I can talk my way into and out of anything<br>",
+    "I wish I didn't care so much about what others think of me<br>",
+    "It really makes me angry when I don't get what I deserve<br>",
+    "I feel foolish when I make a mistake in front of others<br>",
+    "I like doing things that are risky or dangerous<br>"
 ]
 
 var FFNI_dim = [
@@ -176,24 +176,24 @@ var FFNI_dim = [
 
 // Paranoia: R-GPTS (Freeman et al., 2019)
 var R_GPTS =[
-    "I spent time thinking about friends gossiping about me",
-    "I often heard people referring to me",
-    "I have been upset by friends and colleagues judging me critically",
-    "People definitely laughed at me behind my back",
-    "I have been thinking a lot about people avoiding me",
-    "People have been dropping hints for me",
-    "I believed that certain people were not what they seemed",
-    "People talking about me behind my back upset me",
-    "Certain individuals have had it in for me",
-    "People wanted me to feel threatened, so they stared at me",
-    "I was certain people did things in order to annoy me",
-    "I was convinced there was a conspiracy against me",
-    "I was sure someone wanted to hurt me",
-    "I couldn't stop thinking about people wanting to confuse me",
-    "I was distressed by being persecuted",
-    "It was difficult to stop thinking about people wanting to make me feel bad",
-    "People have been hostile towards me on purpose",
-    "I was angry that someone wanted to hurt me",
+    "I spent time thinking about friends gossiping about me<br>",
+    "I often heard people referring to me<br>",
+    "I have been upset by friends and colleagues judging me critically<br>",
+    "People definitely laughed at me behind my back<br>",
+    "I have been thinking a lot about people avoiding me<br>",
+    "People have been dropping hints for me<br>",
+    "I believed that certain people were not what they seemed<br>",
+    "People talking about me behind my back upset me<br>",
+    "Certain individuals have had it in for me<br>",
+    "People wanted me to feel threatened, so they stared at me<br>",
+    "I was certain people did things in order to annoy me<br>",
+    "I was convinced there was a conspiracy against me<br>",
+    "I was sure someone wanted to hurt me<br>",
+    "I couldn't stop thinking about people wanting to confuse me<br>",
+    "I was distressed by being persecuted<br>",
+    "It was difficult to stop thinking about people wanting to make me feel bad<br>",
+    "People have been hostile towards me on purpose<br>",
+    "I was angry that someone wanted to hurt me<br>",
 ]
 
 var GPTS_dim = [
@@ -219,18 +219,18 @@ var GPTS_dim = [
 
 // Self-Concept Clarity (Campbell et al., 1996)
 var SCC = [
-    "My beliefs about myself often conflict with one another.",  //(R)
-    "On one day I might have one opinion of myself and on another day I might have a different opinion.",  //(R)
-    "I spend a lot of time wondering about what kind of person I really am",  //(R)
-    "Sometimes I feel that I am not really the person that I appear to be",     //(R)
-    "When I think about the kind of person I have been in the past, I'm not sure what I was really like",  //(R)
-    "I seldom experience conflict between the different aspects of my personality",
-    "Sometimes I think I know other people better than I know myself.",    //(R)
-    "My beliefs about myself seem to change very frequently", //(R)
-    "If I were asked to describe my personality, my description might end up being different from one day to another day.",  //(R)
-    "Even if I wanted to, I don't think I could tell someone what I'm really like",  //(R)
-    "In general, I have a clear sense of who I am and what I am.",
-    "It is often hard for me to make up my mind about things because I don't really know what I want."  //(R)
+    "My beliefs about myself often conflict with one another<br>",  //(R)
+    "On one day I might have one opinion of myself and on another day I might have a different opinion<br>",  //(R)
+    "I spend a lot of time wondering about what kind of person I really am<br>",  //(R)
+    "Sometimes I feel that I am not really the person that I appear to be<br>",     //(R)
+    "When I think about the kind of person I have been in the past, I'm not sure what I was really like<br>",  //(R)
+    "I seldom experience conflict between the different aspects of my personality<br>",
+    "Sometimes I think I know other people better than I know myself<br>",    //(R)
+    "My beliefs about myself seem to change very frequently<br>", //(R)
+    "If I were asked to describe my personality, my description might end up being different from one day to another day<br>",  //(R)
+    "Even if I wanted to, I don't think I could tell someone what I'm really like<br>",  //(R)
+    "In general, I have a clear sense of who I am and what I am<br>",
+    "It is often hard for me to make up my mind about things because I don't really know what I want<br>"  //(R)
 ]
 
 var SCC_dim = [
@@ -249,30 +249,30 @@ var SCC_dim = [
 
 // Illusory Beliefs Inventory (Kingdon, et al., 2011)
 var IBI_kingdon = [
-    "I use prayer to ward off misfortune",
-    "I have sometimes changed my plans because I had a bad feeling",
-    "The soul does not continue to exist after death", // (R)
-    "I believe in magic",
-    "I sometimes perform special rituals for protection",
-    "If I think too much about something bad, it will happen",
-    "Magical forces have impacted on my life",
-    "It is just a matter of time until science can explain everything",  // (R)
-    "I do something special to prevent bad luck",
-    "Sometimes I get a feeling that something is going to happen before it happens",
-    "It is not possible to cast a magical spell",  //(R)
-    "Magic causes miracles to happen",
-    "Life is nothing more than a series of random events",  //(R)
-    "Good luck charms do not work",  //(R)
-    "If I think too much about something, it will happen",
-    "I avoid unlucky numbers",
-    "Most things that happen to us are the result of fate",
-    "I believe guardian angels or other spiritual forces protect me",
-    "Science is the key to understanding how things happen",  //(R)
-    "My thoughts alone can alter reality",
-    "There is an invisible force guiding us all",
-    "You should never tempt fate",
-    "I do not believe in a spiritual presence",  //(R)
-    "I believe in a higher power or God"
+    "I use prayer to ward off misfortune<br>",
+    "I have sometimes changed my plans because I had a bad feeling<br>",
+    "The soul does not continue to exist after death<br>", // (R)
+    "I believe in magic<br>",
+    "I sometimes perform special rituals for protection<br>",
+    "If I think too much about something bad, it will happen<br>",
+    "Magical forces have impacted on my life<br>",
+    "It is just a matter of time until science can explain everything<br>",  // (R)
+    "I do something special to prevent bad luck<br>",
+    "Sometimes I get a feeling that something is going to happen before it happens<br>",
+    "It is not possible to cast a magical spell<br>",  //(R)
+    "Magic causes miracles to happen<br>",
+    "Life is nothing more than a series of random events<br>",  //(R)
+    "Good luck charms do not work<br>",  //(R)
+    "If I think too much about something, it will happen<br>",
+    "I avoid unlucky numbers<br>",
+    "Most things that happen to us are the result of fate<br>",
+    "I believe guardian angels or other spiritual forces protect me<br>",
+    "Science is the key to understanding how things happen<br>",  //(R)
+    "My thoughts alone can alter reality<br>",
+    "There is an invisible force guiding us all<br>",
+    "You should never tempt fate<br>",
+    "I do not believe in a spiritual presence<br>",  //(R)
+    "I believe in a higher power or God<br>"
     ]
 
 var IBI_dim = [
@@ -321,18 +321,18 @@ var STAIS_T = [
 
 // Intolerance of Uncertainty (Carleton et al., 2007)
 var IUS = [
-    "Unforeseen events upset me greatly",
-    "It frustrates me not having all the information I need",
-    "One should always look ahead so as to avoid surprises",
-    "A small unforeseen event can ruin everything, even with the best of planning",
-    "I always want to know what the future has in store for me",
-    "I can't stand being taken by surprise",
-    "I should be able to organize everything in advance",
-    "Uncertainty keeps me from sleeping soundly",
-    "When its time to act, uncertainty paralyses me",
-    "When I am uncertain, I can't function very well",
-    "The smallest doubt can stop me from acting",
-    "I must get away from all uncertain situations"
+    "Unforeseen events upset me greatly<br>",
+    "It frustrates me not having all the information I need<br>",
+    "One should always look ahead so as to avoid surprises<br>",
+    "A small unforeseen event can ruin everything, even with the best of planning<br>",
+    "I always want to know what the future has in store for me<br>",
+    "I can't stand being taken by surprise<br>",
+    "I should be able to organize everything in advance<br>",
+    "Uncertainty keeps me from sleeping soundly<br>",
+    "When its time to act, uncertainty paralyses me<br>",
+    "When I am uncertain, I can't function very well<br>",
+    "The smallest doubt can stop me from acting<br>",
+    "I must get away from all uncertain situations<br>"
 ]
 
 var IUS_dim = [

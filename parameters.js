@@ -350,22 +350,13 @@ var IUS_dim = [
     "Inhibitory_Anxiety_12"
 ]
 
-var SPS_6a =[
-    "I get nervous that people are staring at me as I walk down the street",
-    "I worry about shaking or trembling when I'm watched by other people",
-    "I would get tense if I had to sit facing other people on a bus or a train",
-    "I worry I might do something to attract the attention of others",
-    "When in an elevator I am tense if people look at me",
-    "I can feel conspicuous standing in a queue"
-]
-
 var SIAS_6a = [
-" I have difficulty making eye-contact with others",
-"I find difficulty mixing comfortably with the people I work with",
-"When mixing socially, I am uncomfortable",
-"I am at ease meeting people at parties, etc",
-"I find it easy to think of things to talk about",
-"I have difficulty talking to attractive persons of the opposite sex"
+"I have difficulty making eye-contact with others",
+"I find it difficult mixing comfortably with the people I work with",
+"I tense up if I meet an acquaintance on the street",
+"I feel tense if I am alone with just one person",
+"I have difficulty talking with other people",
+"I find it difficult to disagree with another's point of view"
 ]
 
 var SIAS_dim = [
@@ -377,6 +368,14 @@ var SIAS_dim = [
     "SIAS_6"
 ]
 
+var SPS_6a =[
+    "I get nervous that people are staring at me as I walk down the street",
+    "I worry about shaking or trembling when I'm watched by other people",
+    "I would get tense if I had to sit facing other people on a bus or a train",
+    "I worry I might do something to attract the attention of other people",
+    "When in an elevator, I am tense if people look at me",
+    "I can feel conspicuous standing in a line"
+]
 
 /*===============================================================*/
 // Internal Utility Functions

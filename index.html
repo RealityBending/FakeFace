@@ -422,37 +422,6 @@
     timeline.push(IPIP6);
 
     /* Social Phobia and Social Interaction Anxiety *==========================*/
-    var SPS_items = []
-    for (const [index, element] of SPS_6a.entries()) {
-        SPS_items.push({
-            prompt: element,
-            name: "Social_Phobia_" + (index + 1),
-            ticks: scale2,
-            required: false
-        })
-    }
-
-    var SPS = {
-        type: jsPsychMultipleSlider,
-        questions: SPS_items,
-        randomize_question_order: false,
-        preamble:
-            "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
-        require_movement: false,
-        slider_width: 800,
-        min: 0,
-        max: 100,
-        slider_start: 50,
-        on_start: function () {
-            ; (document.body.style.cursor = "auto"),
-                (document.querySelector(
-                    "#jspsych-progressbar-container"
-                ).style.display = "inline")
-        }
-    };
-
-    timeline.push(SPS);
-
     var SIAS_items = []
     for (const [index, element] of SIAS_6a.entries()) {
         SIAS_items.push({
@@ -483,6 +452,37 @@
     };
 
     timeline.push(SIAS);
+
+    var SPS_items = []
+    for (const [index, element] of SPS_6a.entries()) {
+        SPS_items.push({
+            prompt: element,
+            name: "Social_Phobia_" + (index + 1),
+            ticks: scale2,
+            required: false
+        })
+    }
+
+    var SPS = {
+        type: jsPsychMultipleSlider,
+        questions: SPS_items,
+        randomize_question_order: false,
+        preamble:
+            "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
+        require_movement: false,
+        slider_width: 800,
+        min: 0,
+        max: 100,
+        slider_start: 50,
+        on_start: function () {
+            ; (document.body.style.cursor = "auto"),
+                (document.querySelector(
+                    "#jspsych-progressbar-container"
+                ).style.display = "inline")
+        }
+    };
+
+    timeline.push(SPS);
 
     /* Narcissism *==========================*/
     var FFNI_items = []

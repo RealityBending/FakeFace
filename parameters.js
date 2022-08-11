@@ -363,8 +363,8 @@ var SIAS_dim = [
     "SIAS_1",
     "SIAS_2",
     "SIAS_3",
-    "SIAS_4_R",
-    "SIAS_5_R",
+    "SIAS_4",
+    "SIAS_5",
     "SIAS_6"
 ]
 

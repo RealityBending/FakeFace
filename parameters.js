@@ -328,7 +328,7 @@ var IUS = [
     "I always want to know what the future has in store for me<br>",
     "I can't stand being taken by surprise<br>",
     "I should be able to organize everything in advance<br>",
-    "Uncertainty keeps me from sleeping soundly<br>",
+    "Uncertainty keeps me from living a full life<br>",
     "When its time to act, uncertainty paralyses me<br>",
     "When I am uncertain, I can't function very well<br>",
     "The smallest doubt can stop me from acting<br>",

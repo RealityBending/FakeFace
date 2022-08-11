@@ -350,7 +350,7 @@ var IUS_dim = [
     "Inhibitory_Anxiety_12"
 ]
 
-var SIAS_6a = [
+var SIAS_SF = [
 "I have difficulty making eye-contact with others",
 "I find it difficult mixing comfortably with the people I work with",
 "I tense up if I meet an acquaintance on the street",
@@ -368,7 +368,7 @@ var SIAS_6a = [
 //     "SIAS_6"
 // ]
 
-var SPS_6a =[
+var SPS_SF =[
     "I get nervous that people are staring at me as I walk down the street",
     "I worry about shaking or trembling when I'm watched by other people",
     "I would get tense if I had to sit facing other people on a bus or a train",

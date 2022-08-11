@@ -359,14 +359,14 @@ var SIAS_6a = [
 "I find it difficult to disagree with another's point of view"
 ]
 
-var SIAS_dim = [
-    "SIAS_1",
-    "SIAS_2",
-    "SIAS_3",
-    "SIAS_4",
-    "SIAS_5",
-    "SIAS_6"
-]
+// var SIAS_dim = [
+//     "SIAS_1",
+//     "SIAS_2",
+//     "SIAS_3",
+//     "SIAS_4",
+//     "SIAS_5",
+//     "SIAS_6"
+// ]
 
 var SPS_6a =[
     "I get nervous that people are staring at me as I walk down the street",

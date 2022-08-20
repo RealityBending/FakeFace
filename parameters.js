@@ -5,14 +5,12 @@ var scale2 = ["Strongly Disagree", "Strongly Agree"]
 
 // Oosterhof and Todorov (2008) - 9 point scale (Not at all to Extremely)
 var items = [
-    "The face looked real to me",
-    "The face looked attractive to me",
-    "The face looked confident to me",
-    "The face looked approachable to me",
-    "The face looked familiar to me",
-    "The face looked trustworthy to me",
-    "The face looked sociable to me",
-    "The face looked similar to me",
+    //"The face looked real to me",
+    "Assuming the face you saw was of a real individual, how attractive do you find this person? <br>",
+    "Assuming the face you saw was of a real individual, how approachable do you find this person? <br>",
+    "Assuming the face you saw was of a real individual, how much does this person remind you of someone you know?<br>",
+    "Assuming the face you saw was of a real individual, how trustworthy do you think this person is?<br>",
+    "Assuming the face you saw was of a real individual, how much does this person resemble you? <br>",
     // "How weird is the face you saw?",   // include eeriness as well? (cf uncanny valley effect)
     // "How dominant is the face you saw?",
     //"How musculine/feminine is the face you saw?",
@@ -28,11 +26,9 @@ var items = [
 var dimensions = [
     "Real",
     "Attractiveness",
-    "Confidence",
     "Approachability",
     "Familiarity",   // Familiarity (van vugt et al., 2010)
     "Trustworthiness",
-    "Sociability",
     "Similarity"
 ]
 
@@ -59,7 +55,7 @@ var IPIP = [
     "I get chores done right away<br>",
     "I have frequent mood swings<br>",
     "I have a vivid imagination<br>",
-    "I feel entitled to more of everything<br",
+    "I feel entitled to more of everything<br>",
     "I do not talk a lot<br>",
     "I am not interested in other people's problems<br>",
     "I have difficulty understanding abstract ideas<br>",
@@ -304,19 +300,19 @@ var IBI_dim = [
 
 // State and Trait Anxiety Index - Short (Zsido et al., 2020)
 var STAIS_S = [
-    "I feel upset",
-    "I feel frightened",
-    "I feel nervous",
-    "I am jittery",
-    "I feel confused"
+    "I feel upset <br>",
+    "I feel frightened <br>",
+    "I feel nervous <br>",
+    "I am jittery <br>",
+    "I feel confused <br>"
 ]
 
 var STAIS_T = [
-    "I feel that difficulties are piling up so that I cannot overcome them",
-    "I worry too much over something that really doesn't matter",
-    "Some unimportant thoughts run through my mind and bothers me",
-    "I take disappointment so keenly that I can't put them out of my mind",
-    "I get in a state of tension or turmoil as I think over my recent concerns and interests"
+    "I feel that difficulties are piling up so that I cannot overcome them <br>",
+    "I worry too much over something that really doesn't matter <br>",
+    "Some unimportant thoughts run through my mind and bothers me <br>",
+    "I take disappointment so keenly that I can't put them out of my mind <br>",
+    "I get in a state of tension or turmoil as I think over my recent concerns and interests <br>"
 ]
 
 // Intolerance of Uncertainty (Carleton et al., 2007)
@@ -351,12 +347,12 @@ var IUS_dim = [
 ]
 
 var SIAS_SF = [
-"I have difficulty making eye-contact with others",
-"I find it difficult mixing comfortably with the people I work with",
-"I tense up if I meet an acquaintance on the street",
-"I feel tense if I am alone with just one person",
-"I have difficulty talking with other people",
-"I find it difficult to disagree with another's point of view"
+"I have difficulty making eye-contact with others <br>",
+"I find it difficult mixing comfortably with the people I work with <br>",
+"I tense up if I meet an acquaintance on the street <br>",
+"I feel tense if I am alone with just one person <br>",
+"I have difficulty talking with other people <br>",
+"I find it difficult to disagree with another's point of view <br>"
 ]
 
 // var SIAS_dim = [
@@ -369,12 +365,12 @@ var SIAS_SF = [
 // ]
 
 var SPS_SF =[
-    "I get nervous that people are staring at me as I walk down the street",
-    "I worry about shaking or trembling when I'm watched by other people",
-    "I would get tense if I had to sit facing other people on a bus or a train",
-    "I worry I might do something to attract the attention of other people",
-    "When in an elevator, I am tense if people look at me",
-    "I can feel conspicuous standing in a line"
+    "I get nervous that people are staring at me as I walk down the street <br>",
+    "I worry about shaking or trembling when I'm watched by other people <br>",
+    "I would get tense if I had to sit facing other people on a bus or a train <br>",
+    "I worry I might do something to attract the attention of other people <br>",
+    "When in an elevator, I am tense if people look at me <br>",
+    "I can feel conspicuous standing in a line <br>"
 ]
 
 /*===============================================================*/

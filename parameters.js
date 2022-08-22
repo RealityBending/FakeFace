@@ -9,7 +9,7 @@ var items = [
     "Assuming the face you saw was of a real individual, how attractive do you find this person? <br>",
     "Assuming the face you saw was of a real individual, how approachable do you find this person? <br>",
     "Assuming the face you saw was of a real individual, how much does this person remind you of someone you know?<br>",
-    "Assuming the face you saw was of a real individual, how trustworthy do you think this person is?<br>",
+    "Assuming the face you saw was of a real individual, how trustworthy do you find this person?<br>",
     "Assuming the face you saw was of a real individual, how much does this person resemble you? <br>",
     // "How weird is the face you saw?",   // include eeriness as well? (cf uncanny valley effect)
     // "How dominant is the face you saw?",

@@ -248,7 +248,7 @@
             prompt: element,
             name: IPIP_dim[index],
             ticks: scale2,
-            required: false
+            required: true
         })
     }
 
@@ -283,7 +283,7 @@
             prompt: element,
             name: "Social_Interaction_Anxiety" + (index + 1),
             ticks: scale2,
-            required: false
+            required: true
         })
     }
 
@@ -305,7 +305,7 @@
                 ).style.display = "inline")
         },
         data: {
-            screen: 'SIAS',
+            screen: "SIAS",
         }
     };
 
@@ -317,7 +317,7 @@
             prompt: element,
             name: "Social_Phobia_" + (index + 1),
             ticks: scale2,
-            required: false
+            required: true
         })
     }
 
@@ -352,7 +352,7 @@
             prompt: element,
             name: FFNI_dim[index],
             ticks: scale2,
-            required: false
+            required: true
         })
     }
 
@@ -386,7 +386,7 @@
             prompt: element,
             name: GPTS_dim[index],
             ticks: scale1,
-            required: false
+            required: true
         })
     }
 
@@ -421,7 +421,7 @@
             prompt: element,
             name: "State_Anxiety_" + (index + 1),
             ticks: scale2,
-            required: false
+            required: true
         })
     }
 
@@ -454,7 +454,7 @@
             prompt: element,
             name: "Trait_Anxiety_" + (index + 1),
             ticks: scale2,
-            required: false
+            required: true
         })
     }
 
@@ -490,7 +490,7 @@
             prompt: element,
             name: SCC_dim[index],
             ticks: scale1,
-            required: false
+            required: true
         })
     }
 
@@ -547,7 +547,7 @@
             prompt: element,
             name: IBI_dim[index],
             ticks: scale1,
-            required: false
+            required: true
         })
     }
 
@@ -581,7 +581,7 @@
             prompt: element,
             name: IUS_dim[index],
             ticks: scale2,
-            required: false
+            required: true
         })
     }
 
@@ -683,7 +683,7 @@
         type: jsPsychImageKeyboardResponse,
         stimulus: jsPsych.timelineVariable('stimulus'),
         choices: "NO_KEYS",
-        trial_duration: 500,   // jitter between 300 to 600?
+        trial_duration: 500,
         on_start: function () {
             ; (document.body.style.cursor = "none"),
                 (document.querySelector(
@@ -707,7 +707,7 @@
         prompt: "The face looked real to me<br>",
         name: "Real_Fake",
         ticks: scale2,
-        required: false
+        required: true
     })
 
     // Add Items on Confidence and Attractiveness
@@ -716,7 +716,7 @@
             prompt: element,
             name: dimensions[index],
             ticks: scale1,
-            required: false
+            required: true
         })
     }
 
@@ -802,6 +802,7 @@
         type: jsPsychFullscreen,
         fullscreen_mode: false,
     })
+
     // /* Close connection to Pavlovia---*/
     // var pavlovia_finish = {
     //     type: jsPsychPavlovia,

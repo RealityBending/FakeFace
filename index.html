@@ -36,7 +36,7 @@
         #jspsych-image-keyboard-response-stimulus {
             /*adjust image stimuli params to fit screen*/
             height: auto;
-            width: 80%;
+            width: 55%;
         }
 
         body {
@@ -801,7 +801,7 @@
             "<li><p>How much you think the face resembles yourself </p></li></ul>" +
             "<p>Below is an example of the questions you will be asked after each image:</p></div><br>"+
             "<div style='float: center'><img src='utils/questions_demo.png' height='600' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>" +
-            "<p>There are no right or wrong answers. Please respond intuitively based on your gut feelings.</p>" +
+            "<p>Please respond intuitively based on your gut feelings.</p>" +
             "<p><b>Click 'Continue' to begin</p></b>",
         choices: ['Continue'],
         data: {screen: "questionnaire_instructions"}
@@ -865,7 +865,7 @@
 
     // Add Item on Perception of Realness
     trait_items.push({
-        prompt: "The face looked real to me",
+        prompt: "I think this face is real",
         name: "perceived_realness",
         ticks: scale2,
         required: true

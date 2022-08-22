@@ -6,7 +6,7 @@ var scale2 = ["Strongly Disagree", "Strongly Agree"]
 // Oosterhof and Todorov (2008) - 9 point scale (Not at all to Extremely)
 var items = [
     //"The face looked real to me",
-    "<b>Assuming the face you saw was real,</b> <br><br>Would you find this person attractive?",
+    "<b>Assuming the person you saw was real...</b> <br><br>Would you find this person attractive?",
     "Would you find this person approachable?",
     "Would you find this person trustworthy?",
     "How much does this person remind you of someone you know?",

@@ -781,27 +781,28 @@
     var task_instructions = {
         type: jsPsychHtmlButtonResponse,
         stimulus: "<div style='font-size:48px;'>Part 2/2</p></div>" +
-        "<p>In the second part of the experiment, images of faces will appear on the center of the screen briefly.</p>" +
-            "<p>About half of these images are of <b>real faces</b> and the other half are <b>computer-generated</b>.</p>" +
-            "<p>Among the images of the artificial faces generated, only those that best matched the characteristics of the real images used were selected for this experiment (e.g., same background, lighting etc.,).</p>" +
-            "<p>Your task is to tell whether you think these facial images are <b>real</b> or <b>fake</b>.</p></br>",
+        "<p>In the next phase, images of faces will be flashed on the screen.</p>" +
+        "<p>These images were created specially for this experiment: about half of them are <b>photos of real people</b>, and the other half was entirely computer-generated using the new AI algorithm that we want to test.</p>" +
+        "<p>This algorithm, based on a new generation of deep-learning models, is able to produce photo-realistic images of faces according to pre-specified parameters (e.g., gender, age, emotion, ...)</p>" +
+        "<p>Among the the artificial faces generated, only those that best matched the characteristics of the real photos were selected for this experiment (same background, lighting conditions, etc.).</p>" +
+        "<p>In order to help us validate our algorithm, we will ask you to tell whether you think the faces you see are <b>real</b> (photos of real people) or <b>fake</b> (computer-generated).</p></br>",
         choices: ['Continue'],
         data: {screen: "task_instructions"}
     }
 
     var questionnaire_instructions = {
         type: jsPsychHtmlButtonResponse,
-        stimulus: "<div style='text-align: left'><p>As we are interested in your <b>first impressions</b>, each image will be flashed <b>very briefly</b>.</p>" +
+        stimulus: "<div style='text-align: left'>" +
             "<p>After each image, you will be asked a series of questions, such as:</p><ul>"+
-            "<li><p>Whether you think the face you saw was real</p></li>"+
-            "<li><p>How attracted you would be to someone who looks like that</p></li>" +
-            "<li><p>How approachable you would find someone who looks like that</p></li>" +
-            "<li><p>How much you would trust someone who looks like that</p></li>" +
-            "<li><p>How much the face reminds you of someone you know</p></li>" +
-            "<li><p>How much you think the face resembles yourself </p></li></ul>" +
+            "<li><p>Whether you think the face you saw was real or fake.</p></li>"+
+            "<li><p>How attractive you would find someone who looks like that.</p></li>" +
+            "<li><p>How approachable (friendly and easy to talk to) you would find someone who looks like that.</p></li>" +
+            "<li><p>How much you would trust someone who looks like that.</p></li>" +
+            "<li><p>How much that face reminds you of someone you know.</p></li>" +
+            "<li><p>How much you think the face resembles yourself.</p></li></ul>" +
             "<p>Below is an example of the questions you will be asked after each image:</p></div><br>"+
             "<div style='float: center'><img src='utils/questions_demo.png' height='600' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>" +
-            "<p>Please respond intuitively based on your gut feelings.</p>" +
+            "<p>We are interested in your <b>first impressions</b>. Please respond according on your gut feelings.</p>" +
             "<p><b>Click 'Continue' to begin</p></b>",
         choices: ['Continue'],
         data: {screen: "questionnaire_instructions"}

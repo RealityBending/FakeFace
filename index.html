@@ -26,7 +26,7 @@
     <!--<script src = "utils/jspsych/plugin-jspsych-pavlovia-2021.js"></script>-->
     <script src="parameters.js"></script>
     <script src="utils/images.js"></script>
-    <script src="utils/questions_demo.png"></script>
+    <!--<script src="utils/questions_demo.png"></script>-->
     <script src="utils/plugin-survey-multiple-slider.js"></script>
 
     <!-- Default CSS -->
@@ -98,6 +98,12 @@
     timeline.push({
         type: jsPsychFullscreen,
         fullscreen_mode: true
+    })
+
+    // Preload demo image
+    timeline.push({
+        type: jsPsychPreload,
+        images: "utils/questions_demo.png"
     })
 
     // Retrieve and save browser info
@@ -258,7 +264,7 @@
         randomize_question_order: false,
         preamble: "<p>For this part of the questionnaire, we are interested in finding out more about your traits.</p>" +
             "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -293,7 +299,7 @@
         randomize_question_order: false,
         preamble:
             "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -327,7 +333,7 @@
         randomize_question_order: false,
         preamble:
             "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -361,7 +367,7 @@
         questions: FFNI_items,
         randomize_question_order: false,
         preamble: "<p>Please respond based on how much you agree or disagree with each each statement.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -396,7 +402,7 @@
         randomize_question_order: false,
         preamble: "<p>In this part of the questionnaire, each statement below refers to thoughts and feelings you may have had <b>about others over the last month.</b></p>" +
             "<p>Please think about the last month and indicate the extent to which you think each of these feelings apply to you.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -432,7 +438,7 @@
         preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
             "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment. There are no right or wrong answers.</p>" +
             "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -465,7 +471,7 @@
         preamble: "<p>A number of statements which people have used to describe themselves are given below.</p>" +
             "Please read each statement and indicate <b>how you generally feel </b>. There are no right or wrong answers.</p>" +
             "<p>Do not spend too much time on any one statement but give the answer which seems to describe how you generally feel best.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -522,7 +528,7 @@
         questions: self_concept_items,
         randomize_question_order: false,
         preamble: "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -556,7 +562,7 @@
         questions: IBI_items,
         randomize_question_order: false,
         preamble: "<p>Please read the statements below carefully and indicate the extent to which each of these feelings apply to you.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -590,7 +596,7 @@
         questions: IUS_items,
         randomize_question_order: false,
         preamble: "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 800,
         min: 0,
         max: 100,
@@ -725,7 +731,7 @@
         questions: trait_items,
         randomize_question_order: false,
        // preamble: "<p>Please respond based on your gut feeling. Do not spend too much time on any one statement.</p></br>",
-        require_movement: false,
+        require_movement: true,
         slider_width: 1000,
         min: 0,
         max: 100,

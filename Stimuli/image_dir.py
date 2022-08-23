@@ -3,12 +3,13 @@ import os
 
 # Ensure CWD is Dropbox path
 path = os.getcwd()
-folder = os.listdir(path + '/Faces/')
+folder = os.listdir(path + "/AMFD/")
 
 # Get names of all all stimuli images in array
 image_dir = []
 for file in folder:
-    image_dir.append({"stimulus": 'utils/Faces/' + file})
+    if file.startswith("NF") or file.startswith("NM"):
+        image_dir.append({"stimulus": "Stimuli/AMFD/" + file})
 
 
 # Save the array to a json file called images.js

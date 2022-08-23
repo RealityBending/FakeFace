@@ -812,7 +812,7 @@
             stimulus:
                 "<h1>Part 3/3</h1>" +
                 "<p>In the last part of the experiment, images of faces will be flashed on the screen.</p>" +
-                "<p>These images were created specially for this experiment: about half of them are <b>photos of real people</b>, and the other half of faces were entirely computer-generated using a new AI algorithm that we want to test.</p>" +
+                "<p>These images were created specially for this experiment: about half of them are <b>photos of real people</b>, and the other half of faces were entirely <b>computer-generated</b> using a new AI algorithm that we want to test.</p>" +
                 "<p>This algorithm, based on a new generation of deep-learning models, is able to produce photo-realistic images of faces according to pre-specified parameters (e.g., gender, age, emotion, ...).</p>" +
                 "<p>Among the artificial faces generated, only those that best matched the characteristics of the real photos were selected for this experiment (same background, lighting conditions, age range, etc.).</p>" +
                 "<p>In order to help us validate our algorithm, we will ask you to tell whether you think the faces you see are <b>real</b> (photos of real people) or <b>fake</b> (computer-generated).</p></br>",
@@ -825,17 +825,16 @@
             stimulus:
                 "<div style='text-align: left'>" +
                 "<p>After each image, you will be asked a series of questions, such as:</p><ul>" +
-                "<li><p>Whether you think the face you saw was real or fake.</p></li>" +
-                "<li><p>How attractive you would find someone who looks like that.</p></li>" +
-                "<li><p>How approachable (friendly and easy to talk to) you would find someone who looks like that.</p></li>" +
-                "<li><p>How much you would trust someone who looks like that.</p></li>" +
-                "<li><p>How much that face reminds you of someone you know.</p></li>" +
-                "<li><p>How much you think the face resembles yourself.</p></li></ul>" +
+                "<li><p>Whether you think the face you saw was <b>real or fake</b>.</p></li>" +
+                "<li><p>How <b>attractive</b> you would find someone who looks like that.</p></li>" +
+                "<li><p>How <b>approachable</b> (friendly and easy to talk to) you would find someone who looks like that.</p></li>" +
+                "<li><p>How much you would <b>trust</b> someone who looks like that.</p></li>" +
+                "<li><p>How much that face reminds you of <b>someone you know</b>.</p></li>" +
+                "<li><p>How much you think it <b>resembles yourself</b>.</p></li></ul>" +
                 "<p>Below is an example of the questions you will be asked after each image:</p></div><br>" +
                 "<div style='float: center'><img src='utils/questions_demo.png' height='600' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>" +
-                "<p>We are interested in your <b>first impressions</b>. Please respond according to your gut feelings.</p>" +
-                "<p><b>Click 'Continue' to begin</p></b>",
-            choices: ["Continue"],
+                "<p>We are interested in your <b>first impressions</b>. Please respond according to your gut feelings.</p>",
+            choices: ["Start"],
             data: { screen: "questionnaire_instructions" },
         }
 
@@ -896,9 +895,9 @@
 
         // Add Item on Perception of Realness
         trait_items.push({
-            prompt: "I think this face is real",
+            prompt: "I think this face is...",
             name: "perceived_realness",
-            ticks: scale2,
+            ticks: ["Fake", "Real"],
             required: true,
         })
 

@@ -213,7 +213,7 @@ var R_GPTS =[
     "<b>People have been dropping hints for me</b><br>",
     "<b>I believed that certain people were not what they seemed</b><br>",
     "<b>People talking about me behind my back upset me</b><br>",
-    "<b>Certain individuals have had it in for me</b><br>",
+    "<b>Certain individuals have had it in for me</b><br> (i.e., Certain individuals have bad intentions towards me)<br>",
     "<b>People wanted me to feel threatened, so they stared at me</b><br>",
     "<b>I was certain people did things in order to annoy me</b><br>",
     "<b>I was convinced there was a conspiracy against me</b><br>",

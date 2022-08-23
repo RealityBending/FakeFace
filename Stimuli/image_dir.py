@@ -9,15 +9,15 @@ folder = os.listdir(path + "/AMFD/")
 image_dir = []
 for file in folder:
     if file.startswith("NF") or file.startswith("NM"):
-        image_dir.append({"stimulus": "Stimuli/AMFD/" + file})
+        image_dir.append({"stimulus": "stimuli/AMFD/" + file})
 
 
 # Save the array to a json file called images.js
-with open("images.js", "w") as fp:
+with open("stimuli.js", "w") as fp:
     json.dump(image_dir, fp)
 
 # Update the file so that array is named images
-with open("images.js") as f:
+with open("stimuli.js") as f:
     updatedfile = "var stimuli = " + f.read()
-with open("images.js", "w") as f:
+with open("stimuli.js", "w") as f:
     f.write(updatedfile)

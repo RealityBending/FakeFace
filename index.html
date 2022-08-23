@@ -320,7 +320,6 @@
                 },
             ],
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -336,7 +335,7 @@
             type: jsPsychHtmlButtonResponse,
             stimulus:
                 "<h1>Part 2/3</h1>" +
-                "<p>Thank you! We will continue with a series of questionnaires about your personality.</p>",
+                "<p>Thank you! We will continue with a series of questionnaires about your personality. Again, it is important that you answer truthfully. Please read the statements carefully and answer according to what describe you the best.</p>",
             choices: ["Continue"],
             data: { screen: "instructions2" },
         }
@@ -363,10 +362,8 @@
             randomize_question_order: false,
             preamble:
                 "<p><b>Survey 1/9</b></b></p>" +
-                "<p>For this part of the questionnaire, we are interested in finding out more about your traits.</p>" +
                 "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -419,7 +416,6 @@
                 "<p><b>Survey 2/9</b></p>" +
                 "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -455,7 +451,6 @@
                 "<p><b>Survey 3/9</b></p>" +
                 "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -486,7 +481,7 @@
 
         // Attention Check 2
         FFNI_items.push({
-            prompt: "<b>Please select 'Strongly Agree' to demonstrate your attention</b><br>",
+            prompt: "<b>Please select Strongly Agree to demonstrate your attention</b><br>",
             name: "Attention_Check_2",
             ticks: ["Strongly Disagree", "Strongly Agree"],
             required: true,
@@ -509,7 +504,6 @@
                 "<p><b>Survey 4/9</b></p>" +
                 "<p>Please respond based on how much you agree or disagree with each each statement.</p>",
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -543,10 +537,9 @@
             randomize_question_order: false,
             preamble:
                 "<p><b>Survey 5/9</b></p>" +
-                "<p>In this part of the questionnaire, each statement below refers to thoughts and feelings you may have had <b>about others over the last month.</b></p>" +
+                "<p>Each statement below refers to thoughts and feelings you may have had <b>about others over the last month.</b></p>" +
                 "<p>Please think about the last month and indicate the extent to which you think each of these statements apply to you.</p>",
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -598,11 +591,9 @@
             randomize_question_order: false,
             preamble:
                 "<p><b>Survey 6/9</b></p>" +
-                "<p>A number of statements which people have used to describe themselves are given below.</p>" +
-                "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment. There are no right or wrong answers.</p>" +
+                "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment.</p>" +
                 "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -634,11 +625,9 @@
             randomize_question_order: false,
             preamble:
                 "<p><b>Survey 7/9</b></p>" +
-                "<p>A number of statements which people have used to describe themselves are given below.</p>" +
-                "Please read each statement and indicate <b>how you generally feel </b>. There are no right or wrong answers.</p>" +
+                "This time, please indicate <b>how you generally feel</b>.</p>" +
                 "<p>Do not spend too much time on any one statement but give the answer which seems to describe how you generally feel best.</p>",
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -669,7 +658,7 @@
 
         // Attention Check 4
         self_concept_items.push({
-            prompt: "<b>Please select 'Not at All' to demonstrate your attention</b><br>",
+            prompt: "<b>Please select Not at All to demonstrate your attention</b><br>",
             name: "Attention_Check_4",
             ticks: ["Not at All", "Extremely"],
             required: true,
@@ -715,7 +704,6 @@
                 "<p><b>Survey 8/9</b></p>" +
                 "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -749,7 +737,6 @@
         // //     randomize_question_order: false,
         // //     preamble: "<p>Please read the statements below carefully and indicate the extent to which each of these feelings apply to you.</p>",
         // //     require_movement: true,
-        // //     slider_width: 800,
         // //     min: 0,
         // //     max: 100,
         // //     slider_start: 50,
@@ -785,7 +772,6 @@
                 "<p><b>Survey 9/9</b></p>" +
                 "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -932,7 +918,6 @@
             randomize_question_order: false,
             //preamble: '<div style="font-size:24px;"><b>Assuming that the face you saw was real</b><br></p></div>',
             require_movement: true,
-            slider_width: 800,
             min: 0,
             max: 100,
             slider_start: 50,
@@ -966,7 +951,6 @@
         //         "<p>Please respond to each statement by indicating how much you agree or disagree with each characteristic.</p>" +
         //         "<p>Please respond based on your gut feeling. Do not spend too much time on any one statement.</p></br>",
         //     require_movement: false,
-        //     slider_width: 800,
         //     min: 0,
         //     max: 100,
         //     slider_start: 50,

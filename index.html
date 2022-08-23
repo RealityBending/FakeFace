@@ -557,56 +557,56 @@
         timeline.push(GPTS)
 
         /* State Anxiety *==========================*/
-        var state_anxiety_items = []
-        // for (const [index, element] of STAIS_S.entries()) {
-        for (var i = 0; i < 3; i++) {
-            state_anxiety_items.push({
-                prompt: STAIS_S[i],
-                name: STAIS_S_dim[i],
-                ticks: scale2,
-                required: true,
-            })
-        }
+        // var state_anxiety_items = []
+        // // for (const [index, element] of STAIS_S.entries()) {
+        // for (var i = 0; i < 3; i++) {
+        //     state_anxiety_items.push({
+        //         prompt: STAIS_S[i],
+        //         name: STAIS_S_dim[i],
+        //         ticks: scale2,
+        //         required: true,
+        //     })
+        // }
 
-        // Attention Check 3
-        state_anxiety_items.push({
-            prompt: "<b>I am distracted right now</b><br>",
-            name: "Attention_Check_3",
-            ticks: ["Strongly Disagree", "Strongly Agree"],
-            required: true,
-        })
+        // // Attention Check 3
+        // state_anxiety_items.push({
+        //     prompt: "<b>I am distracted right now</b><br>",
+        //     name: "Attention_Check_3",
+        //     ticks: ["Strongly Disagree", "Strongly Agree"],
+        //     required: true,
+        // })
 
-        for (var i = 3; i < 5; i++) {
-            state_anxiety_items.push({
-                prompt: STAIS_S[i],
-                name: STAIS_S_dim[i],
-                ticks: scale2,
-                required: true,
-            })
-        }
+        // for (var i = 3; i < 5; i++) {
+        //     state_anxiety_items.push({
+        //         prompt: STAIS_S[i],
+        //         name: STAIS_S_dim[i],
+        //         ticks: scale2,
+        //         required: true,
+        //     })
+        // }
 
-        var STAIS_State = {
-            type: jsPsychMultipleSlider,
-            questions: state_anxiety_items,
-            randomize_question_order: false,
-            preamble:
-                "<p><b>Survey 6/9</b></p>" +
-                "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment.</p>" +
-                "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
-            require_movement: true,
-            min: 0,
-            max: 100,
-            slider_start: 50,
-            on_start: function () {
-                ;(document.body.style.cursor = "auto"),
-                    (document.querySelector(
-                        "#jspsych-progressbar-container"
-                    ).style.display = "inline")
-            },
-            data: {
-                screen: "STAIS_S",
-            },
-        }
+        // var STAIS_State = {
+        //     type: jsPsychMultipleSlider,
+        //     questions: state_anxiety_items,
+        //     randomize_question_order: false,
+        //     preamble:
+        //         "<p><b>Survey 6/9</b></p>" +
+        //         "Please read each statement and indicate <b>how you feel right now</b>, that is, at this moment.</p>" +
+        //         "<p>Do not spend too much time on any one statement but give the answer which seems to describe your present feelings best.</p>",
+        //     require_movement: true,
+        //     min: 0,
+        //     max: 100,
+        //     slider_start: 50,
+        //     on_start: function () {
+        //         ;(document.body.style.cursor = "auto"),
+        //             (document.querySelector(
+        //                 "#jspsych-progressbar-container"
+        //             ).style.display = "inline")
+        //     },
+        //     data: {
+        //         screen: "STAIS_S",
+        //     },
+        // }
 
         /* Trait Anxiety *==========================*/
         var trait_anxiety_items = []

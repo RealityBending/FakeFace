@@ -157,7 +157,7 @@ preprocess_raw <- function(file) {
   data$IUS_InhibitoryAnxiety <-rowMeans(ius[grepl("Inhibitory", names(ius))])
   
   data_total<- merge(data, questionnaire, by='Participant')
-  
+  data_total
 }
 
 # This is a local folder containing raw data from unzipped pavlovia

@@ -696,7 +696,7 @@
         // Attention Check 4
         self_concept_items.push({
             prompt: "<b>Please select Not at All to demonstrate your attention</b><br>",
-            name: "Attention_Check_4",
+            name: "Attention_Check_3",
             ticks: ["Not at All", "Extremely"],
             required: true,
         })
@@ -1020,6 +1020,9 @@
                 "<p>You have come to the end of this study. </p>" +
                 "<p>Thank you for participating!</p>",
             choices: ["End"],
+            data: {
+                screen: 'end_screen'
+            }
         }
 
         timeline.push(end_screen)

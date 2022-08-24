@@ -264,19 +264,19 @@ var SCC = [
 ]
 
 var SCC_dim = [
-    "SCC_1R",
-    "SCC_2R",
-    "SCC_3R",
-    "SCC_4R",
-    "SCC_5R",
+    "SCC_1_R",
+    "SCC_2_R",
+    "SCC_3_R",
+    "SCC_4_R",
+    "SCC_5_R",
 //    "Attention_Check_4",
     "SCC_6",
-    "SCC_7R",
-    "SCC_8R",
-    "SCC_9R",
-    "SCC_10R",
+    "SCC_7_R",
+    "SCC_8_R",
+    "SCC_9_R",
+    "SCC_10_R",
     "SCC_11",
-    "SCC_12R"]
+    "SCC_12_R"]
 
 // Illusory Beliefs Inventory (Kingdon, et al., 2011)
 var IBI_kingdon = [
@@ -406,16 +406,16 @@ var GAAIS =[
 ]
 
 var GAAIS_dim =[
-    "AI_Attitude_1",
-    "GAAIS_2",
-    "AI_Attitude_3",
+    "GAAIS_1",
+    "GAAIS_2_R",
+    "GAAIS_3",
     "GAAIS_4",
-    "AI_Attitude_5",
-    "GAAIS_6",
-    "AI_Attitude_7",
+    "GAAIS_5",
+    "GAAIS_6_R",
+    "GAAIS_7",
     "GAAIS_8",
     "GAAIS_9",
-    "AI_Attitude_10",
+    "GAAIS_10_R",
 ]
 
 /*===============================================================*/

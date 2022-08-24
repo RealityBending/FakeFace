@@ -27,6 +27,7 @@ preprocess_raw <- function(file) {
     filter(screen == 'questionnaire') |>
     select(participant_id, response) |>
     jsontools::json_unnest_wider(col='response')
+  questionnaire<- questionnaire|>rename(Participant='participant_id')
     
   # Info 
   info <- file[file$screen == "browser_info" & !is.na(file$screen), ]
@@ -155,7 +156,7 @@ preprocess_raw <- function(file) {
   data$IUS_ProspectiveAnxiety <-rowMeans(ius[grepl("Prospective", names(ius))])
   data$IUS_InhibitoryAnxiety <-rowMeans(ius[grepl("Inhibitory", names(ius))])
   
-  data
+  data_total<- merge(data, questionnaire, by='Participant')
   
 }
 

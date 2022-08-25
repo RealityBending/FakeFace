@@ -1,0 +1,83 @@
+---
+title: "Face Attractiveness and the Sense of Reality"
+output: html_document
+date: "`r Sys.Date()`"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+options(
+  digits = 3,
+  mc.cores = 4,
+  brms.algorithm = "sampling",
+  brms.backend = "cmdstanr"
+)
+
+cache <- TRUE
+runModels <- FALSE
+bestModels <- FALSE
+fig.width <- see::golden_ratio(7)
+fig.height <- 7
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  dpi = 450,
+  fig.path = "./figures/",
+  fig.width = fig.width,
+  fig.height = fig.height
+)
+```
+
+
+# Introduction
+
+The goal of this study was to...
+
+# Methods
+
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggdist)
+library(ggside)
+library(easystats)
+library(patchwork)
+library(brms)
+
+df <- read.csv("data/data.csv") |>
+  mutate(
+    Date = lubridate::dmy(Date),
+    Participant = fct_reorder(Participant, Date),
+    Screen_Refresh = as.character(Screen_Refresh),
+    Illusion_Side = as.factor(Illusion_Side),
+    # Illusion_Effect = fct_relevel(as.factor(Illusion_Effect), "Incongruent", "Null", "Congruent"),
+    Illusion_Effect = fct_relevel(as.factor(Illusion_Effect), "Incongruent", "Congruent"),
+    Block = as.factor(Block),
+    Education = fct_relevel(Education, "Doctorate", "Master", "Bachelor", "High School", "Other")
+  )
+
+# Fix precision
+for(ill in unique(df$Illusion_Type)) {
+  data <- df[df$Illusion_Type == ill, ] 
+  i <- 10
+  while (length(sort(unique(signif(data$Illusion_Difference, i)))) != 8) {
+    i <- i - 1
+  }
+  df[df$Illusion_Type == ill, "Illusion_Difference"] <- signif(df[df$Illusion_Type == ill, "Illusion_Difference"], i)
+  if (i != 10) {
+    message(ill, ": Illusion_Difference values != 8. Rounded to ", i, ".")
+  }
+}
+
+# Transformation
+df <- df |> 
+  mutate(    
+    Illusion_Difference_log = log(1 + Illusion_Difference),
+    Illusion_Difference_sqrt = sqrt(Illusion_Difference),
+    Illusion_Difference_cbrt = Illusion_Difference**(1 / 3),
+    Illusion_Strength_log = sign(Illusion_Strength) * log(1 + abs(Illusion_Strength)),
+    Illusion_Strength_sqrt = sign(Illusion_Strength) * sqrt(abs(Illusion_Strength)),
+    Illusion_Strength_cbrt = sign(Illusion_Strength) * (abs(Illusion_Strength)**(1 / 3))
+    )
+```

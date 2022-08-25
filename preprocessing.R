@@ -50,12 +50,12 @@ preprocess_raw <- function(file) {
     Trial = as.numeric(trials$trial_number),
     Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", trials$stimulus)),
     RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
-    Real = datawizard::change_scale(answers$perceived_realness, to = c(-100, 100), range = c(0, 100)),
-    Attractive = answers$Attractiveness,
-    Approachable = answers$Approachability,
-    Trustworthy = answers$Trustworthiness,
-    Familiar = answers$Familiarity,
-    Similar = answers$Similarity
+    Real = datawizard::change_scale(answers$perceived_realness, to = c(-0.9999, 0.9999), range = c(0, 100)),
+    Attractive = datawizard::change_scale(answers$Attractiveness, to = c(0, 1), range = c(0, 100)),
+    Approachable = datawizard::change_scale(answers$Approachability, to = c(0, 1), range = c(0, 100)),
+    Trustworthy = datawizard::change_scale(answers$Trustworthiness, to = c(0, 1), range = c(0, 100)),
+    Familiar = datawizard::change_scale(answers$Familiarity, to = c(0, 1), range = c(0, 100)),
+    Similar = datawizard::change_scale(answers$Similarity, to = c(0, 1), range = c(0, 100))
   )
 
   # Format sexual orientation

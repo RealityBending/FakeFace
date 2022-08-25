@@ -120,9 +120,9 @@ df |>
   geom_vline(xintercept = 0, linetype = "dotted") +
   scale_y_discrete(expand = c(1, 1)) +
   scale_x_continuous(
-    limits = c(-100, 100),
+    limits = c(-1, 1),
     expand = c(0.01, 0.01),
-    breaks = c(-100, 0, 100),
+    breaks = c(-1, 0, 1),
     label = c("Fake", "0", "Real")
   ) +
   scale_fill_viridis_d() +
@@ -228,6 +228,10 @@ pred <- estimate_relation(model, at = c("Attractive"))
 
 df |> 
   ggplot(aes(x = Attractive, y = Real)) +
+  ggside::geom_xsidedensity(fill = "#F44336", color="white") +
+  ggside::geom_ysidedensity(fill = "#9C27B0", color="white") +
+  ggside::theme_ggside_void() +
+  geom_hline(yintercept = 0, linetype = "dotted") +
   geom_point() +
   geom_ribbon(data = pred, aes(y = Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.5) +
   geom_line(data = pred, aes(y = Predicted))

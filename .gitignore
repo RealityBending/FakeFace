@@ -27,7 +27,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# data/rawdata/
+data/rawdata/
 
 
 # PyInstaller

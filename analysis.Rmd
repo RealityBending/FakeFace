@@ -70,39 +70,51 @@ outliers <- c()
 
 We removed `r length(outliers)` participants upon inspection of...
 
-### Error Rate
+### Attention Checks
 
 ```{r message=FALSE, warning=FALSE}
 dfsub <- df |>
   group_by(Participant) |>
-  summarize(
-    # n = n(),
-    Error = sum(Error) / n(),
-    RT_Mean = mean(RT),
-    RT_SD = sd(RT),
-    IPIP6_SD = mean(IPIP6_SD),
-    PID5_SD = mean(PID5_SD),
-  ) |>
+  select(Participant, starts_with("Attention")) |> 
+  slice(1) |> 
   ungroup() |>
-  arrange(desc(Error))
+  mutate(Attention_Check = mean(c(Attention_Check1, Attention_Check2, Attention_Check3))) |> 
+  arrange(Attention_Check)
+```
 
+### Duration
+
+```{r message=FALSE, warning=FALSE}
+
+```
+
+### Ratings
+
+```{r message=FALSE, warning=FALSE}
+dfsub$Cor_Trustworthy <- NA
+dfsub$Cor_Attractive <- NA
+for(participant in dfsub$Participant) {
+  dfsub[dfsub$Participant == participant, "Cor_Trustworthy"] <- cor(df[df$Participant == participant, "Trustworthy"], df[df$Participant == participant, "Norms_Trustworthy"])
+  dfsub[dfsub$Participant == participant, "Cor_Attractive"] <- cor(df[df$Participant == participant, "Attractive"], df[df$Participant == participant, "Norms_Attractive"])
+}
+```
+
+```{r message=FALSE, warning=FALSE}
 data.frame(Participant = c("Total"), t(sapply(dfsub[2:ncol(dfsub)], mean, na.rm=TRUE))) |> 
   rbind(dfsub) |> 
   knitr::kable() |>
   kableExtra::row_spec(1, italic = TRUE) |> 
-  kableExtra::row_spec(which(dfsub$Participant %in% outliers) + 1, background = "#EF9A9A") |> 
-  kableExtra::row_spec(which(dfsub$Participant %in% partial_outliers) + 1, background = "#FFECB3")
+  kableExtra::row_spec(which(dfsub$Participant %in% outliers) + 1, background = "#EF9A9A")
 ```
+
 
 
 ## Participants
 
-
-
 ```{r message=FALSE, warning=FALSE}
 dfsub <- df |>
   group_by(Participant) |>
-  select(Participant, Age, Sex, Ethnicity, Education, Nationality, Device_OS, starts_with("Screen")) |>
+  select(Participant, Age, Sex, Sexual_Orientation, Ethnicity, Education, Nationality, Device_OS, starts_with("Screen")) |>
   slice(1) |>
   ungroup()
 ```
@@ -149,6 +161,9 @@ plot_waffle <- function(dfsub, what = "Nationality", title = what) {
 p4 <- plot_waffle(dfsub, "Sex") +
   scale_fill_manual(values = c("Male" = "#2196F3", "Female" = "#E91E63", "Other" = "#FF9800"))
 
+p5 <- plot_waffle(dfsub, "Sexual_Orientation")
+
+
 p5 <- plot_waffle(dfsub, "Education") +
   scale_fill_viridis_d()
 
@@ -172,3 +187,26 @@ p9 <- plot_waffle(dfsub, "Device_OS", title = "Device OS") +
 (p1 / p2 / p3) | (p4 / p5 / p9) | (p6 / p7 / p8)
 ```
 
+## Results
+
+### Manipulation Check
+
+```{r message=FALSE, warning=FALSE}
+df |> 
+  ggplot(aes(x = Real, y = Participant, fill=Participant)) +
+  ggdist::stat_slab(scale=2, slab_alpha = 0.9) + 
+  geom_vline(xintercept = 0, linetype = "dotted") +
+  scale_y_discrete(expand = c(1, 1)) +
+  scale_x_continuous(limits = c(-100, 100), 
+                     expand = c(0.01, 0.01),
+                     breaks = c(-100, 0, 100),
+                     label = c("Fake", "0", "Real")) +
+  scale_fill_viridis_d() +
+  labs(x = "Simulation Monitoring", y = "Participants", title= "Distribution of Reality Judgments") +
+  guides(fill = "none") +
+  see::theme_modern() +
+  theme(axis.text.y = element_blank(),
+        plot.title = element_text(face = "bold", hjust = 0.5))
+```
+
+### Simulation Monitoring

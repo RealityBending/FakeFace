@@ -58,6 +58,9 @@ preprocess_raw <- function(file) {
     Similar = answers$Similarity
   )
 
+  # Format sexual orientation
+  df$Sexual_Orientation <- ifelse(df$Sexual_Orientation == "Other", jsonlite::fromJSON(dem[4])$sexual_orientation, df$Sexual_Orientation)
+
   # Format education
   df$Education <- gsub("University (", "", df$Education, fixed = TRUE)
   df$Education <- gsub(")", "", df$Education, fixed = TRUE)
@@ -142,7 +145,7 @@ preprocess_raw <- function(file) {
   # Attention checks
   df$Attention_Check1 <- sias$Attention_Check_1
   df$Attention_Check2 <- ffni$Attention_Check_2
-  df$Attention_Check3 <- scc$Attention_Check_3
+  df$Attention_Check3 <- 100 - scc$Attention_Check_3  # Reversed
 
   # Combine with Norms data
   norms <- read.csv("experiment/stimuli/AMFD_norms.csv")

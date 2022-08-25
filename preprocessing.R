@@ -1,7 +1,7 @@
 unnest <- function(file, scale) {
   data <- file |>
-    filter(screen == scale) |>
-    select(participant_id, response) |>
+    dplyr::filter(screen == scale) |>
+    dplyr::select(participant_id, response) |>
     jsontools::json_unnest_wider(col = "response")
   data
 }
@@ -18,7 +18,7 @@ preprocess_raw <- function(file) {
 
   # Demographics
   dem <- data[data$screen == "demographics" & !is.na(data$screen), "response"]
-
+  
   # Trials
   trials <- data[data$screen == "stimuli", ]
   answers <- unnest(data, "questionnaire")
@@ -80,14 +80,19 @@ preprocess_raw <- function(file) {
   df$IPIP6_Openness <- rowMeans(ipip6[grepl("Openness", names(ipip6))])
   df$IPIP6_HonestyHumility <- rowMeans(ipip6[grepl("HonestyHumility", names(ipip6))])
   df$IPIP6_Agreeableness <- rowMeans(ipip6[grepl("Agreeableness", names(ipip6))])
+  df$IPIP6_RT <- as.numeric(data[data$screen =='IPIP6', 'rt'])
+  
 
   # SIAS + Attention Check 1
   sias <- unnest(data, "SIAS")
   df$Social_Anxiety <- rowMeans(sias[grepl("SIAS", names(sias))])
-
+  df$SIAS_RT <- as.numeric(data[data$screen =='SIAS', 'rt'])
+  
   # SPS
   sps <- unnest(data, "SPS")
-  data$Social_Phobia <- rowMeans(sps[grepl("Social_Phobia", names(sps))])
+  df$Social_Phobia <- rowMeans(sps[grepl("Social_Phobia", names(sps))])
+  df$SocialPhobia_RT <- as.numeric(data[data$screen =='SPS', 'rt'])
+  
 
   # GAAIS
   gaais <- unnest(data, "GAAIS")
@@ -102,6 +107,8 @@ preprocess_raw <- function(file) {
   df$AI_8_Exciting <- gaais$GAAIS_8
   df$AI_9_Applications <- gaais$GAAIS_9
   df$AI_10_FaceErrors <- gaais$GAAIS_10
+  df$AI_RT <- as.numeric(data[data$screen =='GAAIS', 'rt'])
+  
 
 
 
@@ -122,12 +129,16 @@ preprocess_raw <- function(file) {
   df$FFNI_ReactiveAnger <- rowMeans(ffni[grepl("Reactive", names(ffni))])
   df$FFNI_Shame <- rowMeans(ffni[grepl("Shame", names(ffni))])
   df$FFNI_ThrillSeeking <- rowMeans(ffni[grepl("Thrill", names(ffni))])
+  df$FFNI_RT <- as.numeric(data[data$screen =='FFNI-BF', 'rt'])
+  
 
 
   # GPTS
   gpts <- unnest(data, "GPTS")
   df$GPTS_Reference <- rowMeans(gpts[grepl("Reference", names(gpts))])
   df$GPTS_Persecution <- rowMeans(gpts[grepl("Persecution", names(gpts))])
+  df$GPTS_RT <- as.numeric(data[data$screen =='GPTS', 'rt'])
+  
 
   # SCC + Attention Check 3
   scc <- unnest(data, "SCC")
@@ -136,16 +147,23 @@ preprocess_raw <- function(file) {
 
   df$SelfAttractiveness1 <- scc$self_rated_general_attractiveness
   df$SelfAttractiveness2 <- scc$self_rated_physical_attractiveness
+  df$SelfConceptClarity_RT <- as.numeric(data[data$screen =='SCC', 'rt'])
+
 
   # IUS
   ius <- unnest(data, "IUS")
   df$IUS_ProspectiveAnxiety <- rowMeans(ius[grepl("Prospective", names(ius))])
   df$IUS_InhibitoryAnxiety <- rowMeans(ius[grepl("Inhibitory", names(ius))])
+  df$IUS_RT <- as.numeric(data[data$screen =='IUS', 'rt'])
+  
 
   # Attention checks
   df$Attention_Check1 <- sias$Attention_Check_1
   df$Attention_Check2 <- ffni$Attention_Check_2
   df$Attention_Check3 <- 100 - scc$Attention_Check_3  # Reversed
+  
+  # Total Time taken for Task & Scales 
+  df$Aggregated_RT <-rowSums(df[grepl("_RT", names(df))]) + sum(df$RT)
 
   # Combine with Norms data
   norms <- read.csv("experiment/stimuli/AMFD_norms.csv")

@@ -45,39 +45,130 @@ library(easystats)
 library(patchwork)
 library(brms)
 
-df <- read.csv("data/data.csv") |>
-  mutate(
-    Date = lubridate::dmy(Date),
-    Participant = fct_reorder(Participant, Date),
-    Screen_Refresh = as.character(Screen_Refresh),
-    Illusion_Side = as.factor(Illusion_Side),
-    # Illusion_Effect = fct_relevel(as.factor(Illusion_Effect), "Incongruent", "Null", "Congruent"),
-    Illusion_Effect = fct_relevel(as.factor(Illusion_Effect), "Incongruent", "Congruent"),
-    Block = as.factor(Block),
-    Education = fct_relevel(Education, "Doctorate", "Master", "Bachelor", "High School", "Other")
-  )
+df <- read.csv("data/data.csv") 
+# |>
+#   mutate(
+#     Date = lubridate::dmy(Date),
+#     Participant = fct_reorder(Participant, Date),
+#     Screen_Refresh = as.character(Screen_Refresh),
+#     Illusion_Side = as.factor(Illusion_Side),
+#     # Illusion_Effect = fct_relevel(as.factor(Illusion_Effect), "Incongruent", "Null", "Congruent"),
+#     Illusion_Effect = fct_relevel(as.factor(Illusion_Effect), "Incongruent", "Congruent"),
+#     Block = as.factor(Block),
+#     Education = fct_relevel(Education, "Doctorate", "Master", "Bachelor", "High School", "Other")
+#   )
 
-# Fix precision
-for(ill in unique(df$Illusion_Type)) {
-  data <- df[df$Illusion_Type == ill, ] 
-  i <- 10
-  while (length(sort(unique(signif(data$Illusion_Difference, i)))) != 8) {
-    i <- i - 1
-  }
-  df[df$Illusion_Type == ill, "Illusion_Difference"] <- signif(df[df$Illusion_Type == ill, "Illusion_Difference"], i)
-  if (i != 10) {
-    message(ill, ": Illusion_Difference values != 8. Rounded to ", i, ".")
-  }
+```
+
+
+
+## Exclusions {.tabset}
+
+```{r message=FALSE, warning=FALSE}
+outliers <- c()
+```
+
+We removed `r length(outliers)` participants upon inspection of...
+
+### Error Rate
+
+```{r message=FALSE, warning=FALSE}
+dfsub <- df |>
+  group_by(Participant) |>
+  summarize(
+    # n = n(),
+    Error = sum(Error) / n(),
+    RT_Mean = mean(RT),
+    RT_SD = sd(RT),
+    IPIP6_SD = mean(IPIP6_SD),
+    PID5_SD = mean(PID5_SD),
+  ) |>
+  ungroup() |>
+  arrange(desc(Error))
+
+data.frame(Participant = c("Total"), t(sapply(dfsub[2:ncol(dfsub)], mean, na.rm=TRUE))) |> 
+  rbind(dfsub) |> 
+  knitr::kable() |>
+  kableExtra::row_spec(1, italic = TRUE) |> 
+  kableExtra::row_spec(which(dfsub$Participant %in% outliers) + 1, background = "#EF9A9A") |> 
+  kableExtra::row_spec(which(dfsub$Participant %in% partial_outliers) + 1, background = "#FFECB3")
+```
+
+
+## Participants
+
+
+
+```{r message=FALSE, warning=FALSE}
+dfsub <- df |>
+  group_by(Participant) |>
+  select(Participant, Age, Sex, Ethnicity, Education, Nationality, Device_OS, starts_with("Screen")) |>
+  slice(1) |>
+  ungroup()
+```
+
+The final sample included `r report::report_participants(dfsub, age="Age", sex="Sex")`.
+
+```{r }
+plot_distribution <- function(dfsub, what = "Age", title = what, subtitle = "", fill = "orange") {
+  dfsub |>
+    ggplot(aes_string(x = what)) +
+    geom_density(fill = fill) +
+    geom_vline(xintercept = mean(dfsub[[what]]), color = "red", linetype = "dashed") +
+    scale_x_continuous(expand = c(0, 0)) +
+    scale_y_continuous(expand = c(0, 0)) +
+    ggtitle(title, subtitle = subtitle) +
+    theme_modern() +
+    theme(
+      plot.title = element_text(face = "bold", hjust = 0.5),
+      plot.subtitle = element_text(face = "italic", hjust = 0.5),
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.y = element_blank()
+    )
 }
 
-# Transformation
-df <- df |> 
-  mutate(    
-    Illusion_Difference_log = log(1 + Illusion_Difference),
-    Illusion_Difference_sqrt = sqrt(Illusion_Difference),
-    Illusion_Difference_cbrt = Illusion_Difference**(1 / 3),
-    Illusion_Strength_log = sign(Illusion_Strength) * log(1 + abs(Illusion_Strength)),
-    Illusion_Strength_sqrt = sign(Illusion_Strength) * sqrt(abs(Illusion_Strength)),
-    Illusion_Strength_cbrt = sign(Illusion_Strength) * (abs(Illusion_Strength)**(1 / 3))
-    )
+plot_waffle <- function(dfsub, what = "Nationality", title = what) {
+  ggwaffle::waffle_iron(dfsub, what) |>
+    # mutate(label = emojifont::fontawesome('fa-person')) |>
+    ggplot(aes(x, y, fill = group)) +
+    ggwaffle::geom_waffle() +
+    coord_equal() +
+    ggtitle(title) +
+    labs(fill = "") +
+    theme_void() +
+    theme(plot.title = element_text(face = "bold", hjust = 0.5))
+}
 ```
+
+```{r fig.width=20, fig.height=15}
+# p1 <- plot_distribution(dfsub, "Age", fill = "#FF9800")
+# p2 <- plot_distribution(dfsub, "Duration", title = "Total Duration", subtitle = "in minutes", fill = "#F44336")
+# p3 <- plot_distribution(dfsub, "Break_Duration", title = "Break Duration", subtitle = "in minutes", fill = "#3F51B5")
+
+p4 <- plot_waffle(dfsub, "Sex") +
+  scale_fill_manual(values = c("Male" = "#2196F3", "Female" = "#E91E63", "Other" = "#FF9800"))
+
+p5 <- plot_waffle(dfsub, "Education") +
+  scale_fill_viridis_d()
+
+p6 <- plot_waffle(dfsub, "Nationality") +
+  scale_fill_manual(values = c("South American" = "#FF5722", "Middle Eastern" = "#FF9800", "Western" = "#2196F3", "Eastern" = "#673AB7", "African" = "#4CAF50", "South African" = "#009688"))
+
+p7 <- plot_waffle(dfsub, "Ethnicity") +
+  scale_fill_manual(values = c("Latino" = "#FF5722", "Asian" = "#FF9800", "Caucasian" = "#2196F3", "African" = "#4CAF50", "Jewish" = "#9C27B0", "Mixed" = "#795548"))
+
+p8 <- plot_waffle(dfsub, "Screen_Resolution", title = "Screen Resolution") +
+  scale_fill_pizza_d() +
+  guides(fill = "none")
+
+p9 <- plot_waffle(dfsub, "Device_OS", title = "Device OS") +
+  scale_fill_bluebrown_d()
+
+# p10 <- plot_waffle(dfsub, "Screen_Refresh") +
+#   scale_fill_viridis_d()
+
+
+(p1 / p2 / p3) | (p4 / p5 / p9) | (p6 / p7 / p8)
+```
+

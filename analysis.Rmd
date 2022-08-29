@@ -74,17 +74,19 @@ We removed `r length(outliers)` participants upon inspection of...
 ```{r message=FALSE, warning=FALSE}
 dfsub <- df |>
   group_by(Participant) |>
-  select(Participant, starts_with("Attention")) |>
+  select(Participant, starts_with("Attention"), starts_with("Duration")) |>
   slice(1) |>
   ungroup() |>
-  mutate(Attention_Check = mean(c(Attention_Check1, Attention_Check2, Attention_Check3))) |>
+  rowwise() |> 
+  mutate(Attention_Check = mean(c(Attention_Check1, Attention_Check2, Attention_Check3))) |> 
+  ungroup() |> 
   arrange(Attention_Check)
 ```
 
 ### Duration
 
 ```{r message=FALSE, warning=FALSE}
-
+df 
 ```
 
 ### Ratings
@@ -101,6 +103,16 @@ for (participant in dfsub$Participant) {
 ```{r message=FALSE, warning=FALSE}
 data.frame(Participant = c("Total"), t(sapply(dfsub[2:ncol(dfsub)], mean, na.rm = TRUE))) |>
   rbind(dfsub) |>
+  mutate(Attention_Check = paste0(
+    insight::format_value(Attention_Check, 1), 
+    " (", insight::format_value(Attention_Check1, 0), 
+    ", ",
+    insight::format_value(Attention_Check2, 0), 
+    ", ",
+    insight::format_value(Attention_Check3, 0),
+    ")")) |> 
+  select(-Attention_Check1, -Attention_Check2, -Attention_Check3) |> 
+  datawizard::data_relocate("Attention_Check", 2) |> 
   knitr::kable() |>
   kableExtra::row_spec(1, italic = TRUE) |>
   kableExtra::row_spec(which(dfsub$Participant %in% outliers) + 1, background = "#EF9A9A")

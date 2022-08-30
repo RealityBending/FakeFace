@@ -52,6 +52,7 @@ preprocess_raw <- function(file) {
     Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", trials$stimulus)),
     RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
     SimulationMonitoring = datawizard::change_scale(answers$perceived_realness, to = c(-1, 1), range = c(0, 100)),
+    ISI = as.numeric(data[data$screen == "fixation", "trial_duration"]),
     Real = datawizard::change_scale(answers$perceived_realness, to = c(0.0001, 0.9999), range = c(0, 100)),
     Attractive = datawizard::change_scale(answers$Attractiveness, to = c(0.0001, 0.9999), range = c(0, 100)),
     Approachable = datawizard::change_scale(answers$Approachability, to = c(0.0001, 0.9999), range = c(0, 100)),

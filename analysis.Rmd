@@ -45,18 +45,22 @@ library(easystats)
 library(patchwork)
 library(brms)
 
-df <- read.csv("data/data.csv")
-# |>
-#   mutate(
-#     Date = lubridate::dmy(Date),
-#     Participant = fct_reorder(Participant, Date),
-#     Screen_Refresh = as.character(Screen_Refresh),
-#     Illusion_Side = as.factor(Illusion_Side),
-#     # Illusion_Effect = fct_relevel(as.factor(Illusion_Effect), "Incongruent", "Null", "Congruent"),
-#     Illusion_Effect = fct_relevel(as.factor(Illusion_Effect), "Incongruent", "Congruent"),
-#     Block = as.factor(Block),
+df <- read.csv("data/data.csv") |>
+  mutate(
+    Date = lubridate::dmy(Date),
+    Participant = fct_reorder(Participant, Date),
+    Screen_Refresh = as.character(Screen_Refresh)
 #     Education = fct_relevel(Education, "Doctorate", "Master", "Bachelor", "High School", "Other")
-#   )
+  )
+
+# Create individual scores for Simulation Moniroting
+df <- df |> 
+  mutate(Belief = ifelse(SimulationMonitoring >= 0, "Real", "Fake")) |> 
+  group_by(Participant, Belief) |> 
+  summarise(Confidence = mean(abs(SimulationMonitoring))) |> 
+  pivot_wider(names_from = "Belief", values_from = "Confidence") |> 
+  transmute(Participant, ConfidenceReality=Real, ConfidenceSimulation=Fake) |> 
+  merge(df, by="Participant")
 ```
 
 
@@ -268,6 +272,9 @@ p9 <- plot_waffle(dfsub, "Device_OS", title = "Device OS") +
 
 ### Manipulation Check
 
+#### Real / Fake
+
+
 ```{r message=FALSE, warning=FALSE}
 df |>
   # mutate(Participant = fct_relevel(Participant, group_by(df, Participant) |>
@@ -284,7 +291,7 @@ df |>
     limits = c(0, 1),
     expand = c(0, 0),
     breaks = c(0, 0.5, 1),
-    label = c("Fake", "0", "Real")
+    label = c("Fake", "", "Real")
   ) +
   scale_fill_viridis_d() +
   labs(x = "Simulation Monitoring", y = "Participants", title = "Distribution of Reality Judgments") +
@@ -296,7 +303,7 @@ df |>
   )
 ```
 
-### Colinearity
+#### Colinearity
 
 ```{r message=FALSE, warning=FALSE}
 IVs <- c("Attractive", "Trustworthy", "Approachable", "Familiar", "Similar")
@@ -363,7 +370,7 @@ dats |>
 ### Reality and Attractiveness
 
 ```{r message=FALSE, warning=FALSE}
-model <- glmmTMB::glmmTMB(Real ~ poly(Attractive, 2) + poly(Trustworthy, 2) +
+model <- glmmTMB::glmmTMB(Real ~ poly(Attractive, 2) +
                             (1|Participant) + (1|Stimulus), data = df, family=glmmTMB::beta_family())
 model <- mgcv::gamm(Real ~ s(Attractive) + Trustworthy, random = list(Participant=~1, Stimulus=~1), data = df, family=mgcv::betar())
 
@@ -388,11 +395,53 @@ df |>
   scale_fill_viridis_c(guide="none") +
   scale_x_continuous(expand=c(0, 0)) +
   scale_y_continuous(expand=c(0, 0))
+```
 
+### Reality and Trustworthiness
+
+```{r message=FALSE, warning=FALSE}
+model <- glmmTMB::glmmTMB(Real ~ poly(Trustworthy, 2) +
+                            (1|Participant) + (1|Stimulus), data = df, family=glmmTMB::beta_family())
+
+parameters::parameters(model)
+```
+
+```{r message=FALSE, warning=FALSE}
 pred <- estimate_relation(model, at = c("Trustworthy"), length=20)
 
 df |> 
   ggplot(aes(x = Trustworthy, y = Real)) +
+  ggside::geom_xsidedensity(fill = "grey", color="white") +
+  ggside::geom_ysidedensity(fill = "grey", color="white") +
+  ggside::theme_ggside_void() +
+  ggside::scale_ysidex_continuous(expand = c(0, 0)) +
+  ggside::scale_xsidey_continuous(expand = c(0, 0)) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  geom_hline(yintercept = 0.5, linetype = "dotted") +
+  geom_point2(alpha=0.25, size=4, color="white") +
+  geom_ribbon(data = pred, aes(y = Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.5) +
+  geom_line(data = pred, aes(y = Predicted)) +
+  scale_fill_viridis_c(guide="none") +
+  scale_x_continuous(expand=c(0, 0)) +
+  scale_y_continuous(expand=c(0, 0))
+```
+
+
+### Reality and Familiarity
+
+```{r message=FALSE, warning=FALSE}
+model <- glmmTMB::glmmTMB(Real ~ poly(Familiar, 2) +
+                            (1|Participant) + (1|Stimulus), data = df, family=glmmTMB::beta_family())
+model <- mgcv::gamm(Real ~ s(Attractive) + Trustworthy, random = list(Participant=~1, Stimulus=~1), data = df, family=mgcv::betar())
+
+parameters::parameters(model)
+```
+
+```{r message=FALSE, warning=FALSE}
+pred <- estimate_relation(model, at = c("Familiar"), length=20)
+
+df |> 
+  ggplot(aes(x = Familiar, y = Real)) +
   ggside::geom_xsidedensity(fill = "grey", color="white") +
   ggside::geom_ysidedensity(fill = "grey", color="white") +
   ggside::theme_ggside_void() +

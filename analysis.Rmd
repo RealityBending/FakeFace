@@ -69,7 +69,7 @@ outliers <- c()
 
 We removed `r length(outliers)` participants upon inspection of...
 
-### Attention Checks
+### Attention Checks and Duration
 
 ```{r message=FALSE, warning=FALSE}
 dfsub <- df |>
@@ -83,11 +83,6 @@ dfsub <- df |>
   arrange(Attention_Check)
 ```
 
-### Duration
-
-```{r message=FALSE, warning=FALSE}
-df 
-```
 
 ### Ratings
 
@@ -99,6 +94,8 @@ for (participant in dfsub$Participant) {
   dfsub[dfsub$Participant == participant, "Cor_Attractive"] <- cor(df[df$Participant == participant, "Attractive"], df[df$Participant == participant, "Norms_Attractive"])
 }
 ```
+
+### Summary
 
 ```{r message=FALSE, warning=FALSE}
 data.frame(Participant = c("Total"), t(sapply(dfsub[2:ncol(dfsub)], mean, na.rm = TRUE))) |>
@@ -118,33 +115,64 @@ data.frame(Participant = c("Total"), t(sapply(dfsub[2:ncol(dfsub)], mean, na.rm 
   kableExtra::row_spec(which(dfsub$Participant %in% outliers) + 1, background = "#EF9A9A")
 ```
 
-### Manipulation Check
-
 ```{r message=FALSE, warning=FALSE}
-df |>
-  mutate(Participant = fct_relevel(Participant, group_by(df, Participant) |>
-    summarize(Real = mean(Real)) |>
-    ungroup() |>
-    arrange(Real) |>
-    pull(Participant))) |>
-  ggplot(aes(x = Real, y = Participant, fill = Participant)) +
-  ggdist::stat_slab(scale = 2, slab_alpha = 0.9) +
-  geom_vline(xintercept = 0, linetype = "dotted") +
-  scale_y_discrete(expand = c(1, 1)) +
-  scale_x_continuous(
-    limits = c(-1, 1),
-    expand = c(0.01, 0.01),
-    breaks = c(-1, 0, 1),
-    label = c("Fake", "0", "Real")
-  ) +
-  scale_fill_viridis_d() +
-  labs(x = "Simulation Monitoring", y = "Participants", title = "Distribution of Reality Judgments") +
-  guides(fill = "none") +
+p_att <- dfsub |>
+  select(Participant, starts_with("Att")) |> 
+  pivot_longer(-Participant) |> 
+  # mutate(name = str_remove(name, "Cor_")) |> 
+  ggplot(aes(x = Participant, y = value)) +
+  geom_bar(aes(fill = name), stat = "identity", position = "dodge") +
+  scale_y_continuous(expand = c(0, 0)) +
+  scale_fill_manual(values = c("black", "#2196F3", "#3F51B5", "#673AB7")) +
+  scale_color_manual(values = c("black", "#2196F3", "#3F51B5", "#673AB7")) +
   see::theme_modern() +
-  theme(
-    axis.text.y = element_blank(),
-    plot.title = element_text(face = "bold", hjust = 0.5)
-  )
+  theme(axis.text.x = element_text(angle = 45, hjust=1),
+        legend.position = "top") +
+  labs(y = "Score", fill="") +
+  guides(color = "none") +
+  ggside::geom_ysidedensity(aes(x= after_stat(scaled), color = name)) +
+  ggside::theme_ggside_void() +
+  ggside::scale_ysidex_continuous(expand = c(0, 0))
+
+p_time <- dfsub |>
+  select(Participant, starts_with("Duration")) |> 
+  pivot_longer(-Participant) |> 
+  mutate(name = str_remove(name, "Duration_")) |> 
+  ggplot(aes(x = Participant, y = value)) +
+  geom_bar(aes(fill = name), stat = "identity", position = "dodge") +
+  scale_y_continuous(expand = c(0, 0)) +
+  scale_fill_manual(values = c("#4CAF50", "#FF9800")) +
+  scale_color_manual(values = c("#4CAF50", "#FF9800")) +
+  see::theme_modern() +
+  theme(axis.text.x = element_text(angle = 45, hjust=1),
+        legend.position = "top") +
+  labs(y = "Duration (min)", fill="") +
+  guides(color = "none") +
+  ggside::geom_ysidedensity(aes(x= after_stat(scaled), color = name)) +
+  ggside::theme_ggside_void() +
+  ggside::scale_ysidex_continuous(expand = c(0, 0))
+  
+p_cor <- dfsub |>
+  select(Participant, starts_with("Cor")) |> 
+  pivot_longer(-Participant) |> 
+  mutate(name = str_remove(name, "Cor_")) |> 
+  ggplot(aes(x = Participant, y = value)) +
+  geom_bar(aes(fill = name), stat = "identity", position = "dodge") +
+  scale_y_continuous(expand = c(0, 0)) +
+  scale_fill_manual(values = c("#F44336", "#9C27B0")) +
+  scale_color_manual(values = c("#F44336", "#9C27B0")) +
+  see::theme_modern() +
+  theme(axis.text.x = element_text(angle = 45, hjust=1),
+        legend.position = "top") +
+  labs(y = "Correlation", fill="") +
+  guides(color = "none") +
+  ggside::geom_ysidedensity(aes(x= after_stat(scaled), color = name)) +
+  ggside::theme_ggside_void() +
+  ggside::scale_ysidex_continuous(expand = c(0, 0))
+
+(p_att + theme(axis.text.x = element_blank())) / 
+  (p_time + theme(axis.text.x = element_blank())) /
+  (p_cor)
 ```
 
 
@@ -165,7 +193,6 @@ plot_distribution <- function(dfsub, what = "Age", title = what, subtitle = "", 
   dfsub |>
     ggplot(aes_string(x = what)) +
     geom_density(fill = fill) +
-    geom_vline(xintercept = mean(dfsub[[what]]), color = "red", linetype = "dashed") +
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
     ggtitle(title, subtitle = subtitle) +
@@ -179,15 +206,24 @@ plot_distribution <- function(dfsub, what = "Age", title = what, subtitle = "", 
     )
 }
 
-plot_waffle <- function(dfsub, what = "Nationality", title = what) {
-  ggwaffle::waffle_iron(dfsub, what) |>
-    # mutate(label = emojifont::fontawesome('fa-person')) |>
-    ggplot(aes(x, y, fill = group)) +
-    ggwaffle::geom_waffle() +
+plot_waffle <- function(dfsub, what = "Nationality", title = what, rows = 8, size=3) {
+  library(emojifont)
+  ggwaffle::waffle_iron(dfsub, what, rows = rows) |>
+    # mutate(label = emojifont::fontawesome('fa-smiley')) |>
+    # mutate(label = emojifont::emoji('smiley')) |>
+    ggplot(aes(x, y)) +
+    geom_point(aes(color = group), shape = "square", size=size) +
+    # ggwaffle::geom_waffle(color = "white") +
+    # geom_point() +
+    # geom_text(aes(color=group ,label=label), family='fontawesome-webfont', size=4) +
+    # geom_text(aes(color=group ,label=label), family='EmojiOne', size=4) +
     coord_equal() +
     ggtitle(title) +
-    labs(fill = "") +
+    labs(fill = "", color = "") +
+    # scale_x_continuous(expand = c(0, 0)) +
+    # scale_y_continuous(expand = c(0, 0)) +
     theme_void() +
+    # ggwaffle::theme_waffle() +
     theme(plot.title = element_text(face = "bold", hjust = 0.5))
 }
 ```
@@ -198,7 +234,7 @@ plot_waffle <- function(dfsub, what = "Nationality", title = what) {
 # p3 <- plot_distribution(dfsub, "Break_Duration", title = "Break Duration", subtitle = "in minutes", fill = "#3F51B5")
 
 p4 <- plot_waffle(dfsub, "Sex") +
-  scale_fill_manual(values = c("Male" = "#2196F3", "Female" = "#E91E63", "Other" = "#FF9800"))
+  scale_color_manual(values = c("Male" = "#2196F3", "Female" = "#E91E63", "Other" = "#FF9800"))
 
 p5 <- plot_waffle(dfsub, "Sexual_Orientation")
 
@@ -223,28 +259,151 @@ p9 <- plot_waffle(dfsub, "Device_OS", title = "Device OS") +
 #   scale_fill_viridis_d()
 
 
-(p1 / p2 / p3) | (p4 / p5 / p9) | (p6 / p7 / p8)
+# (p1 / p2 / p3) | (p4 / p5 / p9) | (p6 / p7 / p8)
 ```
 
 ## Results
 
 
-### Reality and Attractiveness
+
+### Manipulation Check
 
 ```{r message=FALSE, warning=FALSE}
-model <- glmmTMB::glmmTMB(Real ~ Attractive + (1|Participant), data = df)
+df |>
+  # mutate(Participant = fct_relevel(Participant, group_by(df, Participant) |>
+  #   summarize(Real = mean(Real)) |>
+  #   ungroup() |>
+  #   arrange(Real) |>
+  #   pull(Participant))) |>
+  mutate(Participant = fct_relevel(Participant, dfsub$Participant)) |> 
+  ggplot(aes(x = Real, y = Participant, fill = Participant)) +
+  ggdist::stat_slab(scale = 2, slab_alpha = 0.9, normalize = "groups") +
+  geom_vline(xintercept = 0.5, linetype = "dotted") +
+  scale_y_discrete(expand = c(1, 1)) +
+  scale_x_continuous(
+    limits = c(0, 1),
+    expand = c(0, 0),
+    breaks = c(0, 0.5, 1),
+    label = c("Fake", "0", "Real")
+  ) +
+  scale_fill_viridis_d() +
+  labs(x = "Simulation Monitoring", y = "Participants", title = "Distribution of Reality Judgments") +
+  guides(fill = "none") +
+  see::theme_modern() +
+  theme(
+    # axis.text.y = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+```
+
+### Colinearity
+
+```{r message=FALSE, warning=FALSE}
+IVs <- c("Attractive", "Trustworthy", "Approachable", "Familiar", "Similar")
+
+preds <- data.frame()
+dats <- data.frame()
+for(x in IVs) {
+  for(y in IVs) {
+    if(x == y) next
+    print(paste(y, "~", x))
+    model <- glmmTMB::glmmTMB(as.formula(
+      paste(y, "~", x, " * Stimulus_SameSex + (1|Participant) + (1|Stimulus)")), 
+      data = df, 
+      family=glmmTMB::beta_family()
+      )
+    
+    # model <- mgcv::gamm(Real ~ s(Attractive) + Trustworthy, 
+    #                     random = list(Participant=~1, Stimulus=~1), 
+    #                     data = df, 
+    #                     family=mgcv::betar())
+    
+    pred <- estimate_relation(model, at=c(x, "Stimulus_SameSex"), length=20)
+    pred$y <- y
+    pred <- data_rename(pred, x, "Score")
+    pred$x <- x
+    preds <- rbind(preds, pred)
+    
+    dats <- rbind(dats, data.frame(Score = df[[x]], Predicted = df[[y]], x=x, y=y))
+  }
+} 
+
+dats <- mutate(dats, x = fct_relevel(x, IVs), y = fct_relevel(y, IVs))
+preds <- mutate(preds, x = fct_relevel(x, IVs), y = fct_relevel(y, IVs))
 ```
 
 ```{r message=FALSE, warning=FALSE}
-pred <- estimate_relation(model, at = c("Attractive"))
+dats |> 
+  ggplot(aes(x = Score, y = Predicted)) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  geom_ribbon(data=preds, aes(ymin = CI_low, ymax = CI_high, group=Stimulus_SameSex), alpha = 0.3) +
+  geom_line(data=preds, aes(color=Stimulus_SameSex)) +
+  scale_fill_gradientn(colors=c("white", "#FF9800", "#F44336"), guide="none") +
+  scale_x_continuous(expand=c(0, 0)) +
+  scale_y_continuous(expand=c(0, 0)) +
+  facet_grid(y~x, switch = "both") +
+  theme_modern() +
+  labs(title = "Collinearity in the Stimuli Ratings") +
+  theme(
+    aspect.ratio = 1,
+    strip.background = element_blank(),
+    strip.placement = "outside",
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    plot.title = element_text(face="bold", hjust=0.5)
+  ) +
+  ggside::geom_xsidedensity(fill = "grey", color="white") +
+  ggside::geom_ysidedensity(fill = "grey", color="white") +
+  ggside::theme_ggside_void() +
+  ggside::scale_ysidex_continuous(expand = c(0, 0)) +
+  ggside::scale_xsidey_continuous(expand = c(0, 0)) +
+  ggside::ggside(collapse = "all") 
+```
+
+### Reality and Attractiveness
+
+```{r message=FALSE, warning=FALSE}
+model <- glmmTMB::glmmTMB(Real ~ poly(Attractive, 2) + poly(Trustworthy, 2) +
+                            (1|Participant) + (1|Stimulus), data = df, family=glmmTMB::beta_family())
+model <- mgcv::gamm(Real ~ s(Attractive) + Trustworthy, random = list(Participant=~1, Stimulus=~1), data = df, family=mgcv::betar())
+
+parameters::parameters(model)
+```
+
+```{r message=FALSE, warning=FALSE}
+pred <- estimate_relation(model, at = c("Attractive"), length=20)
 
 df |> 
   ggplot(aes(x = Attractive, y = Real)) +
-  ggside::geom_xsidedensity(fill = "#F44336", color="white") +
-  ggside::geom_ysidedensity(fill = "#9C27B0", color="white") +
+  ggside::geom_xsidedensity(fill = "grey", color="white") +
+  ggside::geom_ysidedensity(fill = "grey", color="white") +
   ggside::theme_ggside_void() +
-  geom_hline(yintercept = 0, linetype = "dotted") +
-  geom_point() +
+  ggside::scale_ysidex_continuous(expand = c(0, 0)) +
+  ggside::scale_xsidey_continuous(expand = c(0, 0)) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  geom_hline(yintercept = 0.5, linetype = "dotted") +
+  geom_point2(alpha=0.25, size=4, color="white") +
   geom_ribbon(data = pred, aes(y = Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.5) +
-  geom_line(data = pred, aes(y = Predicted))
+  geom_line(data = pred, aes(y = Predicted)) +
+  scale_fill_viridis_c(guide="none") +
+  scale_x_continuous(expand=c(0, 0)) +
+  scale_y_continuous(expand=c(0, 0))
+
+pred <- estimate_relation(model, at = c("Trustworthy"), length=20)
+
+df |> 
+  ggplot(aes(x = Trustworthy, y = Real)) +
+  ggside::geom_xsidedensity(fill = "grey", color="white") +
+  ggside::geom_ysidedensity(fill = "grey", color="white") +
+  ggside::theme_ggside_void() +
+  ggside::scale_ysidex_continuous(expand = c(0, 0)) +
+  ggside::scale_xsidey_continuous(expand = c(0, 0)) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  geom_hline(yintercept = 0.5, linetype = "dotted") +
+  geom_point2(alpha=0.25, size=4, color="white") +
+  geom_ribbon(data = pred, aes(y = Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.5) +
+  geom_line(data = pred, aes(y = Predicted)) +
+  scale_fill_viridis_c(guide="none") +
+  scale_x_continuous(expand=c(0, 0)) +
+  scale_y_continuous(expand=c(0, 0))
 ```

@@ -39,7 +39,7 @@ preprocess_raw <- function(file) {
     Ethnicity = tools::toTitleCase(jsonlite::fromJSON(dem[1])$ethnicity),
     Date = ifelse(is.null(info$date), NA, info$date),
     Time = ifelse(is.null(info$time), NA, info$time),
-    Duration_Questionnaire = sum(as.numeric(data[data$screen %in% c('IUS', 'IPIP6', 'SIAS', 'SPS', 'GAAIS', 'FFNI-BF', 'GPTS', 'SCC'), 'rt'])) / 1000 / 60,
+    Duration_Questionnaires = sum(as.numeric(data[data$screen %in% c('IUS', 'IPIP6', 'SIAS', 'SPS', 'GAAIS', 'FFNI-BF', 'GPTS', 'SCC'), 'rt'])) / 1000 / 60,
     Duration_Task = sum(as.numeric(data[data$screen == "questionnaire", "rt"])) / 1000 / 60,
     Screen_Resolution = paste0(info$screen_width, "x", info$screen_height),
     Screen_Size = (as.numeric(info$screen_width) / 1000) * (as.numeric(info$screen_height) / 1000),
@@ -51,12 +51,12 @@ preprocess_raw <- function(file) {
     Trial = as.numeric(trials$trial_number),
     Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", trials$stimulus)),
     RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
-    Real = datawizard::change_scale(answers$perceived_realness, to = c(-0.9999, 0.9999), range = c(0, 100)),
-    Attractive = datawizard::change_scale(answers$Attractiveness, to = c(0, 1), range = c(0, 100)),
-    Approachable = datawizard::change_scale(answers$Approachability, to = c(0, 1), range = c(0, 100)),
-    Trustworthy = datawizard::change_scale(answers$Trustworthiness, to = c(0, 1), range = c(0, 100)),
-    Familiar = datawizard::change_scale(answers$Familiarity, to = c(0, 1), range = c(0, 100)),
-    Similar = datawizard::change_scale(answers$Similarity, to = c(0, 1), range = c(0, 100))
+    Real = datawizard::change_scale(answers$perceived_realness, to = c(0.0001, 0.9999), range = c(0, 100)),
+    Attractive = datawizard::change_scale(answers$Attractiveness, to = c(0.0001, 0.9999), range = c(0, 100)),
+    Approachable = datawizard::change_scale(answers$Approachability, to = c(0.0001, 0.9999), range = c(0, 100)),
+    Trustworthy = datawizard::change_scale(answers$Trustworthiness, to = c(0.0001, 0.9999), range = c(0, 100)),
+    Familiar = datawizard::change_scale(answers$Familiarity, to = c(0.0001, 0.9999), range = c(0, 100)),
+    Similar = datawizard::change_scale(answers$Similarity, to = c(0.0001, 0.9999), range = c(0, 100))
   )
 
   # Format sexual orientation
@@ -70,6 +70,10 @@ preprocess_raw <- function(file) {
   # Standardize demographics
   # unique(df$Ethnicity)
   df$Ethnicity <- ifelse(df$Ethnicity %in% c("Latin", "Hisapanic"), "Latino", df$Ethnicity)
+
+  # Add info related to stimulus
+  df$Stimulus_Sex <- ifelse(str_detect(df$Stimulus, "NF"), "Female", "Male")
+  df$Stimulus_SameSex <- ifelse(df$Sex == df$Stimulus_Sex, "Same", "Opposite")
 
   # Psychometric Scales
   # IPIP

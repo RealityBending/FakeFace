@@ -7,10 +7,10 @@ var scale2 = ["Strongly Disagree", "Strongly Agree"]
 var items = [
     //"The face looked real to me",
     "<b>Assuming the person you saw was real...</b> <br><br>Would you find this person attractive?",
-    "Would you find this person approachable?",
+    // "Would you find this person approachable?",
     "Would you find this person trustworthy?",
     "How much does this person remind you of someone you know?",
-    "How much does this face look like yours?",
+    // "How much does this face look like yours?",
     // "How weird is the face you saw?",   // include eeriness as well? (cf uncanny valley effect)
     // "How dominant is the face you saw?",
     //"How musculine/feminine is the face you saw?",
@@ -26,10 +26,10 @@ var items = [
 var dimensions = [
     //"Real",
     "Attractiveness",
-    "Approachability",
+    // "Approachability",
     "Trustworthiness",
     "Familiarity",   // Familiarity (van vugt et al., 2010)
-    "Similarity"
+    // "Similarity"
 ]
 
 // var items2 = [
@@ -112,12 +112,12 @@ var SIAS_SF = [
     "<b>I feel tense if I am alone with just one person </b><br>",
     "<b>I have difficulty talking with other people </b><br>",
     "<b>I find it difficult to disagree with another's point of view </b><br>"
-    ]
+]
 
 var SIAS_dim = [
     "SIAS_1",
     "SIAS_2",
-   // "Attention_Check_1",
+    // "Attention_Check_1",
     "SIAS_3",
     "SIAS_4",
     "SIAS_5",
@@ -125,7 +125,7 @@ var SIAS_dim = [
 ]
 
 // Social Phobia Scale (SPS)
-var SPS_SF =[
+var SPS_SF = [
     "<b>I get nervous that people are staring at me as I walk down the street </b><br>",
     "<b>I worry about shaking or trembling when I'm watched by other people </b><br>",
     "<b>I would get tense if I had to sit facing other people on a bus or a train </b><br>",
@@ -156,7 +156,7 @@ var FFNI_BF = [
     "<b>I tend to take charge of most situations</b><br>",
     "<b>I often think that others aren't telling me the whole truth</b><br>",
     "<b>I believe I am entitled to special accommodations</b><br>",
-//    "<b>Please select 'Strongly Agree' to demonstrate your attention</b><br>",
+    //    "<b>Please select 'Strongly Agree' to demonstrate your attention</b><br>",
     "<b>I like being the most popular person at a party</b><br>",
     "<b>I'm willing to exploit others to further my own goals</b><br>",
     "<b>I often fantasize about having lots of success and power</b><br>",
@@ -190,7 +190,7 @@ var FFNI_dim = [
     "Authoritativeness_18",
     "Distrust_19",
     "Entitlement_20",
-//    "Attention_Check_2",
+    //    "Attention_Check_2",
     "Exhibitionism_21",
     "Exploitativeness_22",
     "Grandiose_Fantasies_23",
@@ -204,7 +204,7 @@ var FFNI_dim = [
 ]
 
 // Paranoia: R-GPTS (Freeman et al., 2019)
-var R_GPTS =[
+var R_GPTS = [
     "<b>I spent time thinking about friends gossiping about me</b><br>",
     "<b>I often heard people referring to me</b><br>",
     "<b>I have been upset by friends and colleagues judging me critically</b><br>",
@@ -253,7 +253,7 @@ var SCC = [
     "<b>I spend a lot of time wondering about what kind of person I really am</b><br>",  //(R)
     "<b>Sometimes I feel that I am not really the person that I appear to be</b><br>",     //(R)
     "<b>When I think about the kind of person I have been in the past, I'm not sure what I was really like</b><br>",  //(R)
-//    "<b>I have been distracted throughout the task</b><br>",
+    //    "<b>I have been distracted throughout the task</b><br>",
     "<b>I seldom experience conflict between the different aspects of my personality</b><br>",
     "<b>Sometimes I think I know other people better than I know myself</b><br>",    //(R)
     "<b>My beliefs about myself seem to change very frequently</b><br>", //(R)
@@ -269,7 +269,7 @@ var SCC_dim = [
     "SCC_3_R",
     "SCC_4_R",
     "SCC_5_R",
-//    "Attention_Check_4",
+    //    "Attention_Check_4",
     "SCC_6",
     "SCC_7_R",
     "SCC_8_R",
@@ -304,7 +304,7 @@ var IBI_kingdon = [
     "You should never tempt fate</b><br>",
     "I do not believe in a spiritual presence</b><br>",  //(R)
     "I believe in a higher power or God</b><br>"
-    ]
+]
 
 var IBI_dim = [
     "Spirituality_1",
@@ -355,7 +355,7 @@ var STAIS_T = [
     "<b>I feel that difficulties are piling up so that I cannot overcome them </b><br>",
     "<b>I worry too much over something that really doesn't matter </b><br>",
     "<b>Some unimportant thoughts run through my mind and bothers me </b><br>",
-//    "<b>Please select 'Strongly Disagree' to demonstrate your attention</b><br>",
+    //    "<b>Please select 'Strongly Disagree' to demonstrate your attention</b><br>",
     "<b>I take disappointment so keenly that I can't put them out of my mind </b><br>",
     "<b>I get in a state of tension or turmoil as I think over my recent concerns and interests </b><br>"
 ]
@@ -392,7 +392,7 @@ var IUS_dim = [
     "Inhibitory_Anxiety_12"
 ]
 
-var GAAIS =[
+var GAAIS = [
     "<b>I think current Artificial Intelligence algorithms can generate very realistic images</b><br>",
     "<b>Organisations use Artificial Intelligence unethically</b><br>",
     "<b>I think videos generated by Artificial Intelligence are impossible to distinguish from real videos</b><br>",
@@ -405,7 +405,7 @@ var GAAIS =[
     "<b>Images of faces or people generated by Artificial Intelligence will contain errors</b><br>"
 ]
 
-var GAAIS_dim =[
+var GAAIS_dim = [
     "GAAIS_1",
     "GAAIS_2_R",
     "GAAIS_3",

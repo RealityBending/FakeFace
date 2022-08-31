@@ -6,9 +6,9 @@ var scale2 = ["Strongly Disagree", "Strongly Agree"]
 // Oosterhof and Todorov (2008) - 9 point scale (Not at all to Extremely)
 var items = [
     //"The face looked real to me",
-    "<b>Assuming the person you saw was real...</b> <br><br>Would you find this person attractive?",
+    "How attractive do you find this person?",
     // "Would you find this person approachable?",
-    "Would you find this person trustworthy?",
+    "How much would you trust this person?",
     "How much does this person remind you of someone you know?",
     // "How much does this face look like yours?",
     // "How weird is the face you saw?",   // include eeriness as well? (cf uncanny valley effect)

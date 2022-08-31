@@ -6,31 +6,31 @@
     <!--create title shown in tab; not the same as header on webpage-->
     <title>FacePerception2</title>
     <!--load the jsPsych library; set src to own path-->
-    <script src="../utils/jspsych/jspsych.js"></script>
+    <script src="utils/jspsych/jspsych.js"></script>
 
     <!--Load all necessary plugins-->
-    <script src="../utils/jspsych/plugin-html-keyboard-response.js"></script>
-    <script src="../utils/jspsych/plugin-html-button-response.js"></script>
-    <script src="../utils/jspsych/plugin-fullscreen.js"></script>
-    <script src="../utils/jspsych/plugin-survey-text.js"></script>
-    <script src="../utils/jspsych/plugin-preload.js"></script>
-    <script src="../utils/jspsych/plugin-image-keyboard-response.js"></script>
-    <script src="../utils/jspsych/plugin-survey-multi-choice.js"></script>
-    <script src="../utils/jspsych/plugin-browser-check.js"></script>
-    <script src="../utils/jspsych/plugin-survey-likert.js"></script>
-    <script src="../utils/jspsych/plugin-image-button-response.js"></script>
-    <script src="../utils/jspsych/plugin-external-html.js"></script>
+    <script src="utils/jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="utils/jspsych/plugin-html-button-response.js"></script>
+    <script src="utils/jspsych/plugin-fullscreen.js"></script>
+    <script src="utils/jspsych/plugin-survey-text.js"></script>
+    <script src="utils/jspsych/plugin-preload.js"></script>
+    <script src="utils/jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="utils/jspsych/plugin-survey-multi-choice.js"></script>
+    <script src="utils/jspsych/plugin-browser-check.js"></script>
+    <script src="utils/jspsych/plugin-survey-likert.js"></script>
+    <script src="utils/jspsych/plugin-image-button-response.js"></script>
+    <script src="utils/jspsych/plugin-external-html.js"></script>
 
     <!--Load Stimuli and custom plugins-->
-    <script src="https://realitybending.github.io/JSmisc/misc/../utils.js"></script>
-    <!--<script src = "../utils/jspsych/plugin-jspsych-pavlovia-2021.js"></script>-->
+    <script src="https://realitybending.github.io/JSmisc/misc/utils.js"></script>
+    <!--<script src = "utils/jspsych/plugin-jspsych-pavlovia-2021.js"></script>-->
     <script src="parameters.js"></script>
-    <script src="../stimuli/stimuli2.js"></script>
-    <!--<script src="../utils/questions_demo.png"></script>-->
-    <script src="../utils/plugin-survey-multiple-slider.js"></script>
+    <script src="stimuli/stimuli.js"></script>
+    <!--<script src="utils/questions_demo.png"></script>-->
+    <script src="utils/plugin-survey-multiple-slider.js"></script>
 
     <!-- Default CSS -->
-    <link href="../utils/jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <link href="utils/jspsych/jspsych.css" rel="stylesheet" type="text/css" />
     <!--<script type="text/javascript" src="lib/vendors/jquery-2.2.0.min.js"></script>-->
     <style>
         #jspsych-image-keyboard-response-stimulus {
@@ -102,7 +102,7 @@
     // Preload demo image
     timeline.push({
         type: jsPsychPreload,
-        images: "../utils/question_demo_2.png",  //change to images for pavlovia to preload
+        images: "utils/question_demo_2.png",  //change to images for pavlovia to preload
     })
 
     // Retrieve and save browser info
@@ -672,7 +672,7 @@
             "<li><p>How much you would <b>trust</b> someone who looks like that.</p></li>" +
             "<li><p>How much that face reminds you of <b>someone you know</b>.</p></li>" +
             "<p>Below is an example of the questions you will be asked after each image:</p></div><br>" +
-            "<div style='float: center'><img src='../utils/question_demo_2.png' height='400' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>" +
+            "<div style='float: center'><img src='utils/question_demo_2.png' height='400' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>" +
             "<p>We are interested in your <b>first impressions</b>. Please respond according to your gut feelings.</p>",
             choices: ["Start"],
         data: { screen: "task_instructions_1" },
@@ -705,7 +705,7 @@
     //Stimuli block
     // var images = [];
     // for (var i = 10; i < 20; i++) {
-    //     images.push({stimulus: "../utils/Faces/NS1" + i + ".jpg"});
+    //     images.push({stimulus: "utils/Faces/NS1" + i + ".jpg"});
     // }
 
     // Loop through stimuli
@@ -745,7 +745,7 @@
     }
 
     var questionnaire = {
-        type: jsPsychMultipleSlider, // this is a custom plugin in ../utils
+        type: jsPsychMultipleSlider, // this is a custom plugin in utils
         questions: trait_items,
         randomize_question_order: false,
         //preamble: '<div style="font-size:24px;"><b>Assuming that the face you saw was real</b><br></p></div>',
@@ -832,7 +832,7 @@
 
     // Add Item on Perception of Realness
     var realness = {
-        type: jsPsychMultipleSlider, // this is a custom plugin in ../utils
+        type: jsPsychMultipleSlider, // this is a custom plugin in utils
         questions: [{
             prompt: "I think this face is...",
             name: "perceived_realness",

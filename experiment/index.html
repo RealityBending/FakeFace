@@ -150,6 +150,26 @@
     var study_id = jsPsych.data.getURLVariable("STUDY_ID")
     var session_id = jsPsych.data.getURLVariable("SESSION_ID")
 
+    // Consent Form
+    var consent ={
+        type: jsPsychHtmlButtonResponse,
+        stimulus:
+            "<div style='font-size:10px';><h1>NTU IRB-2022-187</br></br>Face Perception</h1></div>" +
+            "<div class='margin-left-10'>"+
+            "<p>You are invited to participate in a research study on facial perception</p>" +
+            "<p>In this study, you will be asked to look at images of faces and rate them according to certain characteristics, such as attractiveness.</p>" +
+            "<p>This study will take approximately <b>1 hour</b> of your time, and you will be compensated <b>£7.40/hour</b> for the time and effort taken.</p>" +
+            "<p>Your participation in this study is completely voluntary, and you have the right to withdraw from the study at any time without any penalty. You may skip any questions you do not wish to answer. If you do not wish to complete this survey, you may simply close your browser.</p>" +
+            "<p>Your participation in this research will be kept completely confidential, and data will be averaged and reported in aggregate. Your responses will be anonymous and IP addresses will not be collected to guarantee complete anonymity. Possible outlets of dissemination include academic articles, conference presentations, etc.</p>" +
+            "<p>Although your participation in this research may not benefit you personally, it will help us understand how people perceive different types of faces. There are no risks to individuals participating in this survey beyond those that exist in daily life.</p>" +
+            "<p>If you have any questions about the project, you may contact Dr Dominique Makowski, dmakowski@ntu.edu.sg</p>" +
+            "<p>This project has been reviewed and approved by NTU-Institutional Review Board. Questions concerning your rights as a participant in this research may be directed to the NTU-IRB at IRB@ntu.edu.sg or call +65 6592 2495.</p></div>",
+        choices: ["I consent"],
+        data: { screen: "consent" }
+    }
+    timeline.push(consent)
+
+
     // Instructions Demographics
     var instructions1 = {
         type: jsPsychHtmlButtonResponse,

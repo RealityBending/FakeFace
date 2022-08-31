@@ -528,6 +528,22 @@
         })
     }
 
+    // Marcinkowska et al., 2021 (https://doi.org/10.1038/s41598-021-90473-3)
+    FFNI_items.push({
+        prompt: "<b>How attractive would you say you are?</b><br>",
+        name: "self_rated_general_attractiveness",
+        ticks: ["Very Unattractive", "Very Attractive"],
+        required: false,
+    })
+
+    // Spielmann1 et al., 2019 (https://doi.org/10.1177/0265407519856701)
+    FFNI_items.push({
+        prompt: "<b>How would you rate your own physical attractiveness relative to the average person?</b><br>",
+        name: "self_rated_physical_attractiveness",
+        ticks: ["Not at all Attractive", "Very Attractive"],
+        required: false,
+    })
+
     var FFNI = {
         type: jsPsychMultipleSlider,
         questions: FFNI_items,

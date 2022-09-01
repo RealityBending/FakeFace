@@ -20,15 +20,25 @@ preprocess_raw <- function(file) {
   dem <- data[data$screen == "demographics" & !is.na(data$screen), "response"]
   
   # Trials
-  trials <- data[data$screen == "stimuli", ]
+  block1 <- data[data$screen == "stimuli" & data$block_number=='1', ]
+  block2<- data[data$screen == "stimuli" & data$block_number=='2', ]
   answers <- unnest(data, "questionnaire")
   realness_answers <- unnest(data, "perceived_realness")
+  
+  # Realness Block
+  realness_df <- data.frame(
+    Block2_Trial = as.numeric(block2$trial_number),
+    Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", block2$stimulus)),
+    Real = datawizard::change_scale(realness_answers$perceived_realness, to = c(0.0001, 0.9999), range = c(0, 1)),
+    Realness_RT = as.numeric(data[data$screen =="perceived_realness", "rt"]),
+    SimulationMonitoring = datawizard::change_scale(realness_answers$perceived_realness, to = c(-1, 1), range = c(0, 1))
+  )
   
   # Info
   info <- data[data$screen == "browser_info" & !is.na(data$screen), ]
   
   df <- data.frame(
-    Participant = trials$participant_id,
+    Participant = block1$participant_id,
     Age = as.numeric(jsonlite::fromJSON(dem[1])$age),
     Sex = jsonlite::fromJSON(dem[2])$sex,
     Sexual_Orientation = jsonlite::fromJSON(dem[3])$sexual_orientation,
@@ -41,8 +51,7 @@ preprocess_raw <- function(file) {
     Date = ifelse(is.null(info$date), NA, info$date),
     Time = ifelse(is.null(info$time), NA, info$time),
     Duration_Questionnaires = sum(as.numeric(data[data$screen %in% c('IUS', 'IPIP6', 'SIAS', 'SPS', 'GAAIS', 'FFNI-BF', 'GPTS'), 'rt'])) / 1000 / 60,
-    Duration_Task = sum(as.numeric(data[data$screen =="questionnaire", "rt"])) /1000 /60,
-    Duration_Realness = sum(as.numeric(data[data$screen == "perceived_realness", "rt"])) / 1000 / 60,
+    Duration_Task = sum(as.numeric(data[data$screen %in% c("questionnaire", "perceived_realness"), "rt"])) /1000 /60,
     Screen_Resolution = paste0(info$screen_width, "x", info$screen_height),
     Screen_Size = (as.numeric(info$screen_width) / 1000) * (as.numeric(info$screen_height) / 1000),
     Screen_Refresh = info$vsync_rate,
@@ -50,20 +59,25 @@ preprocess_raw <- function(file) {
     Browser_Version = info$browser_version,
     Device = ifelse(info$mobile == TRUE, "Mobile", "Desktop"),
     Device_OS = info$os,
-    Trial = as.numeric(trials$trial_number),
-    Block = as.numeric(trials$block_number),
-    Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", trials$stimulus)),
-    Task_RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
-    Realness_RT = as.numeric(data[data$screen =="perceived_realneess", "rt"]),
-    SimulationMonitoring = datawizard::change_scale(realness_answers$perceived_realness, to = c(-1, 1), range = c(0, 100)),
+    Block1_Trial = as.numeric(block1$trial_number),
+    Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", block1$stimulus)),
+    Questionnaire_RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
+    PhysicalAttractiveness = datawizard::change_scale(answers$Physical_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
+    GeneralAttractiveness = datawizard::change_scale(answers$General_Attractiveness, to =c(0.0001, 0.9999), range = c(0, 1)),
+    Trustworthy = datawizard::change_scale(answers$Trustworthiness, to = c(0.0001, 0.9999), range = c(0, 1)),
+    Familiar = datawizard::change_scale(answers$Familiarity, to = c(0.0001, 0.9999), range = c(0, 1))
+    #Block2_Trial = as.numeric(block2$trial_number),
+    #Block2_Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", block2$stimulus)),
+    #Realness_RT = as.numeric(data[data$screen =="perceived_realness", "rt"]),
+    #SimulationMonitoring = datawizard::change_scale(realness_answers$perceived_realness, to = c(-1, 1), range = c(0, 1)),
    # ISI = as.numeric(data[data$screen == "fixation", "trial_duration"]),
-    Real = datawizard::change_scale(realness_answers$perceived_realness, to = c(0.0001, 0.9999), range = c(0, 100)),
-    Attractive = datawizard::change_scale(answers$Attractiveness, to = c(0.0001, 0.9999), range = c(0, 100)),
-   # Approachable = datawizard::change_scale(answers$Approachability, to = c(0.0001, 0.9999), range = c(0, 100)),
-    Trustworthy = datawizard::change_scale(answers$Trustworthiness, to = c(0.0001, 0.9999), range = c(0, 100)),
-    Familiar = datawizard::change_scale(answers$Familiarity, to = c(0.0001, 0.9999), range = c(0, 100))
-  #  Similar = datawizard::change_scale(answers$Similarity, to = c(0.0001, 0.9999), range = c(0, 100))
+    #Real = datawizard::change_scale(realness_answers$perceived_realness, to = c(0.0001, 0.9999), range = c(0, 1))
+    # Approachable = datawizard::change_scale(answers$Approachability, to = c(0.0001, 0.9999), range = c(0, 100)),
+    #  Similar = datawizard::change_scale(answers$Similarity, to = c(0.0001, 0.9999), range = c(0, 100))
   )
+  
+  # Merge data from both task blocks 
+  df<- merge(df, realness_df, on='Stimulus')
   
   # Format sexual orientation
   df$Sexual_Orientation <- ifelse(df$Sexual_Orientation == "Other", jsonlite::fromJSON(dem[4])$sexual_orientation, df$Sexual_Orientation)
@@ -78,13 +92,13 @@ preprocess_raw <- function(file) {
   df$Ethnicity <- ifelse(df$Ethnicity %in% c("Latin", "Hisapanic"), "Latino", df$Ethnicity)
   
   # Add info related to stimulus
-  df$Stimulus_Sex <- ifelse(str_detect(df$Stimulus, "NF"), "Female", "Male")
+  df$Stimulus_Sex <- ifelse(stringr::str_detect(df$Stimulus, "NF"), "Female", "Male")
   df$Stimulus_SameSex <- ifelse(df$Sex == df$Stimulus_Sex, "Same", "Opposite")
-  
+
   # Psychometric Scales
   # IPIP
   ipip6 <- unnest(data, "IPIP6")
-  ipip6[grepl("_R", names(ipip6))] <- 100 - ipip6[grepl("_R", names(ipip6))]
+  ipip6[grepl("_R", names(ipip6))] <- 1 - ipip6[grepl("_R", names(ipip6))]
   df$IPIP6_Extraversion <- rowMeans(ipip6[grepl("Extraversion", names(ipip6))])
   df$IPIP6_Conscientiousness <- rowMeans(ipip6[grepl("Conscientiousness", names(ipip6))])
   df$IPIP6_Neuroticism <- rowMeans(ipip6[grepl("Neuroticism", names(ipip6))])
@@ -104,7 +118,7 @@ preprocess_raw <- function(file) {
   
   # GAAIS
   gaais <- unnest(data, "GAAIS")
-  gaais[grepl("_R", names(gaais))] <- 100 - gaais[grepl("_R", names(gaais))]
+  gaais[grepl("_R", names(gaais))] <- 1 - gaais[grepl("_R", names(gaais))]
   df$AI_1_RealisticImages <- gaais$GAAIS_1
   df$AI_2_Unethical <- gaais$GAAIS_2
   df$AI_3_VideosReal <- gaais$GAAIS_3
@@ -162,7 +176,7 @@ preprocess_raw <- function(file) {
   # Attention checks
   df$Attention_Check1 <- sias$Attention_Check_1
   df$Attention_Check2 <- ffni$Attention_Check_2
-  df$Attention_Check3 <- 100 - ius$Attention_Check_3  # Reversed
+  df$Attention_Check3 <- 1 - ius$Attention_Check_3  # Reversed
   
   
   # Combine with Norms data

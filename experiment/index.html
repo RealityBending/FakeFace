@@ -723,135 +723,135 @@
     /*=========================== Experiment Block 1 ===================================*/
     /*=================================================================================*/
 
-    timeline.push({
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: "<p>Please wait for the experiment to load...</p>",
-        choices: "NO_KEYS",
-        trial_duration: 1000,
-        data: { screen: "part_2_loading" },
-    })
+//     timeline.push({
+//         type: jsPsychHtmlKeyboardResponse,
+//         stimulus: "<p>Please wait for the experiment to load...</p>",
+//         choices: "NO_KEYS",
+//         trial_duration: 1000,
+//         data: { screen: "part_2_loading" },
+//     })
 
-    // Preload image stimuli to prevent lagging during experiment
-    timeline.push({
-        type: jsPsychPreload,
-        images: stimuli.map((a) => a.stimulus), // stimuli is a stimulus in ../stimuli
-    })
+//     // Preload image stimuli to prevent lagging during experiment
+//     timeline.push({
+//         type: jsPsychPreload,
+//         images: stimuli.map((a) => a.stimulus), // stimuli is a stimulus in ../stimuli
+//     })
 
-    // Experiment Instructions
-    var task_instructions_1 = {
-        type: jsPsychHtmlButtonResponse,
-        stimulus:
-            "<h1>Part 3/4</h1>" +
-            "<div style='text-align: left'>" +
-            "<p>In this part of the experiment, images of faces will be briefly flashed on the screen.</p>" +
-            "<p>After each image, you will be asked a series of questions, such as:</p><ul>" +
-            "<li><p>To what extent do you find this person <b>good-looking</b> (i.e., the degree to which the face is aesthetically appealing).</p></li>" +
-            "<li><p>How <b>attractive</b> do you find this person (i.e., how drawn are you to this person).</p></li>" +
-            "<li><p>To what extent do you find this person <b>trustworthy</b> (i.e., reliable, honest, responsible etc.,).</p></li>" +
-            "<li><p>How much does this person remind you of <b>someone you know</b> (i.e., how familiar does this face look to you).</p></li><br>" +
-            "<p>Below is an example of how the questions will appear after each image:</p></div>" +
-            "<div style='float: center'><img src='utils/question_demo_2.png' height='400' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>" +
-            "<p>We are interested in your <b>first impressions</b>. Please respond according to your gut feelings.</p>",
-            choices: ["Start"],
-        data: { screen: "task_instructions_1" },
-    }
+//     // Experiment Instructions
+//     var task_instructions_1 = {
+//         type: jsPsychHtmlButtonResponse,
+//         stimulus:
+//             "<h1>Part 3/4</h1>" +
+//             "<div style='text-align: left'>" +
+//             "<p>In this part of the experiment, images of faces will be briefly flashed on the screen.</p>" +
+//             "<p>After each image, you will be asked a series of questions, such as:</p><ul>" +
+//             "<li><p>To what extent do you find this person <b>good-looking</b> (the degree to which the face is aesthetically appealing).</p></li>" +
+//             "<li><p>How <b>attractive</b> do you find this person (how drawn are you to this person).</p></li>" +
+//             "<li><p>To what extent do you find this person <b>trustworthy</b> (reliable, honest, responsible etc.,).</p></li>" +
+//             "<li><p>How much does this person remind you of <b>someone you know</b> (how familiar does this face look to you).</p></li><br>" +
+//             "<p>Below is an example of how the questions will appear after each image:</p></div>" +
+//             "<div style='float: center'><img src='utils/question_demo_2.png' height='400' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>" +
+//             "<p>We are interested in your <b>first impressions</b>. Please respond according to your gut feelings.</p>",
+//             choices: ["Start"],
+//         data: { screen: "task_instructions_1" },
+//     }
 
-    timeline.push(task_instructions_1)
+//     timeline.push(task_instructions_1)
 
-    var trial_number = 1 // trial indexing variable starts at 1 for convenience
-    var block_number = 1
+//     var trial_number = 1 // trial indexing variable starts at 1 for convenience
+//     var block_number = 1
 
-    // Fixation cross
-    var fixation = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: '<div style="font-size:60px;">+</div>',
-        choices: "NO_KEYS",
-        trial_duration: 750,
-        // trial_duration: 0,  // for testing
-        on_start: function () {
-            ; (document.body.style.cursor = "none"),
-                (document.querySelector(
-                    "#jspsych-progressbar-container"
-                ).style.display = "none")
-        },
-        save_trial_parameters: {
-            trial_duration: true,
-        },
-        data: { screen: "fixation" },
-    }
+//     // Fixation cross
+//     var fixation = {
+//         type: jsPsychHtmlKeyboardResponse,
+//         stimulus: '<div style="font-size:60px;">+</div>',
+//         choices: "NO_KEYS",
+//         trial_duration: 750,
+//         // trial_duration: 0,  // for testing
+//         on_start: function () {
+//             ; (document.body.style.cursor = "none"),
+//                 (document.querySelector(
+//                     "#jspsych-progressbar-container"
+//                 ).style.display = "none")
+//         },
+//         save_trial_parameters: {
+//             trial_duration: true,
+//         },
+//         data: { screen: "fixation" },
+//     }
 
-    //Stimuli block
-    // var images = [];
-    // for (var i = 10; i < 20; i++) {
-    //     images.push({stimulus: "utils/Faces/NS1" + i + ".jpg"});
-    // }
+//     //Stimuli block
+//     // var images = [];
+//     // for (var i = 10; i < 20; i++) {
+//     //     images.push({stimulus: "utils/Faces/NS1" + i + ".jpg"});
+//     // }
 
-    // Loop through stimuli
-    var stimuli_trial = {
-        type: jsPsychImageKeyboardResponse,
-        stimulus: jsPsych.timelineVariable("stimulus"),
-        choices: "NO_KEYS",
-        trial_duration: 500,
-        // trial_duration: 200,  // for testing
-        on_start: function () {
-            ; (document.body.style.cursor = "none"),
-                (document.querySelector(
-                    "#jspsych-progressbar-container"
-                ).style.display = "none")
-        },
-        save_trial_parameters: {
-            trial_duration: true,
-        },
-        on_finish: function (data) {
-            data.trial_number = trial_number
-            trial_number += 1
-            data.block_number = block_number
-        },
-        data: { screen: "stimuli" },
-    }
+//     // Loop through stimuli
+//     var stimuli_trial = {
+//         type: jsPsychImageKeyboardResponse,
+//         stimulus: jsPsych.timelineVariable("stimulus"),
+//         choices: "NO_KEYS",
+//         trial_duration: 500,
+//         // trial_duration: 200,  // for testing
+//         on_start: function () {
+//             ; (document.body.style.cursor = "none"),
+//                 (document.querySelector(
+//                     "#jspsych-progressbar-container"
+//                 ).style.display = "none")
+//         },
+//         save_trial_parameters: {
+//             trial_duration: true,
+//         },
+//         on_finish: function (data) {
+//             data.trial_number = trial_number
+//             trial_number += 1
+//             data.block_number = block_number
+//         },
+//         data: { screen: "stimuli" },
+//     }
 
-    var trait_items = []
+//     var trait_items = []
 
-    // Add Items on Attractiveness Trustworthiness and Familiarity
-    for (const [index, element] of items.entries()) {
-        trait_items.push({
-            prompt: element,
-            name: dimensions[index],
-            ticks: scale1,
-            required: true,
-            min: 0,
-            max: 1,
-            step: 0.01,
-            slider_start: 0.5
-        })
-    }
+//     // Add Items on Attractiveness Trustworthiness and Familiarity
+//     for (const [index, element] of items.entries()) {
+//         trait_items.push({
+//             prompt: element,
+//             name: dimensions[index],
+//             ticks: scale1,
+//             required: true,
+//             min: 0,
+//             max: 1,
+//             step: 0.01,
+//             slider_start: 0.5
+//         })
+//     }
 
-    var questionnaire = {
-        type: jsPsychMultipleSlider, // this is a custom plugin in utils
-        questions: trait_items,
-        randomize_question_order: false,
-        //preamble: '<div style="font-size:24px;"><b>Assuming that the face you saw was real</b><br></p></div>',
-        require_movement: true,
-        on_start: function () {
-            ; (document.body.style.cursor = "auto"),
-                (document.querySelector(
-                    "#jspsych-progressbar-container"
-                ).style.display = "inline")
-        },
-        data: {
-            screen: "questionnaire",
-        },
-    }
+//     var questionnaire = {
+//         type: jsPsychMultipleSlider, // this is a custom plugin in utils
+//         questions: trait_items,
+//         randomize_question_order: false,
+//         //preamble: '<div style="font-size:24px;"><b>Assuming that the face you saw was real</b><br></p></div>',
+//         require_movement: true,
+//         on_start: function () {
+//             ; (document.body.style.cursor = "auto"),
+//                 (document.querySelector(
+//                     "#jspsych-progressbar-container"
+//                 ).style.display = "inline")
+//         },
+//         data: {
+//             screen: "questionnaire",
+//         },
+//     }
 
-    //Loop through fixation, stimuli and questionnaire blocks
-    var test_procedure = {
-        timeline: [fixation, stimuli_trial, questionnaire],
-        timeline_variables: stimuli,
-        randomize_order: true,
-        repetitions: 0,
-    }
+//     //Loop through fixation, stimuli and questionnaire blocks
+//     var test_procedure = {
+//         timeline: [fixation, stimuli_trial, questionnaire],
+//         timeline_variables: stimuli,
+//         randomize_order: true,
+//         repetitions: 0,
+//     }
 
-   timeline.push(test_procedure)
+//    timeline.push(test_procedure)
 
     /*=================================================================================*/
     /*=================================== Break =======================================*/

@@ -898,14 +898,13 @@
         type: jsPsychHtmlButtonResponse,
         stimulus:
             "<h1>Part 4/4</h1>" +
-            "<p>In the last part of the experiment, the images of faces previously seen will be briefly flashed on the screen again.</p>" +
+            "<p>In the final part of the experiment, you will see the faces again. Only this time, you have to tell whether they are real or fake.</p>" +
             "<p>These images were actually created specially for this experiment: about half of them are <b>photos of real people</b>, and the other half of faces were entirely <b>computer-generated</b> using a new AI algorithm that we want to test.</p>" +
             "<p>This algorithm, based on a new generation of deep-learning models, is able to produce photo-realistic images of faces according to pre-specified parameters (e.g., gender, age, emotion, ...).</p>" +
             "<p>Among the artificial faces generated, only those that best matched the characteristics of the real photos were selected for this experiment (same background, lighting conditions, age range, etc.).</p>" +
-            "<p>In order to help us validate our algorithm, we will ask you to tell whether you think the faces you see are <b>real</b> (photos of real people) or <b>fake</b> (computer-generated).</p></br>"+
-            "<p>Below is an example of the question you will be asked after each image:</p></div><br>" +
-          "<div style='float: center'><img src='utils/realness_demo.png' height='150' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>"+
-            "<p>Please respond according to your gut feelings.</p>",
+            "<p>In order to help us validate our algorithm, we will ask you to tell whether you think the faces you see are <b>real</b> (photos of real people) or <b>fake</b> (computer-generated images).</p></br>"+
+           "<div style='float: center'><img src='utils/realness_demo.png' height='150' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>"+
+            "<p>Please respond according to your gut feelings.</p></div>",
         choices: ["Continue"],
         on_finish: function(){
             block_number +=1

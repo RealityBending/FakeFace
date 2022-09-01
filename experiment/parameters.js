@@ -6,11 +6,11 @@ var scale2 = ["Strongly Disagree", "Strongly Agree"]
 // Oosterhof and Todorov (2008) - 9 point scale (Not at all to Extremely)
 var items = [
     //"The face looked real to me",
-    "How attractive do you find this person?",
-    "To what extent do you find this person good-looking?",
+    "This person is good-looking.",
+    "I find this person attractive.",
     // "Would you find this person approachable?",
-    "To what extent do you trust this person?",
-    "How much does this person remind you of someone you know?",
+    "I find this person trustworthy.",
+    "This person reminds me of someone I know.",
     // "How much does this face look like yours?",
     // "How weird is the face you saw?",   // include eeriness as well? (cf uncanny valley effect)
     // "How dominant is the face you saw?",
@@ -26,8 +26,8 @@ var items = [
 
 var dimensions = [
     //"Real",
-    "General_Attractiveness",
     "Physical_Attractiveness",
+    "General_Attractiveness",
     // "Approachability",
     "Trustworthiness",
     "Familiarity",   // Familiarity (van vugt et al., 2010)

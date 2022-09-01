@@ -102,7 +102,7 @@
     // Preload demo image
     timeline.push({
         type: jsPsychPreload,
-        images: "utils/question_demo_2.png",  //change to images for pavlovia to preload
+        images: ["utils/question_demo_2.png", "utils/realness_demo.png"],  //change to images for pavlovia to preload
     })
 
     // Retrieve and save browser info
@@ -324,18 +324,23 @@
                 name: "religiosity",
                 ticks: ["Not at All", "Very Religious"],
                 required: true,
+                min: 0,
+                max: 1,
+                step: 0.01,
+                slider_start: 0.5
             },
             {
                 prompt: "How actively engaged are you in religious activities and practices?<br>",
                 name: "religious_activity",
                 ticks: ["Not at All", "Very Active"],
                 required: true,
+                min: 0,
+                max: 1,
+                step: 0.01,
+                slider_start: 0.5
             },
         ],
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         data: {
             screen: "demographics",
         },
@@ -366,6 +371,10 @@
             name: IPIP_dim[index],
             ticks: scale2,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -377,9 +386,6 @@
             "<p><b>Survey 1/7</b></b></p>" +
             "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         on_start: function () {
             ; (document.body.style.cursor = "auto"),
                 (document.querySelector(
@@ -402,6 +408,10 @@
             name: SIAS_dim[i],
             ticks: scale2,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
     // Attention Check 1
@@ -410,6 +420,10 @@
         name: "Attention_Check_1",
         ticks: ["Strongly Disagree", "Strongly Agree"],
         required: true,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        slider_start: 0.5
     })
 
     for (var i = 2; i < 6; i++) {
@@ -418,6 +432,10 @@
             name: SIAS_dim[i],
             ticks: scale2,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -429,9 +447,6 @@
             "<p><b>Survey 2/7</b></p>" +
             "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         on_start: function () {
             ; (document.body.style.cursor = "auto"),
                 (document.querySelector(
@@ -453,6 +468,10 @@
             name: "Social_Phobia_" + (index + 1),
             ticks: scale2,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -464,9 +483,6 @@
             "<p><b>Survey 3/7</b></p>" +
             "<p>Please answer the following questions based on how accurately each statement describes you.</p>",
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         on_start: function () {
             ; (document.body.style.cursor = "auto"),
                 (document.querySelector(
@@ -488,6 +504,10 @@
             name: GAAIS_dim[index],
             ticks: scale2,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -500,9 +520,6 @@
             "<p>We are interested in your attitudes towards Artificial Intelligence (AI).</p>" +
             "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         on_start: function () {
             ; (document.body.style.cursor = "auto"),
                 (document.querySelector(
@@ -525,6 +542,10 @@
             name: FFNI_dim[i],
             ticks: scale2,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -534,6 +555,10 @@
         name: "Attention_Check_2",
         ticks: ["Strongly Disagree", "Strongly Agree"],
         required: true,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        slider_start: 0.5
     })
 
     for (var i = 20; i < 30; i++) {
@@ -542,6 +567,10 @@
             name: FFNI_dim[i],
             ticks: scale2,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -551,6 +580,10 @@
         name: "self_rated_general_attractiveness",
         ticks: ["Very Unattractive", "Very Attractive"],
         required: false,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        slider_start: 0.5
     })
 
     // Spielmann1 et al., 2019 (https://doi.org/10.1177/0265407519856701)
@@ -559,6 +592,10 @@
         name: "self_rated_physical_attractiveness",
         ticks: ["Not at all Attractive", "Very Attractive"],
         required: false,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        slider_start: 0.5
     })
 
     var FFNI = {
@@ -569,9 +606,6 @@
             "<p><b>Survey 5/7</b></p>" +
             "<p>Please respond based on how much you agree or disagree with each each statement.</p>",
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         on_start: function () {
             ; (document.body.style.cursor = "auto"),
                 (document.querySelector(
@@ -594,6 +628,10 @@
             name: GPTS_dim[index],
             ticks: scale1,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -606,9 +644,6 @@
             "<p>Each statement below refers to thoughts and feelings you may have had <b>about others over the last month.</b></p>" +
             "<p>Please think about the last month and indicate the extent to which you think each of these statements apply to you.</p>",
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         on_start: function () {
             ; (document.body.style.cursor = "auto"),
                 (document.querySelector(
@@ -631,6 +666,10 @@
             name: IUS_dim[i],
             ticks: scale2,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -640,6 +679,10 @@
         name: "Attention_Check_3",
         ticks: ["Not at All", "Extremely"],
         required: true,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        slider_start: 0.5
     })
 
     for (var i = 8; i <12; i++){
@@ -648,6 +691,10 @@
             name: IUS_dim[i],
             ticks:scale2,
             required:true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -659,9 +706,6 @@
             "<p><b>Survey 7/7</b></p>" +
             "<p>Please read the statements below carefully and indicate the extent to which you agree with each statement.</p>",
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         on_start: function () {
             ; (document.body.style.cursor = "auto"),
                 (document.querySelector(
@@ -701,10 +745,11 @@
             "<div style='text-align: left'>" +
             "<p>In this part of the experiment, images of faces will be briefly flashed on the screen.</p>" +
             "<p>After each image, you will be asked a series of questions, such as:</p><ul>" +
-            "<li><p>How <b>attractive</b> you would find someone who looks like that.</p></li>" +
-            "<li><p>How much you would <b>trust</b> someone who looks like that.</p></li>" +
-            "<li><p>How much that face reminds you of <b>someone you know</b>.</p></li>" +
-            "<p>Below is an example of the questions you will be asked after each image:</p></div><br>" +
+            "<li><p>How <b>attractive</b> you find this person (i.e., how appealing this person is).</p></li>" +
+            "<li><p>To what extent do you find this person <b>good-looking</b> (i.e., the degree to which this person's physical appearance captivates you).</p></li>" +
+            "<li><p>To what extent do you <b>trust</b> this person.</p></li>" +
+            "<li><p>How much does this person remind you of <b>someone you know</b>.</p></li><br>" +
+            "<p>Below is an example of how the questions will appear after each image:</p></div>" +
             "<div style='float: center'><img src='utils/question_demo_2.png' height='400' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>" +
             "<p>We are interested in your <b>first impressions</b>. Please respond according to your gut feelings.</p>",
             choices: ["Start"],
@@ -774,6 +819,10 @@
             name: dimensions[index],
             ticks: scale1,
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5
         })
     }
 
@@ -783,9 +832,6 @@
         randomize_question_order: false,
         //preamble: '<div style="font-size:24px;"><b>Assuming that the face you saw was real</b><br></p></div>',
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         on_start: function () {
             ; (document.body.style.cursor = "auto"),
                 (document.querySelector(
@@ -805,29 +851,29 @@
         repetitions: 0,
     }
 
-    timeline.push(test_procedure)
+   timeline.push(test_procedure)
 
     /*=================================================================================*/
     /*=================================== Break =======================================*/
     /*=================================================================================*/
 
-    var make_break = {
-        type: jsPsychHtmlButtonResponse,
-        choices: ["I am ready to continue!"],
-        stimulus: "<h1>BREAK</h1>" +
-            "<p>You are left with one last part of the experiment.</p>" +
-            "<p> We know it's long and challenging, so we appreciate you staying focused until the end!</p>",
-        save_trial_parameters: {
-            trial_duration: true,
-        },
-        on_finish: function(){
-            block_number +=1
-            trial_number =1
-        },
-        data: { screen: "break" }
-    }
+    // var make_break = {
+    //     type: jsPsychHtmlButtonResponse,
+    //     choices: ["I am ready to continue!"],
+    //     stimulus: "<h1>BREAK</h1>" +
+    //         "<p>You are left with one last part of the experiment.</p>" +
+    //         "<p> We know it's long and challenging, so we appreciate you staying focused until the end!</p>",
+    //     save_trial_parameters: {
+    //         trial_duration: true,
+    //     },
+    //     on_finish: function(){
+    //         block_number +=1
+    //         trial_number =1
+    //     },
+    //     data: { screen: "break" }
+    // }
 
-    timeline.push(make_break)
+    // timeline.push(make_break)
 
     /*=================================================================================*/
     /*=========================== Experiment Block 2===================================*/
@@ -852,12 +898,19 @@
         type: jsPsychHtmlButtonResponse,
         stimulus:
             "<h1>Part 4/4</h1>" +
-            "<p>In the final part of the experiment, the images of faces previously seen will be briefly flashed on the screen again.</p>" +
-            "<p>However, please note that these images were actually created specially for this experiment:<br>About half of them are <b>photos of real people</b>, and the other half of faces were entirely <b>computer-generated</b> using a new AI algorithm that we want to test.</p>" +
-            "<p>This algorithm, based on a new generation of supervised deep-learning models, is able to produce photo-realistic images of faces according to pre-specified parameters (e.g., gender, age, emotion, ...).</p>" +
-            "<p>Among the artificial faces generated, only those that best matched the characteristics of the real photos were selected for this experiment (same background, lighting conditions, age range, ...).</p>" +
-            "<p>In order to help us validate our algorithm, we will ask you to tell whether you think the faces you see are <b>real</b> (photos of real people) or <b>fake</b> (computer-generated).</p></br>",
+            "<p>In the last part of the experiment, the images of faces previously seen will be briefly flashed on the screen again.</p>" +
+            "<p>These images were actually created specially for this experiment: about half of them are <b>photos of real people</b>, and the other half of faces were entirely <b>computer-generated</b> using a new AI algorithm that we want to test.</p>" +
+            "<p>This algorithm, based on a new generation of deep-learning models, is able to produce photo-realistic images of faces according to pre-specified parameters (e.g., gender, age, emotion, ...).</p>" +
+            "<p>Among the artificial faces generated, only those that best matched the characteristics of the real photos were selected for this experiment (same background, lighting conditions, age range, etc.).</p>" +
+            "<p>In order to help us validate our algorithm, we will ask you to tell whether you think the faces you see are <b>real</b> (photos of real people) or <b>fake</b> (computer-generated).</p></br>"+
+            "<p>Below is an example of the question you will be asked after each image:</p></div><br>" +
+          "<div style='float: center'><img src='utils/realness_demo.png' height='150' style='border:5px solid #D3D3D3; padding:3px; margin:5px'></img>"+
+            "<p>Please respond according to your gut feelings.</p>",
         choices: ["Continue"],
+        on_finish: function(){
+            block_number +=1
+            trial_number =1
+        },
         data: { screen: "task_instructions_2" },
     }
 
@@ -871,13 +924,14 @@
             name: "perceived_realness",
             ticks: ["Fake", "Real"],
             required: true,
+            min: 0,
+            max: 1,
+            step: 0.01,
+            slider_start: 0.5,
         }],
         randomize_question_order: false,
         //preamble: '<div style="font-size:24px;"><b>Assuming that the face you saw was real</b><br></p></div>',
         require_movement: true,
-        min: 0,
-        max: 100,
-        slider_start: 50,
         on_start: function () {
             ; (document.body.style.cursor = "auto"),
                 (document.querySelector(

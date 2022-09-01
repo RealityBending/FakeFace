@@ -7,8 +7,9 @@ var scale2 = ["Strongly Disagree", "Strongly Agree"]
 var items = [
     //"The face looked real to me",
     "How attractive do you find this person?",
+    "To what extent do you find this person good-looking?",
     // "Would you find this person approachable?",
-    "How much would you trust this person?",
+    "To what extent do you trust this person?",
     "How much does this person remind you of someone you know?",
     // "How much does this face look like yours?",
     // "How weird is the face you saw?",   // include eeriness as well? (cf uncanny valley effect)
@@ -25,7 +26,8 @@ var items = [
 
 var dimensions = [
     //"Real",
-    "Attractiveness",
+    "General_Attractiveness",
+    "Physical_Attractiveness",
     // "Approachability",
     "Trustworthiness",
     "Familiarity",   // Familiarity (van vugt et al., 2010)

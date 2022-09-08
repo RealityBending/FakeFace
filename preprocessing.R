@@ -21,6 +21,7 @@ preprocess_raw <- function(file) {
   # Trials
   block1 <- data[data$screen == "stimuli" & data$block_number == "1", ]
   block2 <- data[data$screen == "stimuli" & data$block_number == "2", ]
+
   answers <- unnest(data, "questionnaire")
   realness_answers <- unnest(data, "perceived_realness")
 
@@ -28,6 +29,7 @@ preprocess_raw <- function(file) {
   realness_df <- data.frame(
     Block2_Trial = as.numeric(block2$trial_number),
     Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", block2$stimulus)),
+    Stim_Time_2 = as.numeric(block2$time_elapsed),
     Real = datawizard::change_scale(realness_answers$perceived_realness, to = c(0.0001, 0.9999), range = c(0, 1)),
     Realness_RT = as.numeric(data[data$screen == "perceived_realness", "rt"]),
     SimulationMonitoring = datawizard::change_scale(realness_answers$perceived_realness, to = c(-1, 1), range = c(0, 1))
@@ -60,6 +62,7 @@ preprocess_raw <- function(file) {
     Device_OS = info$os,
     Block1_Trial = as.numeric(block1$trial_number),
     Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", block1$stimulus)),
+    Stim_Time_1 = as.numeric(block1$time_elapsed),
     Questionnaire_RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
     Goodlooking = datawizard::change_scale(answers$Physical_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
     Attractive = datawizard::change_scale(answers$General_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
@@ -69,6 +72,7 @@ preprocess_raw <- function(file) {
 
   # Merge data from both task blocks
   df <- merge(df, realness_df, on = "Stimulus")
+  df$Stim_TimeDiff <- df$Stim_Time_2 - df$Stim_Time_1
 
   # Format sexual orientation
   df$Sexual_Orientation <- ifelse(df$Sexual_Orientation == "Other", jsonlite::fromJSON(dem[4])$sexual_orientation, df$Sexual_Orientation)

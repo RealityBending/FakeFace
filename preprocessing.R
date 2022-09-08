@@ -29,10 +29,20 @@ preprocess_raw <- function(file) {
   realness_df <- data.frame(
     Block2_Trial = as.numeric(block2$trial_number),
     Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", block2$stimulus)),
-    Stim_Time_2 = as.numeric(block2$time_elapsed),
-    Real = datawizard::change_scale(realness_answers$perceived_realness, to = c(0.0001, 0.9999), range = c(0, 1)),
-    Realness_RT = as.numeric(data[data$screen == "perceived_realness", "rt"]),
-    SimulationMonitoring = datawizard::change_scale(realness_answers$perceived_realness, to = c(-1, 1), range = c(0, 1))
+    Delay2 = as.numeric(block2$time_elapsed),
+    Real_RT = as.numeric(data[data$screen == "perceived_realness", "rt"]),
+    Real = datawizard::change_scale(realness_answers$perceived_realness,
+                                    to = c(0.0001, 0.9999), range = c(0, 1)
+    ),
+    Belief_Answer = datawizard::change_scale(realness_answers$perceived_realness,
+      to = c(-1, 1), range = c(0, 1)
+    ),
+    Belief = ifelse(realness_answers$perceived_realness >= 0.5, "Real", "Fake"),
+    Belief_Confidence = datawizard::change_scale(abs(datawizard::change_scale(realness_answers$perceived_realness,
+      to = c(-1, 1), range = c(0, 1)
+    )),
+    to = c(0.0001, 0.9999), range = c(0, 1)
+    )
   )
 
   # Info
@@ -62,8 +72,8 @@ preprocess_raw <- function(file) {
     Device_OS = info$os,
     Block1_Trial = as.numeric(block1$trial_number),
     Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", block1$stimulus)),
-    Stim_Time_1 = as.numeric(block1$time_elapsed),
-    Questionnaire_RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
+    Delay1 = as.numeric(block1$time_elapsed),
+    RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
     Goodlooking = datawizard::change_scale(answers$Physical_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
     Attractive = datawizard::change_scale(answers$General_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
     Trustworthy = datawizard::change_scale(answers$Trustworthiness, to = c(0.0001, 0.9999), range = c(0, 1)),
@@ -72,7 +82,8 @@ preprocess_raw <- function(file) {
 
   # Merge data from both task blocks
   df <- merge(df, realness_df, on = "Stimulus")
-  df$Stim_TimeDiff <- df$Stim_Time_2 - df$Stim_Time_1
+  df$Delay <- as.numeric(df$Delay2 - df$Delay1) / 1000 / 60
+  df$Delay1 <- df$Delay2 <- NULL
 
   # Format sexual orientation
   df$Sexual_Orientation <- ifelse(df$Sexual_Orientation == "Other", jsonlite::fromJSON(dem[4])$sexual_orientation, df$Sexual_Orientation)

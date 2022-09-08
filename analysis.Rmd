@@ -30,9 +30,6 @@ knitr::opts_chunk$set(
 ```
 
 
-# Introduction
-
-The goal of this study was to...
 
 # Methods
 
@@ -85,11 +82,59 @@ outliers <- c(
   "5eaef8702b68455d6e130595_ptsga"
   )
 outliers_partial <- c(
+  "5dc3485219ca0326027ce91f_37ho9",
   "5c6414540821d30001046198_x9q7r",
   "60dd7b03f1e72d38230df476_9yh9n")
 ```
 
 We removed `r length(outliers)` participants upon inspection of...
+
+
+
+### Extreme Items
+
+
+```{r message=FALSE, warning=FALSE}
+extreme_items <- df |> 
+  group_by(Stimulus, Belief) |>
+  summarize(n = n() / nrow(dfsub)) |>
+  pivot_wider(values_from = "n", names_from = "Belief") |> 
+  mutate(File = paste0("experiment/stimuli/AMFD/", Stimulus)) |> 
+  arrange(Real) |> 
+  filter(Real < 0.2 | Real > 0.8)
+
+
+p_item <- df |>
+  filter(Stimulus %in% extreme_items$Stimulus) |> 
+  mutate(Stimulus = fct_relevel(Stimulus, as.character(extreme_items$Stimulus))) |>
+  ggplot(aes(x = Belief_Answer, y = Stimulus, fill = Stimulus)) +
+  ggdist::stat_slab(scale = 2, slab_alpha = 0.9, normalize = "groups") +
+  geom_vline(xintercept = 0, linetype = "dotted") +
+  ggimage::geom_image(data=extreme_items, aes(image=File, x = 0, y=Stimulus), size=0.1, by="height") +
+  # scale_y_discrete(expand = c(0.5, 0.5)) +
+  scale_x_continuous(
+    limits = c(-1, 1),
+    expand = c(0, 0),
+    breaks = c(-1, 0, 1),
+    label = c("Fake", "", "Real")
+  ) +
+  scale_fill_viridis_d(option = "inferno") +
+  labs(x = "Simulation Monitoring", y = "Participants", title = "Distribution of Reality Judgments") +
+  guides(fill = "none") +
+  see::theme_modern() +
+  theme(
+    # axis.text.y = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+# p_item
+
+
+df <- df |> 
+  filter(!Stimulus %in% extreme_items$Stimulus)
+```
+
+We removed `r nrow(extreme_items)` trials per participant. 
+
 
 ### Attention Checks and Duration
 
@@ -119,10 +164,12 @@ for (participant in dfsub$Participant) {
 }
 ```
 
+
+
 ### Summary
 
 ```{r message=FALSE, warning=FALSE}
-data.frame(Participant = c("Total"), t(sapply(dfsub[2:ncol(dfsub)], mean, na.rm = TRUE))) |>
+data.frame(Participant = c(paste0("Total (n=", nrow(dfsub), ")")), t(sapply(dfsub[2:ncol(dfsub)], mean, na.rm = TRUE))) |>
   rbind(dfsub) |>
   mutate(Attention_Check = paste0(
     insight::format_value(Attention_Check, 1),
@@ -338,6 +385,8 @@ df |>
   )
 ```
 
+
+
 ### Colinearity
 
 ```{r message=FALSE, warning=FALSE}
@@ -427,7 +476,7 @@ df |>
   stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
   geom_hline(yintercept = 0.5, linetype = "dotted") +
   # geom_ribbon(data=y_conf, aes(y=Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.3) +
-  geom_line(data=y_conf, aes(y=Predicted, group=Belief), linetype = "dashed") +
+  geom_line(data=y_conf, aes(y=Predicted, group=Belief), linetype = "dashed", color="red") +
   geom_ribbon(data=pred, aes(y=Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.3) +
   geom_line(data=pred, aes(y=Predicted), color="red") +
   scale_fill_gradientn(colors = c("white", "#795548"), guide = "none") +
@@ -483,30 +532,36 @@ make_model <- function(df, var = "Attractive", formula=var, fill = "#2196F3") {
     scale_fill_manual(values=c("Male" = "#2196F3", "Female" = "#E91E63")) +
     scale_x_continuous(expand = c(0, 0), labels = scales::percent) +
     scale_y_continuous(expand = c(0, 0), labels = scales::percent) +
-    theme_modern(axis.title.space=0) + 
+    theme_modern(axis.title.space=5) + 
     ggside::geom_xsidedensity(fill = fill, color = "white") +
     ggside::geom_ysidedensity(fill = "#9C27B0", color = "white") +
     ggside::theme_ggside_void() +
     ggside::scale_ysidex_continuous(expand = c(0, 0)) +
     ggside::scale_xsidey_continuous(expand = c(0, 0))
   
-  list(p=p)
+  list(p=p, model_belief=m_real)
 }
 ```
 
 ```{r message=FALSE, warning=FALSE}
 rez_at <- make_model(filter(df, Stimulus_Interest == TRUE), 
-                     formula = "poly(Attractive, 2) * Sex + Trustworthy + (1|Participant) + (1|Stimulus)", 
+                     formula = "Sex / poly(Attractive, 2) + Trustworthy + (1|Participant) + (1|Stimulus)", 
                      var="Attractive", fill = "#F44336")
 rez_gl <- make_model(filter(df, Stimulus_Interest == TRUE), 
-                     formula = "poly(Goodlooking, 2) * Sex + Trustworthy + (1|Participant) + (1|Stimulus)", 
+                     formula = "Sex / poly(Goodlooking, 2) + Trustworthy + (1|Participant) + (1|Stimulus)", 
                      var="Goodlooking", fill = "#E91E63")
 rez_tr <- make_model(filter(df, Stimulus_Interest == TRUE), 
-                     formula = "poly(Trustworthy, 2) * Sex + Goodlooking + (1|Participant) + (1|Stimulus)", 
+                     formula = "Sex / poly(Trustworthy, 2) + Goodlooking + (1|Participant) + (1|Stimulus)", 
                      var="Trustworthy", fill = "#4CAF50")
 rez_fa <- make_model(filter(df, Stimulus_Interest == TRUE), 
-                     formula = "poly(Familiar, 2) * Sex + (1|Participant) + (1|Stimulus)", 
+                     formula = "Sex / poly(Familiar, 2) + (1|Participant) + (1|Stimulus)", 
                      var="Familiar", fill = "#2196F3")
+
+parameters::parameters(rez_at$model_belief)
+parameters::parameters(rez_gl$model_belief)
+parameters::parameters(rez_tr$model_belief)
+parameters::parameters(rez_fa$model_belief)
+
 
 (rez_at$p +
   theme(axis.text.x = element_blank()) +
@@ -535,7 +590,6 @@ rez_fa$p +
 cor_test(dfsub, "SelfAttractiveness1", "SelfAttractiveness2")
 
 df$Self_Attractiveness <- rowMeans(df[c("SelfAttractiveness1", "SelfAttractiveness2")])
-
 ```
 
 ## Inter-Individual Correlates
@@ -599,11 +653,43 @@ rez <- parameters::n_factors(select(dfsub, starts_with("AI")))
 plot(rez)
 
 efa <- parameters::factor_analysis(select(dfsub, starts_with("AI")), n=3, rotation="varimax", sort=TRUE)
-
+efa
 dfsub <- predict(efa, names = c("AI_Enthusiasm", "AI_Realness", "AI_Danger")) |> 
   cbind(dfsub)
 ```
 ```{r message=FALSE, warning=FALSE}
 r <- make_correlation(dfsub[sr], select(dfsub, AI_Enthusiasm, AI_Realness, AI_Danger))
+filter(r, BF > 1)
+```
+
+
+
+### Social Anxiety
+
+```{r message=FALSE, warning=FALSE}
+r <- make_correlation(dfsub[sr], select(dfsub, starts_with("Social_")))
+filter(r, BF > 1)
+```
+
+
+### Intolerance to Uncertainty
+
+```{r message=FALSE, warning=FALSE}
+r <- make_correlation(dfsub[sr], select(dfsub, starts_with("IUS_")))
+filter(r, BF > 1)
+```
+
+
+### Narcissism
+
+```{r message=FALSE, warning=FALSE}
+r <- make_correlation(dfsub[sr], select(dfsub, starts_with("FFNI_")))
+filter(r, BF > 1)
+```
+
+### Paranoid Beliefs
+
+```{r message=FALSE, warning=FALSE}
+r <- make_correlation(dfsub[sr], select(dfsub, starts_with("GPTS_")))
 filter(r, BF > 1)
 ```

@@ -95,11 +95,16 @@ preprocess_raw <- function(file) {
 
   # Standardize demographics
   # unique(df$Ethnicity)
-  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Latin", "Hisapanic"), "Latino", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Latin", "Hisapanic", "Latino/Hispanic"), "Hispanic", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Europe", "White"), "Caucasian", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("South African Coloured"), "African", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Mestiza", "Mixed Race", "Mixed Race "), "Mixed", df$Ethnicity)
+
+  # unique(df$Nationality)
 
   # Add info related to stimulus
   df$Stimulus_Sex <- ifelse(stringr::str_detect(df$Stimulus, "NF"), "Female", "Male")
-  df$Stimulus_SameSex <- ifelse(df$Sex == df$Stimulus_Sex, "Same", "Opposite")
+  df$Stimulus_SameSex <- ifelse(df$Sex == df$Stimulus_Sex, "Same", "Different")
 
   # Psychometric Scales
   # IPIP

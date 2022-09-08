@@ -91,11 +91,13 @@ dfsub <- df |>
 ### Ratings
 
 ```{r message=FALSE, warning=FALSE}
-dfsub$Cor_Trustworthy <- NA
-dfsub$Cor_Attractive <- NA
+dfsub$r_Trustworthy <- NA
+dfsub$r_Attractive <- NA
+dfsub$r_Goodlooking <- NA
 for (participant in dfsub$Participant) {
-  dfsub[dfsub$Participant == participant, "Cor_Trustworthy"] <- cor(df[df$Participant == participant, "Trustworthy"], df[df$Participant == participant, "Norms_Trustworthy"])
-  dfsub[dfsub$Participant == participant, "Cor_Attractive"] <- cor(df[df$Participant == participant, "Attractive"], df[df$Participant == participant, "Norms_Attractive"])
+  dfsub[dfsub$Participant == participant, "r_Trustworthy"] <- cor(df[df$Participant == participant, "Trustworthy"], df[df$Participant == participant, "Norms_Trustworthy"])
+  dfsub[dfsub$Participant == participant, "r_Attractive"] <- cor(df[df$Participant == participant, "Attractive"], df[df$Participant == participant, "Norms_Attractive"])
+  dfsub[dfsub$Participant == participant, "r_Goodlooking"] <- cor(df[df$Participant == participant, "Goodlooking"], df[df$Participant == participant, "Norms_Attractive"])
 }
 ```
 
@@ -157,14 +159,14 @@ p_time <- dfsub |>
   ggside::scale_ysidex_continuous(expand = c(0, 0))
   
 p_cor <- dfsub |>
-  select(Participant, starts_with("Cor")) |> 
+  select(Participant, starts_with("r_")) |> 
   pivot_longer(-Participant) |> 
-  mutate(name = str_remove(name, "Cor_")) |> 
+  mutate(name = str_remove(name, "r_")) |> 
   ggplot(aes(x = Participant, y = value)) +
   geom_bar(aes(fill = name), stat = "identity", position = "dodge") +
   scale_y_continuous(expand = c(0, 0)) +
-  scale_fill_manual(values = c("#F44336", "#9C27B0")) +
-  scale_color_manual(values = c("#F44336", "#9C27B0")) +
+  scale_fill_manual(values = c("#F44336", "#9C27B0", "#5227b0")) +
+  scale_color_manual(values = c("#F44336", "#9C27B0", "#5227b0")) +
   see::theme_modern() +
   theme(axis.text.x = element_text(angle = 45, hjust=1),
         legend.position = "top") +
@@ -211,7 +213,7 @@ plot_distribution <- function(dfsub, what = "Age", title = what, subtitle = "", 
 }
 
 plot_waffle <- function(dfsub, what = "Nationality", title = what, rows = 8, size=3) {
-  library(emojifont)
+  # library(emojifont)
   ggwaffle::waffle_iron(dfsub, what, rows = rows) |>
     # mutate(label = emojifont::fontawesome('fa-smiley')) |>
     # mutate(label = emojifont::emoji('smiley')) |>
@@ -282,7 +284,7 @@ df |>
   #   ungroup() |>
   #   arrange(Real) |>
   #   pull(Participant))) |>
-  mutate(Participant = fct_relevel(Participant, dfsub$Participant)) |> 
+  mutate(Participant = fct_relevel(Participant, as.character(dfsub$Participant))) |> 
   ggplot(aes(x = Real, y = Participant, fill = Participant)) +
   ggdist::stat_slab(scale = 2, slab_alpha = 0.9, normalize = "groups") +
   geom_vline(xintercept = 0.5, linetype = "dotted") +
@@ -366,6 +368,11 @@ dats |>
   ggside::scale_xsidey_continuous(expand = c(0, 0)) +
   ggside::ggside(collapse = "all") 
 ```
+
+#### Effect of Delay
+
+
+
 
 ### Reality and Attractiveness
 

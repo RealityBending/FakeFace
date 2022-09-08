@@ -7,24 +7,24 @@ unnest <- function(file, scale) {
 }
 
 preprocess_raw <- function(file) {
-  
+
   data <- read.csv(file)
-  
+
   # Preprocess
   if (!"end_screen" %in% data$screen) {
     print(paste0("Warning: Incomplete data for ", file))
     return(data.frame())
   }
-  
+
   # Demographics
   dem <- data[data$screen == "demographics" & !is.na(data$screen), "response"]
-  
+
   # Trials
   block1 <- data[data$screen == "stimuli" & data$block_number=='1', ]
-  block2<- data[data$screen == "stimuli" & data$block_number=='2', ]
+  block2 <- data[data$screen == "stimuli" & data$block_number=='2', ]
   answers <- unnest(data, "questionnaire")
   realness_answers <- unnest(data, "perceived_realness")
-  
+
   # Realness Block
   realness_df <- data.frame(
     Block2_Trial = as.numeric(block2$trial_number),
@@ -33,10 +33,10 @@ preprocess_raw <- function(file) {
     Realness_RT = as.numeric(data[data$screen =="perceived_realness", "rt"]),
     SimulationMonitoring = datawizard::change_scale(realness_answers$perceived_realness, to = c(-1, 1), range = c(0, 1))
   )
-  
+
   # Info
   info <- data[data$screen == "browser_info" & !is.na(data$screen), ]
-  
+
   df <- data.frame(
     Participant = block1$participant_id,
     Age = as.numeric(jsonlite::fromJSON(dem[1])$age),
@@ -62,8 +62,8 @@ preprocess_raw <- function(file) {
     Block1_Trial = as.numeric(block1$trial_number),
     Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", block1$stimulus)),
     Questionnaire_RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
-    PhysicalAttractiveness = datawizard::change_scale(answers$Physical_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
-    GeneralAttractiveness = datawizard::change_scale(answers$General_Attractiveness, to =c(0.0001, 0.9999), range = c(0, 1)),
+    Goodlooking = datawizard::change_scale(answers$Physical_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
+    Attractive = datawizard::change_scale(answers$General_Attractiveness, to =c(0.0001, 0.9999), range = c(0, 1)),
     Trustworthy = datawizard::change_scale(answers$Trustworthiness, to = c(0.0001, 0.9999), range = c(0, 1)),
     Familiar = datawizard::change_scale(answers$Familiarity, to = c(0.0001, 0.9999), range = c(0, 1))
     #Block2_Trial = as.numeric(block2$trial_number),
@@ -75,22 +75,22 @@ preprocess_raw <- function(file) {
     # Approachable = datawizard::change_scale(answers$Approachability, to = c(0.0001, 0.9999), range = c(0, 100)),
     #  Similar = datawizard::change_scale(answers$Similarity, to = c(0.0001, 0.9999), range = c(0, 100))
   )
-  
-  # Merge data from both task blocks 
+
+  # Merge data from both task blocks
   df<- merge(df, realness_df, on='Stimulus')
-  
+
   # Format sexual orientation
   df$Sexual_Orientation <- ifelse(df$Sexual_Orientation == "Other", jsonlite::fromJSON(dem[4])$sexual_orientation, df$Sexual_Orientation)
-  
+
   # Format education
   df$Education <- gsub("University (", "", df$Education, fixed = TRUE)
   df$Education <- gsub(")", "", df$Education, fixed = TRUE)
   df$Education <- tools::toTitleCase(df$Education)
-  
+
   # Standardize demographics
   # unique(df$Ethnicity)
   df$Ethnicity <- ifelse(df$Ethnicity %in% c("Latin", "Hisapanic"), "Latino", df$Ethnicity)
-  
+
   # Add info related to stimulus
   df$Stimulus_Sex <- ifelse(stringr::str_detect(df$Stimulus, "NF"), "Female", "Male")
   df$Stimulus_SameSex <- ifelse(df$Sex == df$Stimulus_Sex, "Same", "Opposite")
@@ -105,17 +105,17 @@ preprocess_raw <- function(file) {
   df$IPIP6_Openness <- rowMeans(ipip6[grepl("Openness", names(ipip6))])
   df$IPIP6_HonestyHumility <- rowMeans(ipip6[grepl("HonestyHumility", names(ipip6))])
   df$IPIP6_Agreeableness <- rowMeans(ipip6[grepl("Agreeableness", names(ipip6))])
-  
-  
+
+
   # SIAS + Attention Check 1
   sias <- unnest(data, "SIAS")
   df$Social_Anxiety <- rowMeans(sias[grepl("SIAS", names(sias))])
-  
+
   # SPS
   sps <- unnest(data, "SPS")
   df$Social_Phobia <- rowMeans(sps[grepl("Social_Phobia", names(sps))])
-  
-  
+
+
   # GAAIS
   gaais <- unnest(data, "GAAIS")
   gaais[grepl("_R", names(gaais))] <- 1 - gaais[grepl("_R", names(gaais))]
@@ -129,10 +129,10 @@ preprocess_raw <- function(file) {
   df$AI_8_Exciting <- gaais$GAAIS_8
   df$AI_9_Applications <- gaais$GAAIS_9
   df$AI_10_FaceErrors <- gaais$GAAIS_10
-  
-  
-  
-  
+
+
+
+
   # FFNI + Attention Check 2
   ffni <- unnest(data, "FFNI-BF")
   df$FFNI_AcclaimSeeking <- rowMeans(ffni[grepl("Acclaim", names(ffni))])
@@ -150,35 +150,35 @@ preprocess_raw <- function(file) {
   df$FFNI_ReactiveAnger <- rowMeans(ffni[grepl("Reactive", names(ffni))])
   df$FFNI_Shame <- rowMeans(ffni[grepl("Shame", names(ffni))])
   df$FFNI_ThrillSeeking <- rowMeans(ffni[grepl("Thrill", names(ffni))])
-  
+
   df$SelfAttractiveness1 <- ffni$self_rated_general_attractiveness
   df$SelfAttractiveness2 <- ffni$self_rated_physical_attractiveness
-  
+
   # GPTS
   gpts <- unnest(data, "GPTS")
   df$GPTS_Reference <- rowMeans(gpts[grepl("Reference", names(gpts))])
   df$GPTS_Persecution <- rowMeans(gpts[grepl("Persecution", names(gpts))])
-  
-  
+
+
   # SCC + Attention Check 3
   # scc <- unnest(data, "SCC")
   # scc[grepl("_R", names(scc))] <- 100 - scc[grepl("_R", names(scc))]
   # df$SelfConceptClarity <- rowMeans(scc[grepl("SCC", names(scc))])
-  
 
-  
+
+
   # IUS
   ius <- unnest(data, "IUS")
   df$IUS_ProspectiveAnxiety <- rowMeans(ius[grepl("Prospective", names(ius))])
   df$IUS_InhibitoryAnxiety <- rowMeans(ius[grepl("Inhibitory", names(ius))])
-  
-  
+
+
   # Attention checks
   df$Attention_Check1 <- sias$Attention_Check_1
   df$Attention_Check2 <- ffni$Attention_Check_2
   df$Attention_Check3 <- 1 - ius$Attention_Check_3  # Reversed
-  
-  
+
+
   # Combine with Norms data
   norms <- read.csv("experiment/stimuli/AMFD_norms.csv")
   norms <- norms[norms$FType == 0, ]  # No smiling
@@ -190,7 +190,7 @@ preprocess_raw <- function(file) {
     Norms_Warm = norms$Warm_mean,
     Norms_Attractive = norms$Attract_mean
   )
-  
+
   merge(df, norms, by = "Stimulus")
 }
 
@@ -205,4 +205,4 @@ for (ppt in participants) {
 }
 
 
-write.csv(df, "data/data2.csv", row.names = FALSE)
+write.csv(df, "data/data.csv", row.names = FALSE)

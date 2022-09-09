@@ -105,21 +105,25 @@
         images: ["utils/question_demo_2.png", "utils/realness_demo.png"],  //change to images for pavlovia to preload
     })
 
+    var stimuli_part1 = stimuli.slice(0, 55)
+    var stimuli_part2 = stimuli.slice(55,109)
+
     // Preload Stimuli Images
     timeline.push({
         type: jsPsychHtmlKeyboardResponse,
         stimulus: "<p>Please wait for the experiment to load...</p>",
         choices: "NO_KEYS",
         trial_duration: 1000,
-        data: { screen: "part_2_loading" },
+        data: { screen: "stimuli_1_loading" },
     })
 
     // Preload image stimuli to prevent lagging during experiment
     timeline.push({
         type: jsPsychPreload,
-        images: stimuli.map((a) => a.stimulus), // stimuli is a stimulus in ../stimuli
+        images: stimuli_part1.map((a) => a.stimulus), // stimuli is a stimulus in ../stimuli
+        max_load_time: 5*60*1000
     })
-    
+
     // Retrieve and save browser info
     var browser_check = {
         type: jsPsychBrowserCheck,
@@ -180,6 +184,22 @@
         data: { screen: "consent" }
     }
     timeline.push(consent)
+
+     // Preload Stimuli Images
+     timeline.push({
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "<p>Please wait for the experiment to load...</p>",
+        choices: "NO_KEYS",
+        trial_duration: 1000,
+        data: { screen: "stimuli_2_loading" },
+    })
+
+    // Preload image stimuli to prevent lagging during experiment
+    timeline.push({
+        type: jsPsychPreload,
+        images: stimuli_part2.map((a) => a.stimulus), // stimuli is a stimulus in ../stimuli
+        max_load_time: 5*60*1000
+    })
 
 
     // Instructions Demographics

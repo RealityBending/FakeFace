@@ -105,6 +105,21 @@
         images: ["utils/question_demo_2.png", "utils/realness_demo.png"],  //change to images for pavlovia to preload
     })
 
+    // Preload Stimuli Images
+    timeline.push({
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "<p>Please wait for the experiment to load...</p>",
+        choices: "NO_KEYS",
+        trial_duration: 1000,
+        data: { screen: "part_2_loading" },
+    })
+
+    // Preload image stimuli to prevent lagging during experiment
+    timeline.push({
+        type: jsPsychPreload,
+        images: stimuli.map((a) => a.stimulus), // stimuli is a stimulus in ../stimuli
+    })
+    
     // Retrieve and save browser info
     var browser_check = {
         type: jsPsychBrowserCheck,
@@ -723,19 +738,7 @@
     /*=========================== Experiment Block 1 ===================================*/
     /*=================================================================================*/
 
-    timeline.push({
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: "<p>Please wait for the experiment to load...</p>",
-        choices: "NO_KEYS",
-        trial_duration: 1000,
-        data: { screen: "part_2_loading" },
-    })
 
-    // Preload image stimuli to prevent lagging during experiment
-    timeline.push({
-        type: jsPsychPreload,
-        images: stimuli.map((a) => a.stimulus), // stimuli is a stimulus in ../stimuli
-    })
 
     // Experiment Instructions
     var task_instructions_1 = {
@@ -888,10 +891,10 @@
     })
 
     // Preload image stimuli to prevent lagging during experiment
-    timeline.push({
-        type: jsPsychPreload,
-        images: stimuli.map((a) => a.stimulus), // stimuli is a variable defined in ../stimuli
-    })
+    // timeline.push({
+    //     type: jsPsychPreload,
+    //     images: stimuli.map((a) => a.stimulus), // stimuli is a variable defined in ../stimuli
+    // })
 
     // Experiment Instructions
     var task_instructions_2 = {

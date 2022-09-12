@@ -47,14 +47,14 @@ df <- read.csv("data/data.csv") |>
     Date = lubridate::dmy(Date),
     Participant = fct_reorder(Participant, Date),
     Screen_Refresh = as.character(Screen_Refresh),
-    # Education = fct_relevel(Education, "Doctorate", "Master", "Bachelor", "High School", "Other"),
+    Education = fct_relevel(Education, "Doctorate", "Master", "Bachelor", "High School", "Other", "Prefer not to Say"),
     Belief = fct_relevel(Belief, "Fake", "Real"),
     Stimulus_Interest = case_when(
       Sexual_Orientation == "Heterosexual" & Stimulus_SameSex == "Opposite" ~ TRUE,
       Sexual_Orientation == "Heterosexual" & Stimulus_SameSex == "Same" ~ FALSE,
       Sexual_Orientation == "Homosexual" & Stimulus_SameSex == "Opposite" ~ FALSE,
       Sexual_Orientation == "Homosexual" & Stimulus_SameSex == "Same" ~ TRUE,
-      Sexual_Orientation == "Bisexual" ~ TRUE,
+      Sexual_Orientation %in% c("Bisexual", "Queer") ~ TRUE,
       TRUE ~ NA
     )
   )
@@ -65,10 +65,12 @@ df <- read.csv("data/data.csv") |>
 # Create individual scores for Simulation Monitoring
 df <- df |>
   group_by(Participant, Belief) |>
-  summarise(Confidence = mean(abs(Belief_Confidence)),
-            n = n() / 109) |> 
+  summarise(
+    Confidence = mean(abs(Belief_Confidence)),
+    n = n() / 109
+  ) |>
   pivot_wider(names_from = "Belief", values_from = c("Confidence", "n")) |>
-  ungroup() |> 
+  ungroup() |>
   merge(df, by = "Participant")
 ```
 
@@ -79,12 +81,18 @@ df <- df |>
 ```{r message=FALSE, warning=FALSE}
 outliers <- c(
   # Very short duration for questionnaire in particular + low rating correlations
-  "5eaef8702b68455d6e130595_ptsga"
-  )
+  "5eaef8702b68455d6e130595_ptsga",
+  "5f0f0a2a8b2a480447f31b21_lqgpz",
+  "611d03b822d4c8e041ea0c32_m0knb"
+)
 outliers_partial <- c(
   "5dc3485219ca0326027ce91f_37ho9",
   "5c6414540821d30001046198_x9q7r",
-  "60dd7b03f1e72d38230df476_9yh9n")
+  "60dd7b03f1e72d38230df476_9yh9n",
+  "5962799cb752840001ca478b_jh4sl",
+  "5f44c23fbf2ddb80bcdf0edc_dnbny",
+  "5e80370d48b5f47170e30e5c_5w2gf"
+)
 ```
 
 We removed `r length(outliers)` participants upon inspection of...
@@ -95,22 +103,22 @@ We removed `r length(outliers)` participants upon inspection of...
 
 
 ```{r message=FALSE, warning=FALSE}
-extreme_items <- df |> 
+extreme_items <- df |>
   group_by(Stimulus, Belief) |>
-  summarize(n = n() / nrow(dfsub)) |>
-  pivot_wider(values_from = "n", names_from = "Belief") |> 
-  mutate(File = paste0("experiment/stimuli/AMFD/", Stimulus)) |> 
-  arrange(Real) |> 
-  filter(Real < 0.2 | Real > 0.8)
+  summarize(n = n() / length(unique(df$Participant))) |>
+  pivot_wider(values_from = "n", names_from = "Belief") |>
+  mutate(File = paste0("experiment/stimuli/AMFD/", Stimulus)) |>
+  arrange(Real) |>
+  filter(Real < 0.15 | Real > 0.85)
 
 
 p_item <- df |>
-  filter(Stimulus %in% extreme_items$Stimulus) |> 
+  filter(Stimulus %in% extreme_items$Stimulus) |>
   mutate(Stimulus = fct_relevel(Stimulus, as.character(extreme_items$Stimulus))) |>
   ggplot(aes(x = Belief_Answer, y = Stimulus, fill = Stimulus)) +
   ggdist::stat_slab(scale = 2, slab_alpha = 0.9, normalize = "groups") +
   geom_vline(xintercept = 0, linetype = "dotted") +
-  ggimage::geom_image(data=extreme_items, aes(image=File, x = 0, y=Stimulus), size=0.1, by="height") +
+  ggimage::geom_image(data = extreme_items, aes(image = File, x = 0, y = Stimulus), size = 0.1, by = "height") +
   # scale_y_discrete(expand = c(0.5, 0.5)) +
   scale_x_continuous(
     limits = c(-1, 1),
@@ -129,7 +137,7 @@ p_item <- df |>
 # p_item
 
 
-df <- df |> 
+df <- df |>
   filter(!Stimulus %in% extreme_items$Stimulus)
 ```
 
@@ -156,11 +164,11 @@ dfsub <- df |>
 ```{r message=FALSE, warning=FALSE}
 dfsub$r_Trustworthy <- NA
 dfsub$r_Attractive <- NA
-dfsub$r_Goodlooking <- NA
+dfsub$r_Beauty <- NA
 for (participant in dfsub$Participant) {
   dfsub[dfsub$Participant == participant, "r_Trustworthy"] <- cor(df[df$Participant == participant, "Trustworthy"], df[df$Participant == participant, "Norms_Trustworthy"])
   dfsub[dfsub$Participant == participant, "r_Attractive"] <- cor(df[df$Participant == participant, "Attractive"], df[df$Participant == participant, "Norms_Attractive"])
-  dfsub[dfsub$Participant == participant, "r_Goodlooking"] <- cor(df[df$Participant == participant, "Goodlooking"], df[df$Participant == participant, "Norms_Attractive"])
+  dfsub[dfsub$Participant == participant, "r_Beauty"] <- cor(df[df$Participant == participant, "Beauty"], df[df$Participant == participant, "Norms_Attractive"])
 }
 ```
 
@@ -184,8 +192,9 @@ data.frame(Participant = c(paste0("Total (n=", nrow(dfsub), ")")), t(sapply(dfsu
   datawizard::data_relocate("Attention_Check", 2) |>
   knitr::kable() |>
   kableExtra::row_spec(1, italic = TRUE) |>
-  kableExtra::row_spec(which(dfsub$Participant %in% outliers) + 1, background = "#EF9A9A") |> 
+  kableExtra::row_spec(which(dfsub$Participant %in% outliers) + 1, background = "#EF9A9A") |>
   kableExtra::row_spec(which(dfsub$Participant %in% outliers_partial) + 1, background = "#FFCC80")
+# kableExtra::row_spec(which(str_detect(dfsub$Participant, "613a972033d79df11a6570de")) + 1, background = "green")
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -240,8 +249,10 @@ p_cor <- dfsub |>
   scale_color_manual(values = c("#F44336", "#9C27B0", "#5227b0")) +
   see::theme_modern() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1, 
-                               color = ifelse(levels(dfsub$Participant) %in% outliers, "red", ifelse(levels(dfsub$Participant) %in% outliers_partial, "orange", "black"))),
+    axis.text.x = element_text(
+      angle = 45, hjust = 1,
+      color = ifelse(levels(dfsub$Participant) %in% outliers, "red", ifelse(levels(dfsub$Participant) %in% outliers_partial, "orange", "black"))
+    ),
     legend.position = "top"
   ) +
   labs(y = "Correlation", fill = "") +
@@ -254,7 +265,7 @@ p_cor <- dfsub |>
   (p_time + theme(axis.text.x = element_blank())) /
   (p_cor)
 
-df <- df |> 
+df <- df |>
   filter(!Participant %in% outliers)
 ```
 
@@ -325,8 +336,15 @@ p3 <- plot_waffle(dfsub, "Sexual_Orientation")
 p4 <- plot_waffle(dfsub, "Education") +
   scale_fill_viridis_d()
 
-p5 <- plot_waffle(dfsub, "Nationality") +
-  scale_fill_manual(values = c("South American" = "#FF5722", "Middle Eastern" = "#FF9800", "Western" = "#2196F3", "Eastern" = "#673AB7", "African" = "#4CAF50", "South African" = "#009688"))
+p5 <- dfsub |>
+  group_by(Nationality) |>
+  mutate(n = n()) |>
+  ungroup() |>
+  mutate(Nationality = fct_reorder(Nationality, desc(n))) |>
+  ggplot(aes(Nationality)) +
+  geom_bar(aes(fill = Nationality)) +
+  scale_fill_viridis_d(guide = "none") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 p6 <- plot_waffle(dfsub, "Ethnicity") +
   scale_fill_manual(values = c("Latino" = "#FF5722", "Asian" = "#FF9800", "Caucasian" = "#2196F3", "African" = "#4CAF50", "Jewish" = "#9C27B0", "Mixed" = "#795548"))
@@ -341,7 +359,7 @@ p8 <- plot_waffle(dfsub, "Device_OS", title = "Device OS") +
 # p10 <- plot_waffle(dfsub, "Screen_Refresh") +
 #   scale_fill_viridis_d()
 
-patchwork::wrap_plots(list(p1, p2, p3, p4, p5, p6, p7, p8))
+patchwork::wrap_plots(list(p1, p2, p3, p4, p5, p6, p8))
 ```
 
 # Results
@@ -353,11 +371,10 @@ patchwork::wrap_plots(list(p1, p2, p3, p4, p5, p6, p7, p8))
 ### Real / Fake
 
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, fig.height=fig.width*1.5}
 # plot(estimate_density(filter(df, Participant == "60dd7b03f1e72d38230df476_9yh9n")$Belief_Answer))
-
 df |>
-  mutate(Participant = fct_relevel(Participant, df |> 
+  mutate(Participant = fct_relevel(Participant, df |>
     group_by(Participant) |>
     summarize(Belief_Answer = mean(Belief_Answer)) |>
     ungroup() |>
@@ -366,13 +383,13 @@ df |>
     as.character())) |>
   # mutate(Participant = fct_relevel(Participant, as.character(dfsub$Participant))) |>
   ggplot(aes(x = Belief_Answer, y = Participant, fill = Participant)) +
-  ggdist::stat_slab(scale = 2, slab_alpha = 0.9, normalize = "groups") +
+  ggdist::stat_slab(scale = 2, slab_alpha = 0.9, normalize = "groups", color = "black", size = 0.1) +
   geom_vline(xintercept = 0, linetype = "dotted") +
-  scale_y_discrete(expand = c(0.5, 0.5)) +
+  scale_y_discrete(expand = c(0.02, 0)) +
   scale_x_continuous(
     limits = c(-1, 1),
     expand = c(0, 0),
-    breaks = c(-1, 0, 1),
+    breaks = c(-0.95, 0, 0.95),
     label = c("Fake", "", "Real")
   ) +
   scale_fill_viridis_d() +
@@ -380,9 +397,11 @@ df |>
   guides(fill = "none") +
   see::theme_modern() +
   theme(
-    # axis.text.y = element_blank(),
+    axis.text.y = element_blank(),
     plot.title = element_text(face = "bold", hjust = 0.5)
-  )
+  ) +
+  ggside::geom_xsidedensity(fill = "grey", color = "white") +
+  ggside::scale_xsidey_continuous(expand = c(0, 0))
 ```
 
 
@@ -390,7 +409,7 @@ df |>
 ### Colinearity
 
 ```{r message=FALSE, warning=FALSE}
-IVs <- c("Attractive", "Goodlooking", "Trustworthy", "Familiar")
+IVs <- c("Attractive", "Beauty", "Trustworthy", "Familiar")
 
 preds <- data.frame()
 dats <- data.frame()
@@ -399,7 +418,7 @@ for (x in IVs) {
     if (x == y) next
     print(paste(y, "~", x))
     model <- glmmTMB::glmmTMB(as.formula(
-      paste(y, "~", x, "* Sex * Stimulus_SameSex + (1|Participant) + (1|Stimulus)")
+      paste(y, "~", x, "* Sex * Stimulus_Interest + (1|Participant) + (1|Stimulus)")
     ),
     data = df,
     family = glmmTMB::beta_family()
@@ -410,13 +429,13 @@ for (x in IVs) {
     #                     data = df,
     #                     family=mgcv::betar())
 
-    pred <- estimate_relation(model, at = c(x, "Stimulus_SameSex", "Sex"), length = 20)
+    pred <- estimate_relation(model, at = c(x, "Stimulus_Interest", "Sex"), length = 20)
     pred$y <- y
     pred <- data_rename(pred, x, "Score")
     pred$x <- x
     preds <- rbind(preds, pred)
 
-    dats <- rbind(dats, data.frame(Score = df[[x]], Predicted = df[[y]], x = x, y = y))
+    dats <- rbind(dats, data.frame(Score = df[[x]], Predicted = df[[y]], x = x, y = y, Sex = df$Sex))
   }
 }
 
@@ -429,11 +448,12 @@ dats |>
   ggplot(aes(x = Score, y = Predicted)) +
   stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
   # geom_ribbon(data = preds, aes(ymin = CI_low, ymax = CI_high, group = Stimulus_SameSex), alpha = 0.3) +
-  geom_line(data = preds, aes(color = Sex, linetype=Stimulus_SameSex)) +
+  geom_line(data = preds, aes(color = Sex, linetype = Stimulus_Interest)) +
   scale_fill_gradientn(colors = c("white", "#FF9800", "#F44336"), guide = "none") +
-  scale_color_manual(values=c("Male" = "#2196F3", "Female" = "#E91E63")) +
-  scale_x_continuous(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
+  scale_color_manual(values = c("Male" = "#2196F3", "Female" = "#E91E63")) +
+  scale_linetype_manual(values = c("TRUE" = "solid", "FALSE" = "dashed")) +
+  scale_x_continuous(expand = c(0, 0), labels = scales::percent()) +
+  scale_y_continuous(expand = c(0, 0), labels = scales::percent()) +
   facet_grid(y ~ x, switch = "both") +
   theme_modern() +
   labs(title = "Collinearity in the Stimuli Ratings") +
@@ -445,8 +465,10 @@ dats |>
     axis.title.y = element_blank(),
     plot.title = element_text(face = "bold", hjust = 0.5)
   ) +
-  ggside::geom_xsidedensity(fill = "grey", color = "white") +
-  ggside::geom_ysidedensity(fill = "grey", color = "white") +
+  ggnewscale::new_scale_fill() +
+  scale_fill_manual(values = c("Male" = "#2196F3", "Female" = "#E91E63")) +
+  ggside::geom_xsidedensity(aes(fill = Sex), color = NA, alpha = 0.3) +
+  ggside::geom_ysidedensity(aes(fill = Sex), color = NA, alpha = 0.3) +
   ggside::theme_ggside_void() +
   ggside::scale_ysidex_continuous(expand = c(0, 0)) +
   ggside::scale_xsidey_continuous(expand = c(0, 0)) +
@@ -456,32 +478,32 @@ dats |>
 ### Effect of Delay
 
 ```{r message=FALSE, warning=FALSE}
-model <- glmmTMB::glmmTMB(Belief ~ poly(Delay, 2) + (1|Participant) + (1|Stimulus),
-      data = df,
-      family = "binomial"
-    )
-pred <- estimate_relation(model, at = "Delay", length = 20) 
+model <- glmmTMB::glmmTMB(Belief ~ Delay + (1 | Participant) + (1 | Stimulus),
+  data = df,
+  family = "binomial"
+)
+pred <- estimate_relation(model, at = "Delay", length = 20)
 
-m_conf <- glmmTMB::glmmTMB(Belief_Confidence ~ Belief / poly(Delay, 2) + (1|Participant) + (1|Stimulus),
-      data = df,
-      family = glmmTMB::beta_family()
-    )
+m_conf <- glmmTMB::glmmTMB(Belief_Confidence ~ Belief / Delay + ((Belief / Delay) | Participant) + (1 | Stimulus),
+  data = df,
+  family = glmmTMB::beta_family()
+)
 y_conf <- estimate_relation(m_conf, at = c("Delay", "Belief"), length = 20)
-y_conf <- y_conf |> 
-  mutate_at(c("Predicted", "CI_low", "CI_high"), function(x) ifelse(y_conf$Belief == "Real", datawizard::rescale(x, range=c(0, 1), to=c(0.5, 1)), datawizard::rescale(x, range=c(1, 0), to=c(0, 0.5))))
-  
+y_conf <- y_conf |>
+  mutate_at(c("Predicted", "CI_low", "CI_high"), function(x) ifelse(y_conf$Belief == "Real", datawizard::rescale(x, range = c(0, 1), to = c(0.5, 1)), datawizard::rescale(x, range = c(1, 0), to = c(0, 0.5))))
+
 
 df |>
   ggplot(aes(x = Delay, y = Real)) +
   stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
   geom_hline(yintercept = 0.5, linetype = "dotted") +
   # geom_ribbon(data=y_conf, aes(y=Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.3) +
-  geom_line(data=y_conf, aes(y=Predicted, group=Belief), linetype = "dashed", color="red") +
-  geom_ribbon(data=pred, aes(y=Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.3) +
-  geom_line(data=pred, aes(y=Predicted), color="red") +
+  geom_line(data = y_conf, aes(y = Predicted, group = Belief), linetype = "dashed", color = "red") +
+  geom_ribbon(data = pred, aes(y = Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.3) +
+  geom_line(data = pred, aes(y = Predicted), color = "red") +
   scale_fill_gradientn(colors = c("white", "#795548"), guide = "none") +
   scale_x_continuous(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0), labels = scales::percent) +
   theme_modern() +
   labs(title = "Effect of Re-exposure Delay", x = "Minutes") +
   theme(
@@ -496,27 +518,51 @@ df |>
   ggside::scale_ysidex_continuous(expand = c(0, 0)) +
   ggside::scale_xsidey_continuous(expand = c(0, 0)) +
   ggside::ggside(collapse = "all")
+
+parameters::parameters(model)
 ```
 
 
 ## Determinants of Reality
 
 ```{r message=FALSE, warning=FALSE}
-make_model <- function(df, var = "Attractive", formula=var, fill = "#2196F3") {
+make_model <- function(df, var = "Attractive", formula = var, fill = "#2196F3") {
+  # Models
   m_real <- glmmTMB::glmmTMB(as.formula(paste0("Belief ~ ", formula)),
-                             data = df,
-                             family = "binomial")
-  y_real <- estimate_relation(m_real, at = c(var, "Sex"), length = 20)
-  
-  
+    data = df,
+    family = "binomial"
+  )
+  y_real <- estimate_relation(m_real, at = c(var, "Sex"), length = 21)
+  # gam <- brms::brm(paste0("Belief ~ s(", var, ", by=Sex) + (1|Participant) + (1|Stimulus)"),
+  #                  data=df,
+  #                  algorithm="sampling",
+  #                  family = "bernoulli")
+  # trend <- estimate_relation(gam, at = c(var, "Sex"), length = 81, preserve_range=FALSE)
+  # slope <- estimate_slopes(gam, trend=var, at = c(var, "Sex"), length = 81)
+  # trend$Trend <- interpret_pd(slope$pd)
+  # trend$group <- 0
+  # trend$group[2:nrow(trend)] <- as.character(cumsum(ifelse(trend$Trend[2:nrow(trend)] == trend$Trend[1:nrow(trend)-1], 0, 1)))
+
+
   m_conf <- glmmTMB::glmmTMB(as.formula(paste0("Belief_Confidence ~ Belief /", formula)),
-        data = df,
-        family = glmmTMB::beta_family()
-      )
-  y_conf <- estimate_relation(m_conf, at = c(var, "Belief", "Sex"), length = 20)
-  y_conf <- y_conf |> 
-    mutate_at(c("Predicted", "CI_low", "CI_high"), function(x) ifelse(y_conf$Belief == "Real", datawizard::rescale(x, range=c(0, 1), to=c(0.5, 1)), datawizard::rescale(x, range=c(1, 0), to=c(0, 0.5))))
-  
+    data = df,
+    family = glmmTMB::beta_family()
+  )
+  y_conf <- estimate_relation(m_conf, at = c(var, "Belief", "Sex"), length = 21)
+  y_conf <- y_conf |>
+    mutate_at(c("Predicted", "CI_low", "CI_high"), function(x) ifelse(y_conf$Belief == "Real", datawizard::rescale(x, range = c(0, 1), to = c(0.5, 1)), datawizard::rescale(x, range = c(1, 0), to = c(0, 0.5))))
+
+  # Significance
+  param <- parameters::parameters(m_real, effects = "fixed", keep = var)
+  sig <- data.frame(
+    x = 0.5,
+    y = y_real[c(11, 32), "Predicted"] + c(0.05, -0.05),
+    p = c(min(param$p[c(1, 3)]), min(param$p[c(2, 4)])),
+    Sex = c("Female", "Male")
+  )
+  sig$label <- format_p(sig$p, stars_only = TRUE)
+
+  # Plot
   p <- df |>
     ggplot(aes_string(x = var, y = "Real")) +
     stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
@@ -524,63 +570,92 @@ make_model <- function(df, var = "Attractive", formula=var, fill = "#2196F3") {
     ggnewscale::new_scale_fill() +
     geom_hline(yintercept = 0.5, linetype = "dotted") +
     # geom_point2(alpha = 0.25, size = 4, color = "black") +
-    geom_line(data=y_conf, aes(y=Predicted, group=interaction(Belief, Sex), color=Sex), linetype="dashed") +
-    geom_ribbon(data = y_real, aes(y = Predicted, group=Sex, fill=Sex, ymin = CI_low, ymax = CI_high), alpha = 0.5) +
-    geom_line(data = y_real, aes(y = Predicted, color=Sex)) +
-    
-    scale_color_manual(values=c("Male" = "#2196F3", "Female" = "#E91E63")) +
-    scale_fill_manual(values=c("Male" = "#2196F3", "Female" = "#E91E63")) +
+    geom_line(data = y_conf, aes(y = Predicted, group = interaction(Belief, Sex), color = Sex), linetype = "dashed") +
+    geom_ribbon(data = y_real, aes(y = Predicted, group = Sex, fill = Sex, ymin = CI_low, ymax = CI_high), alpha = 1 / 3) +
+    geom_line(data = y_real, aes(y = Predicted, color = Sex), size=1) +
+    # geom_ribbon(data = trend, aes(y = Predicted, group=Sex, fill=Sex, ymin = CI_low, ymax = CI_high), alpha = 1/6) +
+    # geom_line(data = trend, aes(y = Predicted, color=Sex, linetype=Trend, group=interaction(Sex, group)), size=0.6) +
+    geom_text(data = sig, aes(y = y, x = x, label = label, color = Sex), size = 8) +
+    scale_color_manual(values = c("Male" = "#2196F3", "Female" = "#E91E63")) +
+    scale_fill_manual(values = c("Male" = "#2196F3", "Female" = "#E91E63")) +
     scale_x_continuous(expand = c(0, 0), labels = scales::percent) +
     scale_y_continuous(expand = c(0, 0), labels = scales::percent) +
-    theme_modern(axis.title.space=5) + 
+    guides(fill = guide_legend(override.aes = list(alpha = 1))) +
+    theme_modern(axis.title.space = 5) +
     ggside::geom_xsidedensity(fill = fill, color = "white") +
     ggside::geom_ysidedensity(fill = "#9C27B0", color = "white") +
     ggside::theme_ggside_void() +
     ggside::scale_ysidex_continuous(expand = c(0, 0)) +
     ggside::scale_xsidey_continuous(expand = c(0, 0))
-  
-  list(p=p, model_belief=m_real)
+
+  list(p = p, model_belief = m_real, model_confidence = m_conf)
 }
 ```
 
 ```{r message=FALSE, warning=FALSE}
-rez_at <- make_model(filter(df, Stimulus_Interest == TRUE), 
-                     formula = "Sex / poly(Attractive, 2) + Trustworthy + (1|Participant) + (1|Stimulus)", 
-                     var="Attractive", fill = "#F44336")
-rez_gl <- make_model(filter(df, Stimulus_Interest == TRUE), 
-                     formula = "Sex / poly(Goodlooking, 2) + Trustworthy + (1|Participant) + (1|Stimulus)", 
-                     var="Goodlooking", fill = "#E91E63")
-rez_tr <- make_model(filter(df, Stimulus_Interest == TRUE), 
-                     formula = "Sex / poly(Trustworthy, 2) + Goodlooking + (1|Participant) + (1|Stimulus)", 
-                     var="Trustworthy", fill = "#4CAF50")
-rez_fa <- make_model(filter(df, Stimulus_Interest == TRUE), 
-                     formula = "Sex / poly(Familiar, 2) + (1|Participant) + (1|Stimulus)", 
-                     var="Familiar", fill = "#2196F3")
+rez_at <- make_model(filter(df, Stimulus_Interest == TRUE),
+  formula = "Sex / poly(Attractive, 2) + (1|Participant) + (1|Stimulus)",
+  var = "Attractive", fill = "#F44336"
+)
+rez_gl <- make_model(filter(df, Stimulus_Interest == TRUE),
+  formula = "Sex / poly(Beauty, 2) + Trustworthy + (1|Participant) + (1|Stimulus)",
+  var = "Beauty", fill = "#E91E63"
+)
+rez_tr <- make_model(filter(df, Stimulus_Interest == TRUE),
+  formula = "Sex / poly(Trustworthy, 2) + Beauty + (1|Participant) + (1|Stimulus)",
+  var = "Trustworthy", fill = "#4CAF50"
+)
+rez_fa <- make_model(filter(df, Stimulus_Interest == TRUE),
+  formula = "Sex / poly(Familiar, 2) + (1|Participant) + (1|Stimulus)",
+  var = "Familiar", fill = "#2196F3"
+)
 
-parameters::parameters(rez_at$model_belief)
-parameters::parameters(rez_gl$model_belief)
-parameters::parameters(rez_tr$model_belief)
-parameters::parameters(rez_fa$model_belief)
 
 
 (rez_at$p +
   theme(axis.text.x = element_blank()) +
   labs(x = "Attractiveness") |
-rez_gl$p +
-  labs(x = "Beauty") +
-  theme(axis.text.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y = element_blank())
-) / 
-(rez_tr$p +
-  labs(x = "Trustworthiness") |
-rez_fa$p +
-  labs(x = "Familiarity") +
-  theme(axis.text.y = element_blank(),
-        axis.title.y = element_blank())
-) + 
+  rez_gl$p +
+    labs(x = "Beauty") +
+    theme(
+      axis.text.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.y = element_blank()
+    )
+) /
+  (rez_tr$p +
+    labs(x = "Trustworthiness") |
+    rez_fa$p +
+      labs(x = "Familiarity") +
+      theme(
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank()
+      )
+  ) +
   plot_annotation(title = "Determinants of Reality Beliefs", theme = theme(plot.title = element_text(face = "bold", hjust = 0.5))) +
   plot_layout(guides = "collect")
+```
+
+```{r message=FALSE, warning=FALSE}
+parameters::parameters(rez_at$model_belief, effects = "fixed", keep = "Attractive")
+performance::r2(rez_at$model_belief)
+performance::icc(rez_at$model_belief, by_group = TRUE)
+parameters::parameters(rez_at$model_confidence, effects = "fixed", keep = "Attractive")
+
+parameters::parameters(rez_gl$model_belief, effects = "fixed", keep = "Beauty")
+performance::r2(rez_gl$model_belief)
+performance::icc(rez_gl$model_belief, by_group = TRUE)
+parameters::parameters(rez_gl$model_confidence, effects = "fixed", keep = "Beauty")
+
+parameters::parameters(rez_tr$model_belief, effects = "fixed", keep = "Trustworthy")
+performance::r2(rez_tr$model_belief)
+performance::icc(rez_tr$model_belief, by_group = TRUE)
+parameters::parameters(rez_tr$model_confidence, effects = "fixed", keep = "Trustworthy")
+
+parameters::parameters(rez_fa$model_belief, effects = "fixed", keep = "Familiar")
+performance::r2(rez_fa$model_belief)
+performance::icc(rez_fa$model_belief, by_group = TRUE)
+parameters::parameters(rez_fa$model_confidence, effects = "fixed", keep = "Familiar")
 ```
 
 
@@ -592,27 +667,44 @@ cor_test(dfsub, "SelfAttractiveness1", "SelfAttractiveness2")
 df$Self_Attractiveness <- rowMeans(df[c("SelfAttractiveness1", "SelfAttractiveness2")])
 ```
 
+```{r message=FALSE, warning=FALSE}
+m_real <- glmmTMB::glmmTMB(Belief ~ Sex / (poly(Attractive, 2) * Self_Attractiveness) + (1 | Participant) + (1 | Stimulus),
+  data = filter(df, Stimulus_Interest == TRUE),
+  family = "binomial"
+)
+
+parameters::parameters(m_real, effects = "fixed", keep = "Self_Attractiveness")
+
+m_real <- glmmTMB::glmmTMB(Belief ~ Sex / (poly(Beauty, 2) * Self_Attractiveness) + Trustworthy + (1 | Participant) + (1 | Stimulus),
+  data = filter(df, Stimulus_Interest == TRUE),
+  family = "binomial"
+)
+
+parameters::parameters(m_real, effects = "fixed", keep = "Self_Attractiveness")
+```
+
 ## Inter-Individual Correlates
 
 ```{r message=FALSE, warning=FALSE}
-model <- glmmTMB::glmmTMB(Belief ~ 1 + (1|Participant) + (1|Stimulus), data=df, family="binomial")
-dfsub <- modelbased::estimate_grouplevel(model) |> 
-  filter(Group == "Participant") |> 
-  transmute(Participant = Level, Simulation_Monitoring=Coefficient) |> 
-  merge(dfsub, by="Participant")
+model <- glmmTMB::glmmTMB(Belief ~ 1 + (1 | Participant) + (1 | Stimulus), data = df, family = "binomial")
+dfsub <- modelbased::estimate_grouplevel(model) |>
+  filter(Group == "Participant") |>
+  transmute(Participant = Level, Simulation_Monitoring = Coefficient) |>
+  merge(dfsub, by = "Participant")
 
-model <- glmmTMB::glmmTMB(Belief_Confidence ~ Belief + (Belief|Participant) + (1|Stimulus), data=df, family=glmmTMB::beta_family())
-dfsub <- modelbased::estimate_grouplevel(model) |> 
-  filter(Group == "Participant") |> 
-  transmute(Participant = Level, Parameter, Coefficient) |> 
-  pivot_wider(names_from = "Parameter", values_from = "Coefficient") |> 
-  transmute(Participant, Confidence_Real_Model = BeliefReal, Confidence_Fake_Model = `(Intercept)`) |> 
-  merge(dfsub, by="Participant")
+model <- glmmTMB::glmmTMB(Belief_Confidence ~ Belief + (Belief | Participant) + (1 | Stimulus), data = df, family = glmmTMB::beta_family())
+dfsub <- modelbased::estimate_grouplevel(model) |>
+  filter(Group == "Participant") |>
+  transmute(Participant = Level, Parameter, Coefficient) |>
+  pivot_wider(names_from = "Parameter", values_from = "Coefficient") |>
+  transmute(Participant, Confidence_Real_Model = BeliefReal, Confidence_Fake_Model = `(Intercept)`) |>
+  merge(dfsub, by = "Participant")
 ```
 ```{r message=FALSE, warning=FALSE}
-correlation::correlation(dfsub[c("Simulation_Monitoring", "Confidence_Fake_Model", "Confidence_Real_Model")], 
-                         dfsub[c("Confidence_Fake", "Confidence_Real", "n_Real")],
-                         )
+correlation::correlation(
+  dfsub[c("Simulation_Monitoring", "Confidence_Fake_Model", "Confidence_Real_Model")],
+  dfsub[c("Confidence_Fake", "Confidence_Real", "n_Real")],
+)
 ```
 
 ### IPIP-6
@@ -640,10 +732,55 @@ make_correlation <- function(x, y) {
 }
 
 
+plot_correlation <- function(dfsub, x = "Confidence_Real", y = "IPIP6_Openness", xlab = x, ylab = y, fill = "grey") {
+  param <- cor_test(dfsub, x, y, bayesian = TRUE)
+
+  # Format stat output
+  r <- str_replace(str_remove(insight::format_value(param$rho), "^0+"), "^-0+", "-")
+  CI_low <- str_replace(str_remove(insight::format_value(param$CI_low), "^0+"), "^-0+", "-")
+  CI_high <- str_replace(str_remove(insight::format_value(param$CI_high), "^0+"), "^-0+", "-")
+
+  stat <- paste0("italic(r)~'= ", r, ", 95% CI [", CI_low, ", ", CI_high, "], BF'['10']~'", paste0(insight::format_bf(param$BF, name = "")), "'")
+
+  label <- data.frame(
+    x = min(dfsub[[x]], na.rm = TRUE),
+    y = max(dfsub[[y]], na.rm = TRUE),
+    label = stat
+  )
+
+  # Plot
+  dfsub |>
+    ggplot(aes_string(x = x, y = y)) +
+    geom_point2(
+      size = 3,
+      color = fill,
+      # color = DVs[x],
+      alpha = 2 / 3
+    ) +
+    geom_smooth(method = "lm", color = "black", formula = "y ~ x", alpha = 0.3) +
+    labs(y = ylab, x = xlab) +
+    geom_label(data = label, aes(x = x, y = y), label = str2expression(label$label), hjust = 0, vjust = 1) +
+    theme_modern() +
+    ggside::geom_xsidedensity(fill = "grey", color = "white") +
+    ggside::geom_ysidedensity(fill = fill, color = "white") +
+    ggside::theme_ggside_void() +
+    ggside::scale_ysidex_continuous(expand = c(0, 0)) +
+    ggside::scale_xsidey_continuous(expand = c(0, 0))
+}
+```
+```{r message=FALSE, warning=FALSE}
 sr <- c("Simulation_Monitoring", "Confidence_Fake_Model", "Confidence_Real_Model", "Confidence_Fake", "Confidence_Real", "n_Real")
 
 r <- make_correlation(dfsub[sr], select(dfsub, starts_with("IPIP")))
 filter(r, BF > 1)
+
+plot_correlation(dfsub,
+  x = "Confidence_Real",
+  y = "IPIP6_HonestyHumility",
+  xlab = "Confidence_Real",
+  ylab = "IPIP6_HonestyHumility",
+  fill = "grey"
+)
 ```
 
 ### AI
@@ -652,9 +789,9 @@ filter(r, BF > 1)
 rez <- parameters::n_factors(select(dfsub, starts_with("AI")))
 plot(rez)
 
-efa <- parameters::factor_analysis(select(dfsub, starts_with("AI")), n=3, rotation="varimax", sort=TRUE)
+efa <- parameters::factor_analysis(select(dfsub, starts_with("AI")), n = 3, rotation = "varimax", sort = TRUE)
 efa
-dfsub <- predict(efa, names = c("AI_Enthusiasm", "AI_Realness", "AI_Danger")) |> 
+dfsub <- predict(efa, names = c("AI_Enthusiasm", "AI_Realness", "AI_Danger")) |>
   cbind(dfsub)
 ```
 ```{r message=FALSE, warning=FALSE}

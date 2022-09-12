@@ -74,7 +74,7 @@ preprocess_raw <- function(file) {
     Stimulus = gsub(".jgp", "", gsub("stimuli/AMFD/", "", block1$stimulus)),
     Delay1 = as.numeric(block1$time_elapsed),
     RT = as.numeric(data[data$screen == "questionnaire", "rt"]),
-    Goodlooking = datawizard::change_scale(answers$Physical_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
+    Beauty = datawizard::change_scale(answers$Physical_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
     Attractive = datawizard::change_scale(answers$General_Attractiveness, to = c(0.0001, 0.9999), range = c(0, 1)),
     Trustworthy = datawizard::change_scale(answers$Trustworthiness, to = c(0.0001, 0.9999), range = c(0, 1)),
     Familiar = datawizard::change_scale(answers$Familiarity, to = c(0.0001, 0.9999), range = c(0, 1))
@@ -87,6 +87,9 @@ preprocess_raw <- function(file) {
 
   # Format sexual orientation
   df$Sexual_Orientation <- ifelse(df$Sexual_Orientation == "Other", jsonlite::fromJSON(dem[4])$sexual_orientation, df$Sexual_Orientation)
+  df$Sexual_Orientation <- ifelse(df$Sexual_Orientation %in% c("I identify as poly-romantic and sexually attracted primarily to females"), "Homosexual", df$Sexual_Orientation)  # Because that person is female
+  df[grepl("a74bc_q0ukp", df$Participant), "Sex"] <- "Male"
+
 
   # Format education
   df$Education <- gsub("University (", "", df$Education, fixed = TRUE)
@@ -95,16 +98,20 @@ preprocess_raw <- function(file) {
 
   # Standardize demographics
   # unique(df$Ethnicity)
-  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Latin", "Hisapanic", "Latino/Hispanic"), "Hispanic", df$Ethnicity)
-  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Europe", "White"), "Caucasian", df$Ethnicity)
-  df$Ethnicity <- ifelse(df$Ethnicity %in% c("South African Coloured"), "African", df$Ethnicity)
-  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Mestiza", "Mixed Race", "Mixed Race "), "Mixed", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Latin", "Hisapanic", "Latino/Hispanic", "Latino", "Latino Hispanic"), "Hispanic", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Europe", "White", "European/White", "Polish", "White Caucasian"), "Caucasian", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("South African Coloured", "Black/African", "Black", "Black ", "Black (African)"), "African", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Mestiza", "Mixed Race", "Mixed Race ", "Coloured/Mixed"), "Mixed", df$Ethnicity)
 
   # unique(df$Nationality)
+  df$Nationality <- ifelse(df$Nationality %in% c("Uk", "England", "Scotland"), "United Kingdom", df$Nationality)
+  df$Nationality <- ifelse(df$Nationality %in% c("Itay"), "Italy", df$Nationality)
 
   # Add info related to stimulus
   df$Stimulus_Sex <- ifelse(stringr::str_detect(df$Stimulus, "NF"), "Female", "Male")
   df$Stimulus_SameSex <- ifelse(df$Sex == df$Stimulus_Sex, "Same", "Different")
+  # unique(df$Sexual_Orientation)
+  df$Sexual_Orientation <- ifelse(df$Sexual_Orientation %in% c("queer"), "Queer", df$Sexual_Orientation)
 
   # Psychometric Scales
   # IPIP

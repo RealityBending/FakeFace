@@ -1,0 +1,120 @@
+---
+title             : "**Too Beautiful to be Fake: Attractive Faces are Less Likely to be Judged as Artificially Generated**"
+shorttitle        : "Illusion Game Validation"
+author:
+      
+  - name          : "Dominique Makowski"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "HSS 04-18, 48 Nanyang Avenue, Singapore"
+    email         : "dom.makowski@gmail.com"
+    orcid         : 0000-0001-5375-9967
+    role:         # Contributorship roles (e.g., CRediT, https://casrai.org/credit/)
+      - "Conceptualization"
+      - "Data curation"
+      - "Formal Analysis"
+      - "Funding acquisition"
+      - "Investigation"
+      - "Methodology"
+      - "Project administration"
+      - "Resources"
+      - "Software"
+      - "Supervision"
+      - "Validation"
+      - "Visualization"
+      - "Writing – original draft"
+  - name          : "An Shu Te"
+    affiliation   : "1"
+    orcid         : 0000-0001-8008-2824
+    role:
+      - "Project administration"
+      - "Resources"
+      - "Investigation"
+      - "Writing – original draft"
+  - name          : "Stephanie Kirk"
+    affiliation   : "1"
+    orcid         : 0000-0002-9312-5552
+    role:
+      - "Project administration"
+      - "Resources"
+      - "Writing – original draft"
+  - name          : "Ngoi Zi Liang"
+    affiliation   : "1"
+    role:
+      - "Project administration"
+      - "Resources"
+      - "Writing – review & editing"
+  - name          : "S.H. Annabel Chen"
+    affiliation   : "1, 2, 3, 4"
+    orcid         : 0000-0002-1540-5516
+    role:
+      - "Project administration"
+      - "Supervision"
+      - "Writing – review & editing"
+affiliation:
+    
+  - id            : "1"
+    institution   : "School of Social Sciences, Nanyang Technological University, Singapore"
+  - id            : "2"
+    institution   : "LKC Medicine, Nanyang Technological University, Singapore"
+  - id            : "3"
+    institution   : "National Institute of Education, Singapore"
+  - id            : "4"
+    institution   : "Centre for Research and Development in Learning, Nanyang Technological University, Singapore"
+authornote: |
+  Correspondence concerning this article should be addressed to Dominique Makowski, HSS 04-18, 48 Nanyang Avenue, Singapore (dom.makowski@gmail.com).
+abstract: |
+  Abstract abstract abstract.
+keywords          : "visual illusions, illusion game, Pyllusion, personality, general factor"
+wordcount         : "5114"
+bibliography      : references.bib
+floatsintext      : yes
+linenumbers       : yes
+draft             : no
+mask              : no
+figurelist        : yes
+tablelist         : no
+footnotelist      : no
+classoption       : "man"
+output            : papaja::apa6_pdf
+csl: utils/apa.csl
+header-includes:
+  - \usepackage[labelfont=bf, font={scriptsize, color=gray}]{caption}
+editor_options:
+  chunk_output_type: console
+---
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+# options and parameters
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  dpi = 450,
+  fig.width = see::golden_ratio(9),
+  fig.height = 9,
+  fig.path = "figures/"
+)
+
+cache <- TRUE
+```
+
+<!-- Objective features -->
+Technology allows already to create near-perfect simulations indistinguishable from reality. If real and fake stimuli are identical based on their objective characteristics, how can we make - hopefully accurate - judgments regarding their nature?
+
+<!-- Context -->
+Literatue shows that context surrounding stimuli plays an important role. But in the absence of context, what drives the beliefs of reality? 
+
+<!-- Internal features -->
+Psychological factors. Stable dispositional traits. Reactive characteristics.
+
+# Acknowledgments
+
+We would like to thank STUDENT NAME for his contribution.
+
+\newpage
+
+# References
+
+::: {#refs custom-style="Bibliography"}
+:::

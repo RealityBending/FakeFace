@@ -139,6 +139,8 @@ p_item <- df |>
 
 df <- df |>
   filter(!Stimulus %in% extreme_items$Stimulus)
+
+extreme_items
 ```
 
 We removed `r nrow(extreme_items)` trials per participant. 
@@ -405,6 +407,15 @@ df |>
   ) +
   ggside::geom_xsidedensity(fill = "grey", color = "white") +
   ggside::scale_xsidey_continuous(expand = c(0, 0))
+
+
+df |> 
+  group_by(Participant, Belief) |> 
+  summarize(n = n() / 108, 
+            Confidence = mean(Belief_Confidence)) |> 
+  pivot_wider(values_from=c("n", "Confidence"), names_from="Belief") |> 
+  ungroup() |> 
+  describe_posterior(centrality = "mean", test=FALSE)
 ```
 
 
@@ -522,7 +533,11 @@ df |>
   ggside::scale_xsidey_continuous(expand = c(0, 0)) +
   ggside::ggside(collapse = "all")
 
-parameters::parameters(model)
+hdi(df$Delay)
+estimate_relation(model, at="Delay=c(0, 60)")
+
+parameters::parameters(model, effects="fixed", exponentiate=TRUE)
+parameters::parameters(m_conf, effects="fixed")
 ```
 
 

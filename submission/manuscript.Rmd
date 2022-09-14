@@ -130,10 +130,6 @@ Images of faces, one of the most common artificial intelligence (AI) targets, in
 
 
 
-```{r message=FALSE, warning=FALSE, fig.cap="Top part shows blabla.", out.width="100%"}
-knitr::include_graphics("../figures/Figure2.png")
-```
-
 ## Methods
 
 ### Procedure
@@ -148,6 +144,7 @@ The real-fake ratings were converted into two scores.
 
 The analysis was carried out using *R 4.2* [**REF**], the *tidyverse* [**REF**], and the *easystats* collection of packages [**REFs for insight, parameters, performance, see**].
 
+
 ### Manipulation Check
 
 Only one image file, classified as fake in 87.4\% of trials, yielded a strong simulation monitoring bias (> 85\%). This image was removed from further analysis (leaving 108 trials per participant). On average, across participants, 44\% of trials (95\% CI [0.11, 0.64]) was considered fake and 56\% of trials (95\% CI [0.36, 0.89]) was considered real.
@@ -156,6 +153,12 @@ There was a significant negative effect of the delay of re-exposure (with 95\% o
 
 
 ### Determinants of Simualtion Monitoring
+
+
+```{r message=FALSE, warning=FALSE, fig.cap="Top part shows blabla.", out.width="100%"}
+knitr::include_graphics("../figures/Figure2.png")
+```
+
 
 ## Discussion
 

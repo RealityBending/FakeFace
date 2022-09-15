@@ -701,14 +701,13 @@ m_real <- glmmTMB::glmmTMB(Belief ~ Sex / (poly(Attractive, 2) * Self_Attractive
   data = filter(df, Stimulus_Interest == TRUE),
   family = "binomial"
 )
-
 parameters::parameters(m_real, effects = "fixed", keep = "Self_Attractiveness")
 
-m_real <- glmmTMB::glmmTMB(Belief ~ Sex / (poly(Beauty, 2) * Self_Attractiveness) + Trustworthy + (1 | Participant) + (1 | Stimulus),
+
+m_real <- glmmTMB::glmmTMB(Belief ~ Sex / (poly(Beauty, 2) * Self_Attractiveness) + Trustworthy + Familiar + (1 | Participant) + (1 | Stimulus),
   data = filter(df, Stimulus_Interest == TRUE),
   family = "binomial"
 )
-
 parameters::parameters(m_real, effects = "fixed", keep = "Self_Attractiveness")
 ```
 
@@ -783,21 +782,13 @@ r <- make_correlation(dfsub[sr], select(dfsub, starts_with("IPIP")))
 filter(r, BF > 1)
 ```
 
-### AI
+### Narcissism
 
 ```{r message=FALSE, warning=FALSE}
-rez <- parameters::n_factors(select(dfsub, starts_with("AI")))
-plot(rez)
-
-efa <- parameters::factor_analysis(select(dfsub, starts_with("AI")), n = 3, rotation = "varimax", sort = TRUE)
-efa
-dfsub <- predict(efa, names = c("AI_Enthusiasm", "AI_Realness", "AI_Danger")) |>
-  cbind(dfsub)
-```
-```{r message=FALSE, warning=FALSE}
-r <- make_correlation(dfsub[sr], select(dfsub, AI_Enthusiasm, AI_Realness, AI_Danger))
+r <- make_correlation(dfsub[sr], select(dfsub, starts_with("FFNI_")))
 filter(r, BF > 1)
 ```
+
 
 
 
@@ -816,18 +807,27 @@ r <- make_correlation(dfsub[sr], select(dfsub, starts_with("IUS_")))
 filter(r, BF > 1)
 ```
 
-
-### Narcissism
-
-```{r message=FALSE, warning=FALSE}
-r <- make_correlation(dfsub[sr], select(dfsub, starts_with("FFNI_")))
-filter(r, BF > 1)
-```
-
 ### Paranoid Beliefs
 
 ```{r message=FALSE, warning=FALSE}
 r <- make_correlation(dfsub[sr], select(dfsub, starts_with("GPTS_")))
+filter(r, BF > 1)
+```
+
+
+### AI
+
+```{r message=FALSE, warning=FALSE}
+rez <- parameters::n_factors(select(dfsub, starts_with("AI")))
+plot(rez)
+
+efa <- parameters::factor_analysis(select(dfsub, starts_with("AI")), n = 3, rotation = "varimax", sort = TRUE)
+efa
+dfsub <- predict(efa, names = c("AI_Enthusiasm", "AI_Realness", "AI_Danger")) |>
+  cbind(dfsub)
+```
+```{r message=FALSE, warning=FALSE}
+r <- make_correlation(dfsub[sr], select(dfsub, AI_Enthusiasm, AI_Realness, AI_Danger))
 filter(r, BF > 1)
 ```
 

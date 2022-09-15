@@ -416,6 +416,10 @@ df |>
   pivot_wider(values_from=c("n", "Confidence"), names_from="Belief") |> 
   ungroup() |> 
   describe_posterior(centrality = "mean", test=FALSE)
+
+
+m <- glmmTMB::glmmTMB(Belief ~ 1 + (1|Participant) + (1|Stimulus), data=df, family="binomial")
+icc(m, by_group = TRUE)
 ```
 
 
@@ -425,6 +429,10 @@ df |>
 ```{r message=FALSE, warning=FALSE}
 IVs <- c("Attractive", "Beauty", "Trustworthy", "Familiar")
 
+correlation::correlation(df[IVs], partial=TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
 preds <- data.frame()
 dats <- data.frame()
 for (x in IVs) {
@@ -617,15 +625,15 @@ rez_at <- make_model(filter(df, Stimulus_Interest == TRUE),
   var = "Attractive", fill = "#F44336"
 )
 rez_gl <- make_model(filter(df, Stimulus_Interest == TRUE),
-  formula = "Sex / poly(Beauty, 2) + Trustworthy + (1|Participant) + (1|Stimulus)",
+  formula = "Sex / poly(Beauty, 2) + Trustworthy + Familiar + (1|Participant) + (1|Stimulus)",
   var = "Beauty", fill = "#E91E63"
 )
 rez_tr <- make_model(filter(df, Stimulus_Interest == TRUE),
-  formula = "Sex / poly(Trustworthy, 2) + Beauty + (1|Participant) + (1|Stimulus)",
+  formula = "Sex / poly(Trustworthy, 2) + Beauty + Familiar + (1|Participant) + (1|Stimulus)",
   var = "Trustworthy", fill = "#4CAF50"
 )
 rez_fa <- make_model(filter(df, Stimulus_Interest == TRUE),
-  formula = "Sex / poly(Familiar, 2) + (1|Participant) + (1|Stimulus)",
+  formula = "Sex / poly(Familiar, 2) + Beauty + Trustworthy + (1|Participant) + (1|Stimulus)",
   var = "Familiar", fill = "#2196F3"
 )
 

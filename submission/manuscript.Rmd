@@ -207,16 +207,15 @@ Although attractiveness did not seem to be the primary drive underlying simulati
 
 
 <!-- Beauty -->
-discuss why the link with beauty is slightly different.
+discuss why the link with beauty is slightly different. Note that for models for beauty we adjusted the models for trustowrthiness and familiarity, hence possibly masking the multidimensionality of attractiveness.
 
 
 <!-- trustworthiness -->
-
-In contrast to the findings for attractiveness, trustworthiness only positively predicted beliefs in realness for females. While we had expected a positive relationship between the two variables across both genders, this observation is also consistent with the evolutionary perspective, which suggests that females, relative to males, are more averse to risk-taking because it may compromise their reproductive potential [@van2020sex]. As such, given that low facial trustworthiness may signal greater risk, perceived trustworthiness may confer greater importance in predicting the perception of reality for females than males [@hou2019survival]. Interestingly, while several studies have found both possessing prior knowledge that faces were artificial and the perceived realness of virtual faces to be predictive of trustworthiness ratings (i.e., faces judged as real were rated as more trustworthy) [@liefooghe2022faces; @hoogers2021effect; @balas2017], the same cannot easily be said of the opposite direction; that is, trustworthiness does not seem to be a primary driver underlying the processes of simulation monitoring.
+In contrast to the findings for attractiveness, trustworthiness linearly increased beliefs in realness for females only. Given the evidence for the effect in the opposite direction, suggesting that faces presented as were rated as more trustworthy [@liefooghe2022faces; @hoogers2021effect; @balas2017], we expected such link to be present for both genders. One of the contributing mechanism to this dimorphism could have been the increased risk-taking aversion reported in females [explained evolutionary as a compromise their reproductive potential, @van2020sex], to which perceived facial trustworthiness relates [@hou2019survival]. However, faces judged as highly untrustworthy should have appear as even more salient (representing an evolutionary threat), and hence be judged as more real. As such, further studies are needed to investigate the causes of the increased simulation monitoring sensitivity to trustworthiness in females.
 
 
 <!-- familiarity (confidence judgement; positive linear -real; quadratic -fake) -->
-Contrary to our hypothesis, familiarity was not found to have any significant effects on simulation monitoring decisions.
+Contrary to our hypothesis, familiarity was not found to be significantly related to simulation monitoring decisions. It is to note that the distribution of familiarity ratings was strongly skewed, and that a low number of pictures was rated as highly familiar. Future studies could re-examine this aspect by experimentally manipulating familiarity, for instance by modulating the amount of exposures of items before the simulation monitoring ratings.
 
 <!-- inter-indiv correlates (HH- negative with confidence in real; positive with acclaim-seeking and grandiose; Acc-seeking - positive with confidence in fake) -->
 
@@ -232,7 +231,7 @@ Although the order of presentation of the facial images was randomized to reduce
 
 # Acknowledgments
 
-We would like to thank STUDENT NAME for his contribution.
+We would like to thank **TODO: add STUDENT NAME** for his contribution to the selection of the materials.
 
 \newpage
 

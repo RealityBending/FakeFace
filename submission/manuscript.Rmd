@@ -149,7 +149,7 @@ In the last part of the study, participants were informed that about half of the
 
 ### Participants
 
-One hundred and three participants were recruited via *Prolific*, the the crowd-sourcing platform providing the best data quality [@peer2022]. The only inclusion criterion was a fluent proficiency in English to ensure that the experiment instructions would be well-understood. Participants were incentivised with a reward of about \textsterling 7.5 for completing the study, which took about 45 minutes to finish. Demographic variables (age, gender, sexual orientation, education and ethnicity) were self-reported on a voluntary basis.
+One hundred and three participants were recruited via *Prolific*, a crowd-sourcing platform recognized for providing high quality data [@peer2022]. The only inclusion criterion was a fluent proficiency in English to ensure that the experiment instructions would be well-understood. Participants were incentivised with a reward of about \textsterling 7.5 for completing the study, which took about 45 minutes to finish. Demographic variables (age, gender, sexual orientation, education and ethnicity) were self-reported on a voluntary basis.
 
 We excluded 3 participants that failed 2 (>= 66\%) or more attention check questions. The final sample included 100 participants (Mean age = 27.9, SD = 8.5, range: [19, 66]; Sex: 48\% females, 52\% males).
 

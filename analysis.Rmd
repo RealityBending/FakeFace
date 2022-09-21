@@ -896,6 +896,12 @@ r <- make_correlation(dfsub[sr], select(dfsub, starts_with("FFNI_")))
 filter(r, BF > 1)
 ```
 
+```{r message=FALSE, warning=FALSE, cache=cache}
+cor_test(dfsub, "FFNI_Authoritativeness", "IPIP6_HonestyHumility")
+cor_test(dfsub, "FFNI_ThrillSeeking", "IPIP6_HonestyHumility")
+```
+
+
 ### Social Anxiety
 
 ```{r message=FALSE, warning=FALSE, cache=cache}

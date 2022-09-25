@@ -60,7 +60,7 @@ df <- read.csv("data/data.csv") |>
       Sexual_Orientation == "Heterosexual" & Stimulus_SameSex == "Same" ~ FALSE,
       Sexual_Orientation == "Homosexual" & Stimulus_SameSex == "Opposite" ~ FALSE,
       Sexual_Orientation == "Homosexual" & Stimulus_SameSex == "Same" ~ TRUE,
-      Sexual_Orientation %in% c("Bisexual", "Queer") ~ TRUE,
+      Sexual_Orientation %in% c("Bisexual", "Queer", "Pansexual") ~ TRUE,
       TRUE ~ NA
     )
   )
@@ -89,7 +89,9 @@ outliers <- c(
   # Very short duration for questionnaire in particular + low rating correlations
   "5eaef8702b68455d6e130595_ptsga",
   "5f0f0a2a8b2a480447f31b21_lqgpz",
-  "611d03b822d4c8e041ea0c32_m0knb"
+  "611d03b822d4c8e041ea0c32_m0knb",
+  # Prefered not answering to sexual orientation: further analysis impossible
+  "60eb34f117838a34a29a69d3_rxv85"
 )
 outliers_partial <- c(
   "5dc3485219ca0326027ce91f_37ho9",
@@ -150,6 +152,7 @@ extreme_items
 ```
 
 We removed `r nrow(extreme_items)` trials per participant. 
+
 
 
 ### Attention Checks and Duration
@@ -310,7 +313,7 @@ plot_distribution <- function(dfsub, what = "Age", title = what, subtitle = "", 
     )
 }
 
-plot_waffle <- function(dfsub, what = "Nationality", title = what, rows = 10, size = 6) {
+plot_waffle <- function(dfsub, what = "Nationality", title = what, rows = 7, size = 6) {
   # library(emojifont)
   ggwaffle::waffle_iron(dfsub, what, rows = rows) |>
     # mutate(label = emojifont::fontawesome('fa-smiley')) |>
@@ -589,18 +592,23 @@ make_model <- function(df, var = "Attractive", formula = var, fill = "#2196F3") 
     mutate_at(c("Predicted", "CI_low", "CI_high"), function(x) ifelse(y_conf$Belief == "Real", datawizard::rescale(x, range = c(0, 1), to = c(0.5, 1)), datawizard::rescale(x, range = c(1, 0), to = c(0, 0.5))))
 
   # Significance
-  param <- parameters::parameters(m_real, effects = "fixed", keep = var)
   sig1 <- data.frame(x = 0.5, 
-                     y = y_real[c(11, 31), "Predicted"] + c(0.04, -0.05),
-                     p = c(min(param$p[c(1, 3)]), min(param$p[c(2, 4)])),
+                     y = y_real[c(11, 31), "Predicted"],
                      Sex = y_real[c(11, 31), "Sex"])
+  param <- parameters::parameters(m_real, effects = "fixed", keep = var)
+  sig1$p <- c(min(param[str_detect(param$Parameter, sig1$Sex[1]), "p"]), min(param[str_detect(param$Parameter, sig1$Sex[2]), "p"]))
+  sig1$y <- sig1$y + ifelse(sig1$Sex == "Male", 0.03, -0.03)
   sig1$label <- ifelse(sig1$p > .05 & sig1$p < .099, format_p(sig1$p), format_p(sig1$p, stars_only = TRUE))
-  param <- parameters::parameters(m_conf, effects = "fixed", keep = var)
-  sig2 <- data.frame(x = 0.5,
-                     y = y_conf[c(11, 31, 51, 71), "Predicted"] + c(0.04, -0.04, -0.04, 0.04),
-                     p = c(min(param$p[c(1, 5)]), min(param$p[c(2, 6)]), min(param$p[c(3, 7)]), min(param$p[c(4, 8)])),
-                     Belief = y_conf[c(11, 31, 51, 71), "Belief"],
-                     Sex = y_conf[c(11, 32, 51, 72), "Sex"])
+  
+  sig2 <- data.frame(x = 0.5, 
+                     y =  y_conf[c(11, 31, 51, 71), "Predicted"],
+                     Sex = y_conf[c(11, 31, 51, 71), "Sex"],
+                     Belief = y_conf[c(11, 31, 51, 71), "Belief"]) |> 
+    arrange(Sex, Belief)
+  param <- parameters::parameters(m_conf, effects = "fixed", keep = var) |> 
+    arrange(Parameter)
+  sig2$p <- c(min(param$p[c(1, 2)]), min(param$p[c(5, 6)]), min(param$p[c(3, 4)]), min(param$p[c(7, 8)]))
+  sig2$y <- sig2$y + ifelse(sig2$Belief == "Real", 0.02, -0.02)
   sig2$label <- ifelse(sig2$p > .05 & sig2$p < .099, format_p(sig2$p), format_p(sig2$p, stars_only = TRUE))
   
   
@@ -887,8 +895,8 @@ p_ffni1
 p_ffni2 <- plot_interindividual(m_real, m_conf, var = "FFNI_Authoritativeness", fill = "#FF9800") + labs(x = "Narcissism (Authoritativeness)")
 p_ffni2
 
-p_ffni3 <- plot_interindividual(m_real, m_conf, var = "FFNI_ThrillSeeking", fill = "#FF5722") + labs(x = "Narcissism (Thrill Seeking)")
-p_ffni3 
+# p_ffni3 <- plot_interindividual(m_real, m_conf, var = "FFNI_ThrillSeeking", fill = "#FF5722") + labs(x = "Narcissism (Thrill Seeking)")
+# p_ffni3 
 ```
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
@@ -898,7 +906,7 @@ filter(r, BF > 1)
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
 cor_test(dfsub, "FFNI_Authoritativeness", "IPIP6_HonestyHumility")
-cor_test(dfsub, "FFNI_ThrillSeeking", "IPIP6_HonestyHumility")
+# cor_test(dfsub, "FFNI_ThrillSeeking", "IPIP6_HonestyHumility")
 ```
 
 
@@ -922,8 +930,8 @@ m_conf <- glmmTMB::glmmTMB(as.formula(paste0("Belief_Confidence ~ Belief / ", f)
 parameters::parameters(m_conf, effects="fixed") |> 
   display()
 
-p_social <- plot_interindividual(m_real, m_conf, var = "Social_Phobia", fill = "#E040FB") + labs(x = "Social Phobia")
-p_social 
+# p_social <- plot_interindividual(m_real, m_conf, var = "Social_Phobia", fill = "#E040FB") + labs(x = "Social Phobia")
+# p_social 
 ```
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
@@ -1067,7 +1075,8 @@ fig1a <- (rez_at$p +
 
 fig <- wrap_elements(fig1a) /
   wrap_elements(
-    ((p_ffni1 / p_ipip) | (p_ffni2 / p_social) | (p_ffni3 / p_ai)) + 
+    # ((p_ffni1 / p_ipip) | (p_ffni2 / p_social) | (p_ffni3 / p_ai)) + 
+    ((p_ffni1 / p_ipip) | (p_ffni2 / p_ai)) + 
   plot_layout(guides = "collect") +
   plot_annotation(title = "Personality Correlates of Simulation Monitoring Tendencies", theme = theme(plot.title = element_text(face = "bold", hjust = 0.5)))
   ) +

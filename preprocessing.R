@@ -98,9 +98,10 @@ preprocess_raw <- function(file) {
 
   # Standardize demographics
   # unique(df$Ethnicity)
-  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Latin", "Hisapanic", "Latino/Hispanic", "Latino", "Latino Hispanic"), "Hispanic", df$Ethnicity)
-  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Europe", "White", "European/White", "Polish", "White Caucasian"), "Caucasian", df$Ethnicity)
-  df$Ethnicity <- ifelse(df$Ethnicity %in% c("South African Coloured", "Black/African", "Black", "Black ", "Black (African)"), "African", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Latin", "Hisapanic", "Latino/Hispanic", "Latino", "Latino Hispanic", "Latinoamerican", "Latinamerican", "HIspanic", "Hispanic/ Latino", "Latinx"), "Hispanic", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Europe", "White", "European/White", "Polish", "White Caucasian", "White, European", "Albanian"), "Caucasian", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("South African Coloured", "Black/African", "Black", "Black ", "Black (African)", "Black African", "Africa"), "African", df$Ethnicity)
+  df$Ethnicity <- ifelse(df$Ethnicity %in% c("Chinese", "South Asian", "Indian"), "Asian", df$Ethnicity)
   df$Ethnicity <- ifelse(df$Ethnicity %in% c("Mestiza", "Mixed Race", "Mixed Race ", "Coloured/Mixed"), "Mixed", df$Ethnicity)
 
   # unique(df$Nationality)

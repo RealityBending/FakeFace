@@ -86,14 +86,17 @@ df <- df |>
 
 ```{r message=FALSE, warning=FALSE}
 outliers <- c(
-  # Very short duration for questionnaire in particular + low rating correlations
-  "5eaef8702b68455d6e130595_ptsga",
-  "5f0f0a2a8b2a480447f31b21_lqgpz",
+  # More than 2 attention check fails
   "611d03b822d4c8e041ea0c32_m0knb",
+  "5f0f0a2a8b2a480447f31b21_lqgpz",
+  # Very short duration for questionnaire + low rating correlations (< 0.1)
+  "5eaef8702b68455d6e130595_ptsga",
+  "61356174c090b0083f131e01_asm81",
   # Prefered not answering to sexual orientation: further analysis impossible
   "60eb34f117838a34a29a69d3_rxv85"
 )
 outliers_partial <- c(
+  # 1 attention check failed
   "5dc3485219ca0326027ce91f_37ho9",
   "5c6414540821d30001046198_x9q7r",
   "60dd7b03f1e72d38230df476_9yh9n",
@@ -210,7 +213,7 @@ data.frame(Participant = c(paste0("Total (n=", nrow(dfsub), ")")), t(sapply(dfsu
 # kableExtra::row_spec(which(str_detect(dfsub$Participant, "613a972033d79df11a6570de")) + 1, background = "green")
 ```
 
-```{r message=FALSE, warning=FALSE, cache=cache}
+```{r message=FALSE, warning=FALSE, cache=cache, fig.width=20, fig.height=20}
 p_att <- dfsub |>
   select(Participant, starts_with("Att")) |>
   pivot_longer(-Participant) |>
@@ -279,7 +282,7 @@ p_cor <- dfsub |>
   (p_cor)
 
 df <- df |>
-  filter(!Participant %in% outliers)
+  filter(!Participant %in% c(outliers))
 ```
 
 
@@ -597,7 +600,7 @@ make_model <- function(df, var = "Attractive", formula = var, fill = "#2196F3") 
                      Sex = y_real[c(11, 31), "Sex"])
   param <- parameters::parameters(m_real, effects = "fixed", keep = var)
   sig1$p <- c(min(param[str_detect(param$Parameter, sig1$Sex[1]), "p"]), min(param[str_detect(param$Parameter, sig1$Sex[2]), "p"]))
-  sig1$y <- sig1$y + ifelse(sig1$Sex == "Male", 0.03, -0.03)
+  sig1$y <- sig1$y + ifelse(sig1$Sex == "Male", -0.03, 0.03)
   sig1$label <- ifelse(sig1$p > .05 & sig1$p < .099, format_p(sig1$p), format_p(sig1$p, stars_only = TRUE))
   
   sig2 <- data.frame(x = 0.5, 
@@ -608,7 +611,7 @@ make_model <- function(df, var = "Attractive", formula = var, fill = "#2196F3") 
   param <- parameters::parameters(m_conf, effects = "fixed", keep = var) |> 
     arrange(Parameter)
   sig2$p <- c(min(param$p[c(1, 2)]), min(param$p[c(5, 6)]), min(param$p[c(3, 4)]), min(param$p[c(7, 8)]))
-  sig2$y <- sig2$y + ifelse(sig2$Belief == "Real", 0.02, -0.02)
+  sig2$y <- sig2$y + ifelse(sig2$Belief == "Real", 0.03, -0.03)
   sig2$label <- ifelse(sig2$p > .05 & sig2$p < .099, format_p(sig2$p), format_p(sig2$p, stars_only = TRUE))
   
   
@@ -838,7 +841,39 @@ make_correlation <- function(x, y) {
 }
 ```
 
+
+
+```{r message=FALSE, warning=FALSE, cache=cache}
+analyze_interindividual <- function(df, questionnaire = "IPIP6_") {
+  param_real <- data.frame()
+  param_conf <- data.frame()
+  for(var in names(select(df, starts_with(questionnaire)))) {
+    m_real <- glmmTMB::glmmTMB(as.formula(paste0("Belief ~ ", var)), 
+                               data=datawizard::standardise(df, select=var), family = "binomial")
+    param_real <- rbind(param_real, parameters::parameters(m_real, effects="fixed")[2, ])
+    
+    m_conf <- glmmTMB::glmmTMB(as.formula(paste0("Belief_Confidence ~ Belief / ", var)), 
+                             
+                               data=datawizard::standardise(df, select=var), 
+                             family = glmmTMB::beta_family())
+  
+    param_conf <- rbind(param_conf, parameters::parameters(m_conf, effects="fixed")[3:4, ])
+  }
+  
+  param_real <- param_real |> 
+    mutate(Parameter = str_remove(Parameter, questionnaire)) |> 
+    select(-SE)
+  param_conf <- param_conf |> 
+    tidyr::separate("Parameter", into = c("Belief", "Dimension"), sep = ":") |> 
+    mutate(Belief = str_remove(Belief, "Belief"),
+           Dimension = str_remove(Dimension, questionnaire)) |> 
+    select(-SE)
+  list(param_real, param_conf)
+}
+```
+
 ### IPIP-6
+
 
 ```{r ipip, message=FALSE, warning=FALSE, cache=cache}
 f <- paste0("(",paste(names(select(df, starts_with("IPIP"))), collapse = " + "), 
@@ -847,7 +882,7 @@ f <- paste0("(",paste(names(select(df, starts_with("IPIP"))), collapse = " + "),
 
 m_real <- glmmTMB::glmmTMB(as.formula(paste0("Belief ~ ", f)), data=df, family = "binomial")
 
-parameters::parameters(m_real, effects="fixed") |> 
+parameters::parameters(m_real, effects="fixed", exponentiate = TRUE) |> 
   display()
 
 
@@ -878,7 +913,7 @@ f <- paste0("(",paste(names(select(df, starts_with("FFNI"))), collapse = " + "),
 
 m_real <- glmmTMB::glmmTMB(as.formula(paste0("Belief ~ ", f)), data=df, family = "binomial")
 
-parameters::parameters(m_real, effects="fixed") |> 
+parameters::parameters(m_real, effects="fixed", exponentiate = TRUE) |> 
   display()
 
 
@@ -919,7 +954,7 @@ f <- paste0("(",paste(names(select(df, starts_with("Social_"))), collapse = " + 
 
 m_real <- glmmTMB::glmmTMB(as.formula(paste0("Belief ~ ", f)), data=df, family = "binomial")
 
-parameters::parameters(m_real, effects="fixed") |> 
+parameters::parameters(m_real, effects="fixed", exponentiate = TRUE) |> 
   display()
 
 
@@ -948,7 +983,7 @@ f <- paste0("(",paste(names(select(df, starts_with("IUS_"))), collapse = " + "),
 
 m_real <- glmmTMB::glmmTMB(as.formula(paste0("Belief ~ ", f)), data=df, family = "binomial")
 
-parameters::parameters(m_real, effects="fixed") |> 
+parameters::parameters(m_real, effects="fixed", exponentiate = TRUE) |> 
   display()
 
 
@@ -978,7 +1013,7 @@ f <- paste0("(",paste(names(select(df, starts_with("GPTS_"))), collapse = " + ")
 
 m_real <- glmmTMB::glmmTMB(as.formula(paste0("Belief ~ ", f)), data=df, family = "binomial")
 
-parameters::parameters(m_real, effects="fixed") |> 
+parameters::parameters(m_real, effects="fixed", exponentiate = TRUE) |> 
   display()
 
 
@@ -1018,7 +1053,7 @@ f <- paste0("(AI_Enthusiasm + AI_Realness + AI_Danger) + (1|Participant) + (1|St
 
 m_real <- glmmTMB::glmmTMB(as.formula(paste0("Belief ~ ", f)), data=df, family = "binomial")
 
-parameters::parameters(m_real, effects="fixed") |> 
+parameters::parameters(m_real, effects="fixed", exponentiate = TRUE) |> 
   display()
 
 

@@ -927,11 +927,11 @@ parameters::parameters(m_conf, effects="fixed") |>
 p_ffni1 <- plot_interindividual(m_real, m_conf, var = "FFNI_AcclaimSeeking", fill = "#FFC107") + labs(x = "Narcissism (Acclaim Seeking)")
 p_ffni1
 
-p_ffni2 <- plot_interindividual(m_real, m_conf, var = "FFNI_Authoritativeness", fill = "#FF9800") + labs(x = "Narcissism (Authoritativeness)")
+p_ffni2 <- plot_interindividual(m_real, m_conf, var = "FFNI_Authoritativeness", fill = "#FF5722") + labs(x = "Narcissism (Authoritativeness)")
 p_ffni2
 
-# p_ffni3 <- plot_interindividual(m_real, m_conf, var = "FFNI_ThrillSeeking", fill = "#FF5722") + labs(x = "Narcissism (Thrill Seeking)")
-# p_ffni3 
+p_ffni3 <- plot_interindividual(m_real, m_conf, var = "FFNI_Manipulativeness", fill = "#FF9800") + labs(x = "Narcissism (Manipulativeness)")
+p_ffni3
 ```
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
@@ -1023,6 +1023,9 @@ m_conf <- glmmTMB::glmmTMB(as.formula(paste0("Belief_Confidence ~ Belief / ", f)
 
 parameters::parameters(m_conf, effects="fixed") |> 
   display()
+
+p_gpts1 <- plot_interindividual(m_real, m_conf, var = "GPTS_Persecution", fill = "#673AB7") + labs(x = "Paranoid Thoughts (Persecution)")
+p_gpts1
 ```
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
@@ -1106,16 +1109,17 @@ fig1a <- (rez_at$p +
   ) +
   plot_annotation(title = "Determinants of Reality Beliefs", theme = theme(plot.title = element_text(face = "bold", hjust = 0.5))) +
   plot_layout(guides = "collect") &
-  theme(legend.position='top', legend.title = element_blank())
+  theme(legend.title = element_text(face = "bold"))
 
 fig <- wrap_elements(fig1a) /
   wrap_elements(
     # ((p_ffni1 / p_ipip) | (p_ffni2 / p_social) | (p_ffni3 / p_ai)) + 
-    ((p_ffni1 / p_ipip) | (p_ffni2 / p_ai)) + 
+    ((p_ffni1 / p_ipip) | (p_ffni3 / p_gpts1) | (p_ffni2 / p_ai)) +
   plot_layout(guides = "collect") +
-  plot_annotation(title = "Personality Correlates of Simulation Monitoring Tendencies", theme = theme(plot.title = element_text(face = "bold", hjust = 0.5)))
+  plot_annotation(title = "Personality Correlates of Simulation Monitoring Tendencies", theme = theme(plot.title = element_text(face = "bold", hjust = 0.5))) &
+  theme(legend.title = element_text(face = "bold")) 
   ) +
-  plot_layout(heights = c(1.1, 0.9))
+  plot_layout(heights = c(1.1, 0.9)) 
 
 ggsave("figures/Figure2.png", width=fig.height * 1.8, height=fig.width * 1.5)
 ```

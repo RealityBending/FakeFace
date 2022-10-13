@@ -637,8 +637,8 @@ make_model <- function(df, var = "Attractive", formula = var, fill = "#2196F3") 
     labs(y = "Simulation Monitoring") +
     guides(fill = guide_legend(override.aes = list(alpha = 1))) +
     theme_modern(axis.title.space = 5) +
-    ggside::geom_xsidedensity(fill = fill, color = "white") +
-    ggside::geom_ysidedensity(fill = "#9C27B0", color = "white") +
+    ggside::geom_xsidedensity(aes(fill = Sex), alpha=2/3, color = NA) +
+    ggside::geom_ysidedensity(aes(fill = Sex), alpha=2/3, color = NA) +
     ggside::theme_ggside_void() +
     ggside::scale_ysidex_continuous(expand = c(0, 0)) +
     ggside::scale_xsidey_continuous(expand = c(0, 0))

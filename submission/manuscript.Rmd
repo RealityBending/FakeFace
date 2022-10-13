@@ -1,6 +1,6 @@
 ---
 title             : "**Too Beautiful to be Fake: Attractive Faces are Less Likely to be Judged as Artificially Generated**"
-shorttitle        : "Illusion Game Validation"
+shorttitle        : "Attractiveness and Reality"
 author:
 
   - name          : "Dominique Makowski"
@@ -62,17 +62,19 @@ affiliation:
   - id            : "1"
     institution   : "School of Social Sciences, Nanyang Technological University, Singapore"
   - id            : "2"
-    institution   : "LKC Medicine, Nanyang Technological University, Singapore"
+    institution   : "Singapore-ETH Centre, Future Cities Laboratory, Singapore"
   - id            : "3"
-    institution   : "National Institute of Education, Singapore"
+    institution   : "LKC Medicine, Nanyang Technological University, Singapore"
   - id            : "4"
+    institution   : "National Institute of Education, Singapore"
+  - id            : "5"
     institution   : "Centre for Research and Development in Learning, Nanyang Technological University, Singapore"
 authornote: |
   Correspondence concerning this article should be addressed to Dominique Makowski, HSS 04-18, 48 Nanyang Avenue, Singapore (dom.makowski@gmail.com). This work was supported by the Presidential Postdoctoral Fellowship Grant (NTU-PPF-2020-10014) from Nanyang Technological University and the Intra-CREATE Seed Collaboration Grant (NRF2021-ITS008-0010) from the National Research Foundation, Prime Minister’s Office, Singapore, under its Campus for Research Excellence and Technological Enterprise (CREATE) programme.
 abstract: |
-  Distinguishing between artificial stimuli (e.g., computer-generated faces) and reality has become increasingly difficult given technological advances. However, the factors that drive our beliefs regarding the nature of ambiguous stimuli remain largely unknown. In this study, 150 participants rated 109 pictures of faces on 4 characteristics (attractiveness, beauty, trustworthiness, familiarity). The stimuli were then presented again with the new information that a number of them were AI-generated, and participants had to rate each image according to whether they believed them to be real or fake. Strikingly, despite all images being pictures of real faces from the same database, most participants rated a large portion of them as "fake". Moreover, our results suggest a gender-dependent role of attractiveness on reality judgements, with faces rated as more attractive being classified as more real. We also report links between reality beliefs tendencies and dispositional traits such as narcissism and paranoid ideation.
+  Technological advances make the distinction between artificial (e.g., computer-generated faces) and real stimuli increasingly difficult, and the factors that drive our beliefs regarding the nature of ambiguous stimuli remain largely unknown. In this study, 150 participants rated 109 pictures of faces on 4 characteristics (attractiveness, beauty, trustworthiness, familiarity). The stimuli were then presented again with the new information that a number of them were AI-generated, and participants had to rate each image according to whether they believed them to be real or fake. Strikingly, despite all images being pictures of real faces from the same database, most participants rated a large portion of them as "fake". Moreover, our results suggest a gender-dependent role of attractiveness on reality judgements, with faces rated as more attractive being classified as more real. We also report links between reality beliefs tendencies and dispositional traits such as narcissism and paranoid ideation.
 keywords          : "attractiveness, simulation monitoring, fiction, deep fakes, sense of reality"
-wordcount         : "4697"
+wordcount         : "4707"
 bibliography      : references.bib
 floatsintext      : yes
 linenumbers       : yes
@@ -147,7 +149,7 @@ In the first part of the study, participants answered a series of personality qu
 
 In the second part of this study, 109 images of neutral-expression faces from the validated American Multiracial Face Database (AMFD, [@chen2021broadening]) were presented to the participants for 500ms each, in a randomized order, following a fixation cross display (750 ms). After each stimulus presentation, ratings of *Trustworthiness* ("I find this person trustworthy") and *Familiarity* ("This person reminds me of someone I know") were collected using visual analog scales. Notably, as facial attractiveness is a multidimensional construct, encompassing evolutionary, sociocultural, biological as well as cognitive aspects [@rhodes2006evolutionary; @han2018beauty], we assessed attractiveness using 2 visual analog scales, measuring general *Attractiveness* ("I find this person attractive") and physical *Beauty* ("This face is good-looking").
 
-In the last part of the study, participants were informed that about half of the images previously seen were AI-generated (the instructions used a cover story which prefaced that the aim of the research was to validate a new face generation algorithm). The same set of stimuli was displayed again for 500 ms in a new randomized order. This time, after each display, participants were asked to express their belief regarding the nature of the stimulus using a visual analog scale (with *Fake* and *Real* as the two extremes). The study was implemented using *jsPsych* [@de2015jspsych], and the exact instructions are available in the experiment code.
+In the last part of the study, participants were informed that "about half" of the images previously seen were AI-generated (the instructions used a cover story explaining that the aim of the research was to validate a new face generation algorithm). The same set of stimuli was displayed again for 500 ms in a new randomized order. This time, after each display, participants were asked to express their belief regarding the nature of the stimulus using a visual analog scale (with *Fake* and *Real* as the two extremes). The study was implemented using *jsPsych* [@de2015jspsych], and the exact instructions are available in the experiment code.
 
 ### Participants
 
@@ -157,7 +159,7 @@ We excluded 5 participants that either failed 2 (\>= 66%) or more attention chec
 
 ### Data Analysis
 
-The real-fake ratings (measured originally on a [-1, 1] analog scale) were converted into two scores, corresponding to two conceptually distinct mechanisms: the dichotomous *belief* (real or fake, derived based on the sign of the rating) and the *confidence* (the rating's absolute value) associated with that belief. The former was analyzed using logistic mixed models (with the participants and images entered as random factors), which modelled the probability of assigning a face to the real (\>= 0) as opposed to fake (\< 0). The latter, as well as the other face ratings (attractiveness, beauty, trustworthiness and familiarity), was modelled using beta regressions (suited for outcome variables expressed in percentages).
+The real-fake ratings (measured originally on a [-1, 1] analog scale) were converted into two scores, corresponding to two conceptually distinct mechanisms: the dichotomous *belief* (real or fake, based on the sign of the rating) and the *confidence* (the rating's absolute value) associated with that belief. The former was analyzed using logistic mixed models, which modelled the probability of assigning a face to the real (\>= 0) as opposed to fake (\< 0). The latter, as well as the other face ratings (attractiveness, beauty, trustworthiness and familiarity), was modelled using mixed beta regressions (suited for outcome variables expressed in percentages). The models included the participants and stimuli as random factors.
 
 We started by investigating the effect of the procedure and instructions to check whether the stimuli (which were all images of real faces) were judged as fake in sufficient proportion to warrant their analysis. Additionally, we assessed the effect of the re-exposure delay, i.e., the time between the first presentation of the image (corresponding to the face ratings) and the second presentation (for the real-fake rating).
 
@@ -253,7 +255,10 @@ On a methodological level, although the order of presentation of the facial imag
 
 Understanding the factors driving the reality beliefs pertaining to ambiguous stimuli is becoming increasingly pertinent given the rapid technological advances. The aim of the present study was to examine whether a subset of specific characteristics, in particular face attractiveness, significantly influences our simulation monitoring decisions. We found faces rated as attractive to be perceived as more real, with a possible sexual dimorphism affecting the shape of the relationship. We also found that inter-individual traits, such as narcissistic acclaim-seeking and manipulativeness, as well as persecutory ideation, were related to a systematic bias towards beliefs that the stimuli were real or fake. 
 
-Regarding the possible study limitations, the current paradigm required participants to judge the realness of faces they had prior exposure to (which was done to prevent reality judgements to influence the other ratings). Although the effect of re-exposure delay was negligible, the potential bias induced by face familiarity (as compared to judging completely new items) cannot be discarded. Future studies could examine that by incorporating novel face images or increasing the duration of the re-exposure delay. It has to be noted that the magnitude of the effects found was relatively small, suggesting that the facial features measured in the study were not the key determinants of simulation monitoring. On top of exploring new potential mechanisms, future studies should include a more thorough debriefing to try to capture what conscious strategies (if any) the participants used in evaluating the realness of the perceived stimuli (e.g., focusing on some features of the stimulus - like hair or eyes in the case of faces, or based on a gut feeling).
+Regarding the possible study limitations, the current paradigm required participants to judge the realness of faces they had prior exposure to (which was done to prevent reality judgements to influence the other ratings). Although the effect of re-exposure delay was negligible, the potential bias induced by face familiarity (as compared to judging completely new items) cannot be discarded. Future studies could examine that by incorporating novel face images or increasing the duration of the re-exposure delay. It has to be noted that the magnitude of the effects found was relatively small, suggesting that the facial features measured in the study were not the key determinants of simulation monitoring. On top of exploring new potential mechanisms, future studies should include a more thorough debriefing to try to capture what conscious strategies (if any) the participants used (e.g., focusing on some features of the stimulus - like hair or eyes in the case of faces, or based on a gut feeling) to guide their reality beliefs.
+
+# Funding
+
 
 
 # Acknowledgments

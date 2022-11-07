@@ -3,7 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  man,floatsintext]{apa6}
+  man,mask,floatsintext]{apa6}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
@@ -155,7 +155,7 @@
     {}{\InnerPatchFailed}%
   }
 {}{\PatchFailed}
-\keywords{attractiveness, simulation monitoring, fiction, deep fakes, sense of reality\newline\indent Word count: 4436}
+\keywords{attractiveness, simulation monitoring, fiction, deep fakes, sense of reality\newline\indent Word count: 4428}
 \usepackage{lineno}
 
 \linenumbers
@@ -176,7 +176,6 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={Too Beautiful to be Fake: Attractive Faces are Less Likely to be Judged as Artificially Generated},
-  pdfauthor={Dominique Makowski1, An Shu Te1, Stephanie Kirk1, Ngoi Zi Liang1, Panagiotis Mavros2, \& S.H. Annabel Chen1, 3, 4, 5},
   pdflang={en-EN},
   pdfkeywords={attractiveness, simulation monitoring, fiction, deep fakes, sense of reality},
   hidelinks,
@@ -202,7 +201,9 @@ Correspondence concerning this article should be addressed to Dominique Makowski
 \affiliation{\vspace{0.5cm}\textsuperscript{1} School of Social Sciences, Nanyang Technological University, Singapore\\\textsuperscript{2} Singapore-ETH Centre, Future Cities Laboratory, Singapore\\\textsuperscript{3} LKC Medicine, Nanyang Technological University, Singapore\\\textsuperscript{4} National Institute of Education, Singapore\\\textsuperscript{5} Centre for Research and Development in Learning, Nanyang Technological University, Singapore}
 
 \abstract{%
-Technological advances make the distinction between artificial (e.g., computer-generated faces) and real stimuli increasingly difficult, and the factors that drive our beliefs regarding the nature of ambiguous stimuli remain largely unknown. In this study, 150 participants rated 109 pictures of faces on 4 characteristics (attractiveness, beauty, trustworthiness, familiarity). The stimuli were then presented again with the new information that a number of them were AI-generated, and participants had to rate each image according to whether they believed them to be real or fake. Strikingly, despite all images being pictures of real faces from the same database, most participants rated a large portion of them as ``fake''. Moreover, our results suggest a gender-dependent role of attractiveness on reality judgements, with faces rated as more attractive being classified as more real. We also report links between reality beliefs tendencies and dispositional traits such as narcissism and paranoid ideation.
+Technological advances render the distinction between artificial (e.g., computer-generated faces) and real stimuli increasingly difficult, yet the factors driving our beliefs regarding the nature of ambiguous stimuli remain largely unknown. In this study, 150 participants rated 109 pictures of faces on 4 characteristics (attractiveness, beauty, trustworthiness, familiarity). The stimuli were then presented again with the new information that some of them were AI-generated, and participants had to rate each image according to whether they believed them to be real or fake. Strikingly, despite all images being pictures of real faces from the same database, most participants rated a large portion of them as ``fake''. Moreover, our results suggest a gender-dependent role of attractiveness on reality judgements, with faces rated as more attractive being classified as more real. We also report links between reality beliefs tendencies and dispositional traits such as narcissism and paranoid ideation.
+
+\textbf{Statement of relevance.} Computer-generated images of faces are likely to become objectively indistinguishable from real photos in the near future, creating important issues in the context of fake news and misinformation, as well as virtual reality developments. Given the evolutionary importance of perceived attractiveness, we investigated if faces rated as more attractive would be more likely judged as real (vs ``fake'', i.e., artificially generated). We indeed found a gender-dependent role of attractiveness on reality judgements, as well as a global influence of personality traits such as narcissism. These results are discussed in the light of consciousness psychology and evolutionary science, and are relevant to AI-researchers and misinformation management agencies.
 }
 
 
@@ -231,7 +232,7 @@ This study primarily aims at exploring the effect of facial attractiveness on si
 \hypertarget{methods}{%
 \subsection{Methods}\label{methods}}
 
-In line with open-science standards, all the material (stimuli generation code, experiment code, raw data, analysis script with complementary figures and analyses, preregistration, etc.) is available at \href{https://github.com/RealityBending/FakeFace}{\textbf{https://github.com/RealityBending/FakeFace}}.
+In line with open-science standards, all the material (stimuli generation code, experiment code, raw data, analysis script with complementary figures and analyses, preregistration, etc.) is available at \href{https://github.com/RealityBending/FakeFace}{\textbf{https://github.com/MaskedForReview}}.
 
 \hypertarget{procedure}{%
 \subsubsection{Procedure}\label{procedure}}
@@ -259,7 +260,7 @@ We started by investigating the effect of the procedure and instructions to chec
 The determinants of reality beliefs were modelled separately for attractiveness, beauty, trustworthiness, and familiarity, using second order raw polynomials coefficients to allow for possible quadratic relationships (\textbf{Figure 2}). Aside from attractiveness (conceptualized as a general construct), models for beauty, trustworthiness and familiarity were adjusted for the the two remaining variables \emph{mutatis mutandis}. We took into account the gender of participants and stimuli by retaining the stimuli that were aligned with the participants' sexual preference (e.g., female faces for homosexual females, male faces for heterosexual females, and both for bisexual participants), and modeling the interaction with the participants' gender. For the attractiveness and beauty models, we then added the interaction with the reported self-attractiveness (the average of the two questions pertaining to it) to investigate its potential modulatory effect. Finally, we investigated the inter-individual correlates of simulation monitoring with similar models (but this time, for all items regardless of the participant's gender or sexual orientation) for each questionnaire, with all of the subscales as orthogonal predictors.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{../figures/Figure2} \caption{Top part shows the efffect of face ratings on 1) the probability of judging a face as real vs. fake (solid line) and 2) on the confidence associated with that judgement (dashed lines) depending on the sex. Bottom part shows the effect of personality traits on the belief (black line) and the confidence associated with it (colored lines). The points are the average per participant confidence for both types of judgements. Stars indicate significance (p < .001***, p < .01**, p < .05*)}\label{fig:unnamed-chunk-3}
+\includegraphics[width=1\linewidth]{../figures/Figure2} \caption{Top part shows the efffect of face ratings on 1) the probability of judging a face as real vs. fake (solid line) and 2) on the confidence associated with that judgement (dashed lines) depending on the sex. Bottom part shows the effect of personality traits on the belief (black line) and the confidence associated with it (colored lines). The points are the average per participant confidence for both types of judgements. Stars indicate significance (p < .001***, p < .01**, p < .05*).}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 The analysis was carried out using \emph{R 4.2} (R Core Team, 2022), the \emph{tidyverse} (Wickham et al., 2019), and the \emph{easystats} collection of packages (Lüdecke et al., 2021, 2019, 2020; Makowski et al., 2020; Makowski, Ben-Shachar, et al., 2019). As all the details, scripts and complimentary analyses are open-access, we will focus in the manuscript on findings that are highly statistically significant (\(p <.01\)).
@@ -323,17 +324,17 @@ On a methodological level, although the order of presentation of the facial imag
 
 Several limitations have to be noted. The current experimental paradigm required participants to judge the realness of faces they had prior exposure to (which was done to prevent reality judgements from influencing the other ratings). Although the effect of re-exposure delay was negligible, the potential bias induced by face familiarity (as compared to judging completely new items) cannot be discarded. Future studies could examine that by incorporating novel face images or increasing the duration of the re-exposure delay. Moreover, the magnitude of the effects found in the study was relatively small, suggesting that the facial features measured in the study were not the key determinants of simulation monitoring. Hence, beyond exploring new potential mechanisms, future studies should include a more thorough debriefing to try to capture what conscious strategies (if any) the participants used (e.g., focusing on some features of the stimulus - like hair or eyes in the case of faces) to guide their reality beliefs.
 
-In summary, the aim of the present study was to examine whether a subset of specific characteristics, in particular face attractiveness, significantly influences our simulation monitoring decisions. Notably, we found faces rated as attractive to be perceived as more real, with a possible sexual dimorphism affecting the shape of the relationship. We also found that inter-individual traits, such as narcissistic acclaim-seeking and manipulativeness, as well as persecutory ideation, were related to a systematic bias towards beliefs that the stimuli were real or fake. We hope subsequent works to further our understanding of the factors driving the reality beliefs pertaining to ambiguous stimuli, an question becoming increasingly pertinent given the rapid technological advances.
+In summary, the aim of the present study was to examine whether a subset of specific characteristics, in particular face attractiveness, significantly influences our simulation monitoring decisions. Notably, we found faces rated as attractive to be perceived as more real, with a possible sexual dimorphism affecting the shape of the relationship. We also found that inter-individual traits, such as narcissistic acclaim-seeking and manipulativeness, as well as persecutory ideation, were related to a systematic bias towards beliefs that the stimuli were real or fake. We believe that these findings provide the foundations to help us understand what drives reality beliefs in an increasingly reality-ambiguous world.
 
 \hypertarget{funding}{%
 \section{Funding}\label{funding}}
 
-This work was supported by the Presidential Postdoctoral Fellowship Grant (NTU-PPF-2020-10014) from Nanyang Technological University (awarded to DM) and the Intra-CREATE Seed Collaboration Grant (NRF2021-ITS008-0010) from the National Research Foundation, Prime Minister's Office, Singapore, under its Campus for Research Excellence and Technological Enterprise (CREATE) programme (awarded to DM and PM).
+This work was supported by \textbf{{[}masked for review{]}}
 
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
 
-We would like to thank Taong Ren Qing Malcolm for his contribution to the selection of the materials.
+\textbf{{[}masked for review{]}}
 
 \newpage
 

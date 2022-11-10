@@ -3,7 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  man,mask,floatsintext]{apa6}
+  man,floatsintext]{apa6}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
@@ -176,6 +176,7 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={Too Beautiful to be Fake: Attractive Faces are Less Likely to be Judged as Artificially Generated},
+  pdfauthor={Dominique Makowski1, An Shu Te1, Stephanie Kirk1, Ngoi Zi Liang1, Panagiotis Mavros2, \& S.H. Annabel Chen1, 3, 4, 5},
   pdflang={en-EN},
   pdfkeywords={attractiveness, simulation monitoring, fiction, deep fakes, sense of reality},
   hidelinks,
@@ -192,7 +193,7 @@
 
 Correspondence concerning this article should be addressed to Dominique Makowski, HSS 04-18, 48 Nanyang Avenue, Singapore (\href{mailto:dom.makowski@gmail.com}{\nolinkurl{dom.makowski@gmail.com}}).
 
-The authors made the following contributions. Dominique Makowski: Conceptualization, Data curation, Formal Analysis, Funding acquisition, Investigation, Methodology, Project administration, Resources, Software, Supervision, Validation, Visualization, Writing -- original draft; An Shu Te: Project administration, Resources, Investigation, Writing -- original draft; Stephanie Kirk: Project administration, Resources, Writing -- original draft; Ngoi Zi Liang: Project administration, Resources, Writing -- review \& editing; Panagiotis Mavros: Supervision, Writing -- review \& editing; S.H. Annabel Chen: Project administration, Supervision, Writing -- review \& editing.
+The authors made the following contributions. Dominique Makowski: Conceptualization, Data curation, Formal Analysis, Funding acquisition, Investigation, Methodology, Project administration, Resources, Software, Supervision, Validation, Visualization, Writing -- original draft; An Shu Te: Data curation, Project administration, Resources, Investigation, Writing -- original draft; Stephanie Kirk: Project administration, Resources, Writing -- original draft; Ngoi Zi Liang: Project administration, Resources, Writing -- review \& editing; Panagiotis Mavros: Supervision, Writing -- review \& editing; S.H. Annabel Chen: Project administration, Supervision, Writing -- review \& editing.
 
 Correspondence concerning this article should be addressed to Dominique Makowski, HSS 04-18, 48 Nanyang Avenue, Singapore. E-mail: \href{mailto:dom.makowski@gmail.com}{\nolinkurl{dom.makowski@gmail.com}}
 
@@ -203,7 +204,7 @@ Correspondence concerning this article should be addressed to Dominique Makowski
 \abstract{%
 Technological advances render the distinction between artificial (e.g., computer-generated faces) and real stimuli increasingly difficult, yet the factors driving our beliefs regarding the nature of ambiguous stimuli remain largely unknown. In this study, 150 participants rated 109 pictures of faces on 4 characteristics (attractiveness, beauty, trustworthiness, familiarity). The stimuli were then presented again with the new information that some of them were AI-generated, and participants had to rate each image according to whether they believed them to be real or fake. Strikingly, despite all images being pictures of real faces from the same database, most participants rated a large portion of them as ``fake''. Moreover, our results suggest a gender-dependent role of attractiveness on reality judgements, with faces rated as more attractive being classified as more real. We also report links between reality beliefs tendencies and dispositional traits such as narcissism and paranoid ideation.
 
-\textbf{Statement of relevance.} Computer-generated images of faces are likely to become objectively indistinguishable from real photos in the near future, creating important issues in the context of fake news and misinformation, as well as virtual reality developments. Given the evolutionary importance of perceived attractiveness, we investigated if faces rated as more attractive would be more likely judged as real (vs ``fake'', i.e., artificially generated). We indeed found a gender-dependent role of attractiveness on reality judgements, as well as a global influence of personality traits such as narcissism. These results are discussed in the light of consciousness psychology and evolutionary science, and are relevant to AI-researchers and misinformation management agencies.
+\textbf{Significance Statement.} Computer-generated images of faces are likely to become objectively indistinguishable from real photos in the near future, creating important issues in the context of fake news and misinformation, as well as virtual reality developments. Given the evolutionary importance of perceived attractiveness, we investigated if faces rated as more attractive would be more likely judged as real (vs ``fake'', i.e., artificially generated). We indeed found a gender-dependent role of attractiveness on reality judgements, as well as a global influence of personality traits such as narcissism. These results are discussed in the light of consciousness psychology and evolutionary science, and are relevant to AI-researchers and misinformation management agencies.
 }
 
 
@@ -211,42 +212,61 @@ Technological advances render the distinction between artificial (e.g., computer
 \begin{document}
 \maketitle
 
-For the first time in human history, technology has enabled the creation of near-perfect simulations indistinguishable from reality. These artificial, yet realistic constructs permeate all areas of life through immersive works of fiction, deep fakes (real-like images and videos generated by deep learning algorithms), virtual and augmented reality (VR and AR), artificial beings (artificial intelligence ``bots'' with or without a physical form), fake news and skewed narratives, of which ground truth is often hard to access (Nightingale \& Farid, 2022). Such developments not only carry important consequences for the technological and entertainment sectors, but also for security and politics - for instance if used for propaganda and disinformation, recruitment into malevolent organizations, or religious indoctrination (Pantserev, 2020). This issue is central to what has been coined the ``post-truth era'' (Lewandowsky et al., 2017), in which the distinction (and lack thereof) between authentic and simulated objects will play a critical role.
+For the first time in human history, technology has enabled the creation of near-perfect simulations indistinguishable from reality. These artificial, yet realistic constructs permeate all areas of life through immersive works of fiction, deep fakes (real-like images and videos generated by deep learning algorithms), virtual and augmented reality (VR and AR), artificial beings (artificial intelligence ``bots'' with or without a physical form), fake news and skewed narratives, of which ground truth is often hard to access\textsuperscript{1}. Such developments not only carry important consequences for the technological and entertainment sectors, but also for security and politics - for instance if used for propaganda and disinformation, recruitment into malevolent organizations, or religious indoctrination\textsuperscript{2}. This issue is central to what has been coined the ``post-truth era''\textsuperscript{3}, in which the distinction (and lack thereof) between authentic and simulated objects will play a critical role.
 
-While not all simulations have achieved perfect realism (e.g., Computer Generated Images - CGI in movies often lack certain key details that makes them visually distinct from real images, McDonnell \& Breidt, 2010), it is fair to assume that these technical limitations will become negligible in the near future, particularly in the field of face generation (Moshel et al., 2022; Nightingale \& Farid, 2022; Tucciarelli et al., 2020). Such performance, however, leads to a new question: if real and fake stimuli cannot be distinguished based on their objective characteristics, how can we make judgements regarding their nature?
+While not all simulations have achieved perfect realism (e.g., Computer Generated Images - CGI in movies often lack certain key details that makes them visually distinct from real images)\textsuperscript{4}, it is fair to assume that these technical limitations will become negligible in the near future, particularly in the field of face generation\textsuperscript{1,5,6}. Such performance, however, leads to a new question: if real and fake stimuli cannot be distinguished based on their objective characteristics, how can we make judgements regarding their nature?
 
-Literature shows that the context surrounding a stimulus often plays an important role in the assessment of its reality (a process henceforth referred to as \emph{simulation monitoring}, Makowski, 2018; Makowski, Sperduti, et al., 2019). With the extensive search and processing of cues within ambiguous stimuli being an increasingly complex and cognitively effortful strategy (Michael \& Sanson, 2021; Susmann et al., 2021), people tend to draw on peripheral contextual cues (\textbf{Figure 1}), such as the source of the stimulus (e.g., in what journal has information been published), and its credibility, authority and expertise, to help facilitate their evaluation (Michael \& Sanson, 2021; Petty \& Cacioppo, 1986; Susmann et al., 2021). However, the automization and decontextualization of information allowed by online social media (where text snippets or video excerpts are mass-shared with little context) makes this task increasingly difficult (Berghel, 2018; Y. Chen et al., 2015). Thus, in the absence of clear contextual information, what drives our beliefs of reality?
+Literature shows that the context surrounding a stimulus often plays an important role in the assessment of its reality (a process henceforth referred to as \emph{simulation monitoring})\textsuperscript{7,8}. With the extensive search and processing of cues within ambiguous stimuli being an increasingly complex and cognitively effortful strategy\textsuperscript{9,10}, people tend to draw on peripheral contextual cues (\textbf{Figure 1}), such as the source of the stimulus (e.g., in what journal has information been published), and its credibility, authority and expertise, to help facilitate their evaluation\textsuperscript{9--11}. However, the automization and decontextualization of information allowed by online social media (where text snippets or video excerpts are mass-shared with little context) makes this task increasingly difficult\textsuperscript{12,13}. Thus, in the absence of clear contextual information, what drives our beliefs of reality?
 
 \begin{figure}
 \includegraphics[width=1\linewidth]{../figures/Figure1} \caption{The decision to believe that an ambiguous stimulus (of any form, e.g., images, text, videos, environments, ...) is real or fake depends of individual characteristics (e.g., personality and cognitive styles), stimulus-related features (context, emotionality), and their interaction, which can manifest for instance in our bodily reaction.}\label{fig:unnamed-chunk-2}
 \end{figure}
 
-Evidence suggests that inter-individual characteristics play a crucial role in simulation monitoring, with factors such as cognitive style, prior beliefs, and personality traits (Bryanov \& Vziatysheva, 2021; Ecker et al., 2022; Sindermann et al., 2020). For instance, individuals with stronger analytical reasoning have been found to better discriminate real from fake stimuli (Pehlivanoglu et al., 2021; Pennycook \& Rand, 2019), and prior knowledge or beliefs about the stimulus influences one's perception of it by biasing the attention deployment towards information that is in line with one's expectations (Britt et al., 2019). Furthermore, dispositional traits, such as high levels of narcissism and low levels of openness and conscientiousness, have been associated with greater susceptibility to fake news (Piksa et al., 2022; Sindermann et al., 2020).
+Evidence suggests that inter-individual characteristics play a crucial role in simulation monitoring, with factors such as cognitive style, prior beliefs, and personality traits\textsuperscript{14--16}. For instance, individuals with stronger analytical reasoning have been found to better discriminate real from fake stimuli\textsuperscript{17,18}, and prior knowledge or beliefs about the stimulus influences one's perception of it by biasing the attention deployment towards information that is in line with one's expectations\textsuperscript{19}. Furthermore, dispositional traits, such as high levels of narcissism and low levels of openness and conscientiousness, have been associated with greater susceptibility to fake news\textsuperscript{16,20}.
 
-Beyond stimulus- and individual-related characteristics, evidence suggests that the interaction between the two (i.e., the subjective reaction associated with the experience of a given stimulus), contributes to simulation monitoring decisions. For instance, the intensity of experienced emotions have been shown to increase one's sense of presence - the extent to which one feels like ``being there'', as if the object of experience was real - when engaged in a fictional movie or a VR environment (Makowski et al., 2017; Sanchez-Vives \& Slater, 2005). Conversely, beliefs that emotional stimuli were fake (e.g., that emotional scenes were not authentic but instead involved actors and movie makeup) were found to result in emotion down-regulation (Makowski, Sperduti, et al., 2019; Sperduti et al., 2017). In line with these findings, studies on susceptibility to fake news have also found heightened stimulus emotionality to be associated with greater belief (Bago et al., 2022; Martel et al., 2020). Additionally, other factors, such as the stimuli's perceived self-relevance (Goldstein, 2009; Sperduti et al., 2016), as well as familiarity (Begg et al., 1992), could also play a role in guiding our appraisal of a stimulus.
+Beyond stimulus- and individual-related characteristics, evidence suggests that the interaction between the two (i.e., the subjective reaction associated with the experience of a given stimulus), contributes to simulation monitoring decisions. For instance, the intensity of experienced emotions have been shown to increase one's sense of presence - the extent to which one feels like ``being there'', as if the object of experience was real - when engaged in a fictional movie or a VR environment\textsuperscript{21,22}. Conversely, beliefs that emotional stimuli were fake (e.g., that emotional scenes were not authentic but instead involved actors and movie makeup) were found to result in emotion down-regulation\textsuperscript{8,23}. In line with these findings, studies on susceptibility to fake news have also found heightened stimulus emotionality to be associated with greater belief\textsuperscript{24,25}. Additionally, other factors, such as the stimuli's perceived self-relevance\textsuperscript{26,27}, as well as familiarity\textsuperscript{28}, could also play a role in guiding our appraisal of a stimulus.
 
-AI-generated images of faces, due to their popularity as a target of CGI technology and to the possibility of experimentally manipulating facial features, are increasingly used to study face processing in relationship with saliency or emotions, as well as to other important components of face evaluation, such as trustworthiness or attractiveness (Balas \& Pacella, 2017; Calbi et al., 2017; Sobieraj \& Krämer, 2014; Tsikandilakis et al., 2019). Interestingly, artificially created faces rated as more attractive (by an independent group of raters) were perceived as less real (Tucciarelli et al., 2020). Conversely, Liefooghe et al. (2022) reports that attractiveness ratings were significantly lower when participants who were told that the faces were AI-generated were compared to those who had no prior knowledge. Whereas this line of evidence suggests that reality beliefs have an effect on face attractiveness ratings, the opposite question - whether attractiveness could drive simulation monitoring - has received little attention to date.
+AI-generated images of faces, due to their popularity as a target of CGI technology and to the possibility of experimentally manipulating facial features, are increasingly used to study face processing in relationship with saliency or emotions, as well as to other important components of face evaluation, such as trustworthiness or attractiveness\textsuperscript{29--32}. Interestingly, artificially created faces rated as more attractive (by an independent group of raters) were perceived as less real\textsuperscript{5}. Conversely,\textsuperscript{33} reports that attractiveness ratings were significantly lower when participants who were told that the faces were AI-generated were compared to those who had no prior knowledge. Whereas this line of evidence suggests that reality beliefs have an effect on face attractiveness ratings, the opposite question - whether attractiveness could drive simulation monitoring - has received little attention to date.
 
-This study primarily aims at exploring the effect of facial attractiveness on simulation monitoring, i.e., on the beliefs that an image is real or artificially generated. Based on the embodied reality theory (outlined in Makowski, 2018; Makowski, Sperduti, et al., 2019), which suggests that salient and emotional stimuli are perceived to be more real, we hypothesize a quadratic relationship between perceived realness and attractiveness: faces rated as highly attractive or unattractive will more likely be believed to be real. We expect a similar relationship with trustworthiness ratings given its well-established link with attractiveness (Bartosik et al., 2021; Garrido \& Prada, 2017; Liefooghe et al., 2022; Little et al., 2011), and a positive relationship with familiarity (as more familiar faces would appear as more salient, self-relevant and anchored in reality). Additionally, we will further explore the link shared by dispositional traits, such as personality and attitude towards AI, with simulation monitoring tendencies. This study aims beyond the investigation of the discriminative accuracy between ``true'' photos and ``true'' artificially-generated images, focusing on the beliefs that a stimulus is real or fake, independently of its true nature.
+This study primarily aims at exploring the effect of facial attractiveness on simulation monitoring, i.e., on the beliefs that an image is real or artificially generated. Based on the embodied reality theory\textsuperscript{7,8},
+which suggests that salient and emotional stimuli are perceived to be more real, we hypothesize a quadratic relationship between perceived realness and attractiveness: faces rated as highly attractive or unattractive will more likely be believed to be real. We expect a similar relationship with trustworthiness ratings given its well-established link with attractiveness\textsuperscript{33--36}, and a positive relationship with familiarity (as more familiar faces would appear as more salient, self-relevant and anchored in reality). Additionally, we will further explore the link shared by dispositional traits, such as personality and attitude towards AI, with simulation monitoring tendencies. This study aims beyond the investigation of the discriminative accuracy between ``true'' photos and ``true'' artificially-generated images, focusing on the beliefs that a stimulus is real or fake, independently of its true nature.
 
 \hypertarget{methods}{%
 \subsection{Methods}\label{methods}}
 
-In line with open-science standards, all the material (stimuli generation code, experiment code, raw data, analysis script with complementary figures and analyses, preregistration, etc.) is available at \href{https://github.com/RealityBending/FakeFace}{\textbf{https://github.com/MaskedForReview}}.
+In line with open-science standards, all the material (stimuli generation code, experiment code, raw data, analysis script with complementary figures and analyses, preregistration, etc.) is available at \href{https://github.com/RealityBending/FakeFace}{\textbf{https://github.com/RealityBending/FakeFace}}.
 
 \hypertarget{procedure}{%
 \subsubsection{Procedure}\label{procedure}}
 
-In the first part of the study, participants answered a series of personality questionnaires, including the \emph{Mini-IPIP6} (24 items, Sibley et al., 2011) measuring 6 personality traits, the \emph{SIAS-6} and the \emph{SPS-6} (6 items each, Peters et al., 2012) assessing social anxiety levels, the \emph{FFNI-BF} (30 items, Jauk et al., 2022) measuring 9 facets of narcissism; the \emph{R-GPTS} (18 items, Freeman et al., 2021) measuring 2 dimensions related to paranoid thinking; and the \emph{IUS-12} (12 items, Carleton et al., 2007) measuring intolerance to uncertainty. Self-rated attractiveness was also assessed using 2 items - one measuring general attractiveness (``How attractive would you say you are?'', Marcinkowska et al. (2021)) and the other measuring physical attractiveness (``How would you rate your own physical attractiveness relative to the average'', Spielmann et al. (2020)). Finally, we devised 5 items pertaining to expectations about AI-generated image technology (``I think current Artificial Intelligence algorithms can generate very realistic images''). To lower their saliency and the possibility of it priming the subjects about the task, we mixed these items with 5 items from the general attitudes towards AI scale (\emph{GAAIS}, Schepman \& Rodway, 2020). This scale was presented after the social anxiety questionnaires. 3 attention check questions were also embedded in the surveys.
+In the first part of the study, participants answered a series of personality questionnaires, including the \emph{Mini-IPIP6}
+(24 items)\textsuperscript{37}
+measuring 6 personality traits, the \emph{SIAS-6} and the \emph{SPS-6}
+(6 items each)\textsuperscript{38}
+assessing social anxiety levels, the \emph{FFNI-BF}
+(30 items)\textsuperscript{39}
+measuring 9 facets of narcissism; the \emph{R-GPTS}
+(18 items)\textsuperscript{40}
+measuring 2 dimensions related to paranoid thinking; and the \emph{IUS-12}
+(12 items)\textsuperscript{41}
+measuring intolerance to uncertainty. Self-rated attractiveness was also assessed using 2 items - one measuring general attractiveness
+(``How attractive would you say you are?'')\textsuperscript{42}
+and the other measuring physical attractiveness
+(``How would you rate your own physical attractiveness relative to the average'')\textsuperscript{43}
+Finally, we devised 5 items pertaining to expectations about AI-generated image technology (``I think current Artificial Intelligence algorithms can generate very realistic images''). To lower their saliency and the possibility of it priming the subjects about the task, we mixed these items with 5 items from the general attitudes towards AI scale
+(\emph{GAAIS})\textsuperscript{44}.
+This scale was presented after the social anxiety questionnaires. 3 attention check questions were also embedded in the surveys.
 
-In the second part of this study, 109 images of neutral-expression faces from the validated American Multiracial Face Database (AMFD, (J. M. Chen et al., 2021)) were presented to the participants for 500ms each, in a randomized order, following a fixation cross display (750 ms). After each stimulus presentation, ratings of \emph{Trustworthiness} (``I find this person trustworthy'') and \emph{Familiarity} (``This person reminds me of someone I know'') were collected using visual analog scales. Notably, as facial attractiveness is a multidimensional construct, encompassing evolutionary, sociocultural, biological as well as cognitive aspects (Han et al., 2018; Rhodes et al., 2006), we assessed attractiveness using 2 visual analog scales, measuring general \emph{Attractiveness} (``I find this person attractive'') and physical \emph{Beauty} (``This face is good-looking'').
+In the second part of this study, 109 images of neutral-expression faces from the validated American Multiracial Face Database
+(AMFD)\textsuperscript{45}
+were presented to the participants for 500ms each, in a randomized order, following a fixation cross display (750 ms). After each stimulus presentation, ratings of \emph{Trustworthiness} (``I find this person trustworthy'') and \emph{Familiarity} (``This person reminds me of someone I know'') were collected using visual analog scales. Notably, as facial attractiveness is a multidimensional construct, encompassing evolutionary, sociocultural, biological as well as cognitive aspects\textsuperscript{46,47}, we assessed attractiveness using 2 visual analog scales, measuring general \emph{Attractiveness} (``I find this person attractive'') and physical \emph{Beauty} (``This face is good-looking'').
 
-In the last part of the study, participants were informed that ``about half'' of the images previously seen were AI-generated (the instructions used a cover story explaining that the aim of the research was to validate a new face generation algorithm). The same set of stimuli was displayed again for 500 ms in a new randomized order. This time, after each display, participants were asked to express their belief regarding the nature of the stimulus using a visual analog scale (with \emph{Fake} and \emph{Real} as the two extremes). The study was implemented using \emph{jsPsych} (De Leeuw, 2015), and the exact instructions are available in the experiment code.
+In the last part of the study, participants were informed that ``about half'' of the images previously seen were AI-generated (the instructions used a cover story explaining that the aim of the research was to validate a new face generation algorithm). The same set of stimuli was displayed again for 500 ms in a new randomized order. This time, after each display, participants were asked to express their belief regarding the nature of the stimulus using a visual analog scale (with \emph{Fake} and \emph{Real} as the two extremes). The study was implemented using \emph{jsPsych}\textsuperscript{48}, and the exact instructions are available in the experiment code.
 
 \hypertarget{participants}{%
 \subsubsection{Participants}\label{participants}}
 
-One hundred and fifty participants were recruited via \emph{Prolific}, a crowd-sourcing platform recognized for providing high quality data (Peer et al., 2022). The only inclusion criterion was a fluent proficiency in English to ensure that the experiment instructions would be well-understood. Participants were incentivised with a reward of about \textsterling 7.5 for completing the study, which took about 45 minutes to finish. Demographic variables (age, gender, sexual orientation, education and ethnicity) were self-reported on a voluntary basis.
+One hundred and fifty participants were recruited via \emph{Prolific}, a crowd-sourcing platform recognized for providing high quality data\textsuperscript{49}. The only inclusion criterion was a fluent proficiency in English to ensure that the experiment instructions would be well-understood. Participants were incentivised with a reward of about \textsterling 7.5 for completing the study, which took about 45 minutes to finish. Demographic variables (age, gender, sexual orientation, education and ethnicity) were self-reported on a voluntary basis.
 
 We excluded 5 participants that either failed 2 (\textgreater= 66\%) or more attention check questions, took an implausibly short time to finish the questionnaires or had incomplete responses. The final sample included 145 participants (Mean age = 28.3, SD = 9.0, range: {[}19, 66{]}; Sex: 48.3\% females, 51.0\% males, 0.7\% others).
 
@@ -263,7 +283,7 @@ The determinants of reality beliefs were modelled separately for attractiveness,
 \includegraphics[width=1\linewidth]{../figures/Figure2} \caption{Top part shows the efffect of face ratings on 1) the probability of judging a face as real vs. fake (solid line) and 2) on the confidence associated with that judgement (dashed lines) depending on the sex. Bottom part shows the effect of personality traits on the belief (black line) and the confidence associated with it (colored lines). The points are the average per participant confidence for both types of judgements. Stars indicate significance (p < .001***, p < .01**, p < .05*).}\label{fig:unnamed-chunk-3}
 \end{figure}
 
-The analysis was carried out using \emph{R 4.2} (R Core Team, 2022), the \emph{tidyverse} (Wickham et al., 2019), and the \emph{easystats} collection of packages (Lüdecke et al., 2021, 2019, 2020; Makowski et al., 2020; Makowski, Ben-Shachar, et al., 2019). As all the details, scripts and complimentary analyses are open-access, we will focus in the manuscript on findings that are highly statistically significant (\(p <.01\)).
+The analysis was carried out using \emph{R 4.2}\textsuperscript{50}, the \emph{tidyverse}\textsuperscript{51}, and the \emph{easystats} collection of packages\textsuperscript{52--56}. As all the details, scripts and complimentary analyses are open-access, we will focus in the manuscript on findings that are highly statistically significant (\(p <.01\)).
 
 \hypertarget{results}{%
 \subsection{Results}\label{results}}
@@ -304,37 +324,45 @@ Questions pertaining to the attitude towards AI were reduced to 3 dimensions thr
 
 This study aimed at investigating the effect of facial ratings (attractiveness, beauty, trustworthiness and familiarity) on simulation monitoring, i.e., on the belief that a stimulus was artificially generated. Most strikingly, despite all the stimuli being real faces from the same database, all participants believed (to high degrees of confidence) that a significant proportion of them were fake. This finding not only attests to the effectiveness of our instructions, but highlights the current levels of expectation regarding CGI technology. The strong impact of prior expectations and information on reality beliefs demonstrated here underlines the volatility of our sense of reality. In fact, stimuli-related and participant-related characteristics accounted together for less than 20\% of the beliefs variance, suggesting a large contribution of other subjective processes.
 
-Although attractiveness did not seem to be the primary drive underlying simulation monitoring of face images, we do nonetheless report significant associations, with a different pattern observed depending on the participant's gender. The quadratic relationship found for female participants is aligned with our hypothesis that salient faces (i.e., rated as very attractive or very unattractive) are judged to be more real. The fact that this effect did not reach significance for beauty underlines that attractiveness judgement, and its role in simulation monitoring, is a multidimensional construct that cannot be reduced to physical facial attractiveness, in particular for women (Buunk et al., 2002; Qi \& Ying, 2022). In fact, female participants were more confident in judging faces as fake only when they were rated very high or low on beauty, suggesting that physical beauty and attractiveness are not analogous in their effects on simulation monitoring decisions.
+Although attractiveness did not seem to be the primary drive underlying simulation monitoring of face images, we do nonetheless report significant associations, with a different pattern observed depending on the participant's gender. The quadratic relationship found for female participants is aligned with our hypothesis that salient faces (i.e., rated as very attractive or very unattractive) are judged to be more real. The fact that this effect did not reach significance for beauty underlines that attractiveness judgement, and its role in simulation monitoring, is a multidimensional construct that cannot be reduced to physical facial attractiveness, in particular for women\textsuperscript{57,58}. In fact, female participants were more confident in judging faces as fake only when they were rated very high or low on beauty, suggesting that physical beauty and attractiveness are not analogous in their effects on simulation monitoring decisions.
 
-Interestingly, we found a significant positive linear relationship in male participants for both attractiveness and beauty on simulation monitoring that we could interpret under an evolutionary lens. Specifically, males purportedly place more emphasis on facial attractiveness as a sign of reproductive potential, as compared with females, who tend to value characteristics signaling resource acquisition capabilities (Buunk et al., 2002; Fink et al., 2006; Qi \& Ying, 2022). It is thus possible that the evolutionary weight associated with attractiveness skewed the perceived saliency of men towards attractive faces, rendering them significantly more salient than unattractive faces, and in turn distorted the relationship with simulation monitoring. However, future studies should test this saliency-based hypothesis by measuring constructs closer to salience and its effects, for instance using neuroimaging (Indovina \& Macaluso, 2007; Lou et al., 2015) or physiological markers (e.g., heart rate deceleration, Skora et al., 2022).
+Interestingly, we found a significant positive linear relationship in male participants for both attractiveness and beauty on simulation monitoring that we could interpret under an evolutionary lens. Specifically, males purportedly place more emphasis on facial attractiveness as a sign of reproductive potential, as compared with females, who tend to value characteristics signaling resource acquisition capabilities\textsuperscript{57--59}. It is thus possible that the evolutionary weight associated with attractiveness skewed the perceived saliency of men towards attractive faces, rendering them significantly more salient than unattractive faces, and in turn distorted the relationship with simulation monitoring. However, future studies should test this saliency-based hypothesis by measuring constructs closer to salience and its effects, for instance using neuroimaging\textsuperscript{60,61} or physiological markers
+(e.g., heart rate deceleration)\textsuperscript{62}.
 
-Our results found a positive linear trend between trustworthiness and simulation monitoring for females only. Given prior evidence that faces presented as computer-generated were rated less trustworthy (Balas \& Pacella, 2017; Hoogers, 2021; Liefooghe et al., 2022), we expected such a linear association to be more clearly present for both genders. One of the underlying mechanisms that possibly contributed to this dimorphism could be the increased risk-taking aversion reported in females (explained evolutionarily as a compromise to their reproductive potential, Van Den Akker et al., 2020), to which perceived facial trustworthiness relates (Hou \& Liu, 2019). However, if that was the case, faces judged as highly untrustworthy should have appeared as even more salient (representing an evolutionary threat), and hence be judged as more real, leading to a quadratic relationship between trustworthiness and simulation monitoring instead. Further studies are needed to investigate the causes of the increased simulation monitoring sensitivity to trustworthiness in females.
+Our results found a positive linear trend between trustworthiness and simulation monitoring for females only. Given prior evidence that faces presented as computer-generated were rated less trustworthy\textsuperscript{30,33,63}, we expected such a linear association to be more clearly present for both genders. One of the underlying mechanisms that possibly contributed to this dimorphism could be the increased risk-taking aversion reported in females
+(explained evolutionarily as a compromise to their reproductive potential\textsuperscript{64}),
+to which perceived facial trustworthiness relates\textsuperscript{65}. However, if that was the case, faces judged as highly untrustworthy should have appeared as even more salient (representing an evolutionary threat), and hence be judged as more real, leading to a quadratic relationship between trustworthiness and simulation monitoring instead. Further studies are needed to investigate the causes of the increased simulation monitoring sensitivity to trustworthiness in females.
 
-Contrary to our hypothesis, we did not find familiarity to be significantly related to simulation monitoring decisions. Interestingly, there were significant linear relationships between familiarity and confidence judgements for males only, where familiarity increased the confidence of reality beliefs. Although the familiarity measure was not a ``recognition'' measure, evidence from studies pertaining to the latter could be linked, reporting better face memory for females (Lewin \& Herlitz, 2002; Mishra et al., 2019; Sommer et al., 2013), as well as an overconfidence in face recall for males (Bailey, 2021; Herbst, 2020). However, it should be noted that the present study's distribution of familiarity ratings was strongly skewed, and only a low number of pictures was rated as highly familiar. As such, future studies should clarify this point by experimentally manipulating familiarity, for instance by modulating the amount of exposure to items before querying the simulation monitoring judgements.
+Contrary to our hypothesis, we did not find familiarity to be significantly related to simulation monitoring decisions. Interestingly, there were significant linear relationships between familiarity and confidence judgements for males only, where familiarity increased the confidence of reality beliefs. Although the familiarity measure was not a ``recognition'' measure, evidence from studies pertaining to the latter could be linked, reporting better face memory for females\textsuperscript{66--68}, as well as an overconfidence in face recall for males\textsuperscript{69,70}. However, it should be noted that the present study's distribution of familiarity ratings was strongly skewed, and only a low number of pictures was rated as highly familiar. As such, future studies should clarify this point by experimentally manipulating familiarity, for instance by modulating the amount of exposure to items before querying the simulation monitoring judgements.
 
-Regarding the role of inter-individual characteristics in simulation monitoring tendencies, we found higher scores of honesty-humility - a trait related to an increased risk perception and aversion (Levidi et al., 2022; Weller \& Thulin, 2012) - to be related to a lower confidence in simulation monitoring judgements. Notably, greater narcissistic tendencies in dimensions such as acclaim seeking and manipulativeness were associated with a higher number of faces judged as real. This is in line with recent research which found people with narcissism to be less likely to engage in analytical reasoning strategies such as reflective thinking (Ahadzadeh et al., 2021; Littrell et al., 2020), and to be more vigilant and attentive to external stimuli (Carolan, 2017; Eddy, 2021; Grapsas et al., 2020).
+Regarding the role of inter-individual characteristics in simulation monitoring tendencies, we found higher scores of honesty-humility - a trait related to an increased risk perception and aversion\textsuperscript{71,72} - to be related to a lower confidence in simulation monitoring judgements. Notably, greater narcissistic tendencies in dimensions such as acclaim seeking and manipulativeness were associated with a higher number of faces judged as real. This is in line with recent research which found people with narcissism to be less likely to engage in analytical reasoning strategies such as reflective thinking\textsuperscript{73,74}, and to be more vigilant and attentive to external stimuli\textsuperscript{75--77}.
 
-Moreover, putting the significant positive links between narcissistic acclaim seeking and confidence judgements in perspective with the negative correlation between honesty-humility and narcissism (Hodson et al., 2018), we confirm previous evidence regarding the relationship between narcissistic grandiosity and over-confidence in decision-making (Brunell \& Buelow, 2017; Campbell et al., 2004; Chatterjee \& Pollock, 2017; O'Reilly \& Hall, 2021). Although an inverse effect was found for the narcissistic facet of authoritativeness, we interpret this relationship as related to a higher response assertiveness. Taken together, these results suggest that participants with low humility and high recognition desires are more confident in their judgement regarding the real or fake nature of ambiguous stimuli. Alternatively, participants with opposite traits might perceive a higher risk in the decision-making process and its potential consequences (e.g., being seen as bad at the task at hand), resulting in more conservative confidence ratings.
+Moreover, putting the significant positive links between narcissistic acclaim seeking and confidence judgements in perspective with the negative correlation between honesty-humility and narcissism\textsuperscript{78}, we confirm previous evidence regarding the relationship between narcissistic grandiosity and over-confidence in decision-making\textsuperscript{79--82}. Although an inverse effect was found for the narcissistic facet of authoritativeness, we interpret this relationship as related to a higher response assertiveness. Taken together, these results suggest that participants with low humility and high recognition desires are more confident in their judgement regarding the real or fake nature of ambiguous stimuli. Alternatively, participants with opposite traits might perceive a higher risk in the decision-making process and its potential consequences (e.g., being seen as bad at the task at hand), resulting in more conservative confidence ratings.
 
-Our findings suggest - though with weak significance - a positive link between paranoid ideation and the tendency to believe that the stimuli were real. Given previous reports that people with higher levels of paranoia are more sensitive to cues of social threat (Fornells-Ambrojo et al., 2015; Freeman et al., 2003; King \& Dudley, 2017), it is plausible that paranoid traits confer greater saliency and emotionality to observed faces, hence increasing perceptions of its realness. This hypothesis, if confirmed by future studies, would be in line with previous findings that persecutory delusions are predicted by a greater sense of presence in VR environments populated with virtual characters (Freeman et al., 2005).
+Our findings suggest - though with weak significance - a positive link between paranoid ideation and the tendency to believe that the stimuli were real. Given previous reports that people with higher levels of paranoia are more sensitive to cues of social threat\textsuperscript{83--85}, it is plausible that paranoid traits confer greater saliency and emotionality to observed faces, hence increasing perceptions of its realness. This hypothesis, if confirmed by future studies, would be in line with previous findings that persecutory delusions are predicted by a greater sense of presence in VR environments populated with virtual characters\textsuperscript{86}.
 
-Despite the ubiquity of AI, the literature pertaining to the influence of people's AI attitudes on simulation monitoring is scarce. Contrary to our expectations, we did not find evidence for the role of participants' expectations regarding the capabilities of AI technology (in terms of the realism of its productions). Instead, we found only one's enthusiasm about AI technology to be related to an increased confidence in simulation monitoring ratings. This could potentially be because participants with a highly positive attitude towards AI perceive themselves as having greater knowledge about AI and its capabilities (Said et al., 2022), hence permitting themselves to be more confident in their simulation monitoring decisions. In fact, this result is in line with reports that AI attitudes interacts with people's perceived self-knowledge to influence their perception of the opportunities and risks accorded by AI applications (Said et al., 2022).
+Despite the ubiquity of AI, the literature pertaining to the influence of people's AI attitudes on simulation monitoring is scarce. Contrary to our expectations, we did not find evidence for the role of participants' expectations regarding the capabilities of AI technology (in terms of the realism of its productions). Instead, we found only one's enthusiasm about AI technology to be related to an increased confidence in simulation monitoring ratings. This could potentially be because participants with a highly positive attitude towards AI perceive themselves as having greater knowledge about AI and its capabilities\textsuperscript{87}, hence permitting themselves to be more confident in their simulation monitoring decisions. In fact, this result is in line with reports that AI attitudes interacts with people's perceived self-knowledge to influence their perception of the opportunities and risks accorded by AI applications\textsuperscript{87}.
 
-On a methodological level, although the order of presentation of the facial images was randomized to reduce effects of adaptation, participants were more confident in their judgements for faces perceived as real following a shorter re-exposure delay. Such shorter durations could be associated with the faces being better remembered and appearing more familiar, thereby triggering self-referential and autobiographical memory processing during the repeated display (Abraham \& Von Cramon, 2009; Gobbini et al., 2013; Taylor et al., 2009). Indeed, this finding is consistent with studies in which fictional stimuli that were associated with familiarity up-regulated emotions, biasing its salience and perceived realness (Makowski et al., 2017; Sperduti et al., 2016). However, if that was the case, we would expect shorter re-exposure delays to impact the decision bias as well towards reality, rather than simply the confidence. Future studies should further investigate the modulatory effects of types and degrees of familiarity on perceived realness judgements.
+On a methodological level, although the order of presentation of the facial images was randomized to reduce effects of adaptation, participants were more confident in their judgements for faces perceived as real following a shorter re-exposure delay. Such shorter durations could be associated with the faces being better remembered and appearing more familiar, thereby triggering self-referential and autobiographical memory processing during the repeated display\textsuperscript{88--90}. Indeed, this finding is consistent with studies in which fictional stimuli that were associated with familiarity up-regulated emotions, biasing its salience and perceived realness\textsuperscript{22,26}. However, if that was the case, we would expect shorter re-exposure delays to impact the decision bias as well towards reality, rather than simply the confidence. Future studies should further investigate the modulatory effects of types and degrees of familiarity on perceived realness judgements.
 
 Several limitations have to be noted. The current experimental paradigm required participants to judge the realness of faces they had prior exposure to (which was done to prevent reality judgements from influencing the other ratings). Although the effect of re-exposure delay was negligible, the potential bias induced by face familiarity (as compared to judging completely new items) cannot be discarded. Future studies could examine that by incorporating novel face images or increasing the duration of the re-exposure delay. Moreover, the magnitude of the effects found in the study was relatively small, suggesting that the facial features measured in the study were not the key determinants of simulation monitoring. Hence, beyond exploring new potential mechanisms, future studies should include a more thorough debriefing to try to capture what conscious strategies (if any) the participants used (e.g., focusing on some features of the stimulus - like hair or eyes in the case of faces) to guide their reality beliefs.
 
 In summary, the aim of the present study was to examine whether a subset of specific characteristics, in particular face attractiveness, significantly influences our simulation monitoring decisions. Notably, we found faces rated as attractive to be perceived as more real, with a possible sexual dimorphism affecting the shape of the relationship. We also found that inter-individual traits, such as narcissistic acclaim-seeking and manipulativeness, as well as persecutory ideation, were related to a systematic bias towards beliefs that the stimuli were real or fake. We believe that these findings provide the foundations to help us understand what drives reality beliefs in an increasingly reality-ambiguous world.
 
+\hypertarget{data-availability}{%
+\section{Data Availability}\label{data-availability}}
+
+The datasets generated and/or analysed during the current study are available in the GitHub repository \url{https://github.com/RealityBending/FakeFace}
+
 \hypertarget{funding}{%
 \section{Funding}\label{funding}}
 
-This work was supported by \textbf{{[}masked for review{]}}
+This work was supported by the Presidential Postdoctoral Fellowship Grant (NTU-PPF-2020-10014) from Nanyang Technological University (awarded to DM) and the Intra-CREATE Seed Collaboration Grant (NRF2021-ITS008-0010) from the National Research Foundation, Prime Minister's Office, Singapore, under its Campus for Research Excellence and Technological Enterprise (CREATE) programme (awarded to DM and PM).
 
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
 
-\textbf{{[}masked for review{]}}
+We would like to thank Taong Ren Qing Malcolm for his contribution to the selection of the materials.
 
 \newpage
 
@@ -342,276 +370,366 @@ This work was supported by \textbf{{[}masked for review{]}}
 \section{References}\label{references}}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-abraham2009reality}{}}%
-Abraham, A., \& Von Cramon, D. Y. (2009). Reality= relevance? Insights from spontaneous modulations of the brain's default network when telling apart reality from fiction. \emph{PloS One}, \emph{4}(3), e4741.
-
-\leavevmode\vadjust pre{\hypertarget{ref-ahadzadeh2021social}{}}%
-Ahadzadeh, A. S., Ong, F. S., \& Wu, S. L. (2021). Social media skepticism and belief in conspiracy theories about COVID-19: The moderating role of the dark triad. \emph{Current Psychology}, 1--13.
-
-\leavevmode\vadjust pre{\hypertarget{ref-bago2022emotion}{}}%
-Bago, B., Rosenzweig, L. R., Berinsky, A. J., \& Rand, D. G. (2022). Emotion may predict susceptibility to fake news but emotion regulation does not seem to help. \emph{Cognition and Emotion}, 1--15.
-
-\leavevmode\vadjust pre{\hypertarget{ref-bailey2021gender}{}}%
-Bailey, A. (2021). \emph{A gender in-group effect on facial recall} {[}PhD thesis{]}. University of Tasmania.
-
-\leavevmode\vadjust pre{\hypertarget{ref-balas2017}{}}%
-Balas, B., \& Pacella, J. (2017). Trustworthiness perception is disrupted in artificial faces. \emph{Computers in Human Behavior}, \emph{77}. \url{https://doi.org/10.1016/j.chb.2017.08.045}
-
-\leavevmode\vadjust pre{\hypertarget{ref-bartosik2021you}{}}%
-Bartosik, B., Wojcik, G. M., Brzezicka, A., \& Kawiak, A. (2021). Are you able to trust me? Analysis of the relationships between personality traits and the assessment of attractiveness and trust. \emph{Frontiers in Human Neuroscience}, \emph{15}, 685530.
-
-\leavevmode\vadjust pre{\hypertarget{ref-begg1992dissociation}{}}%
-Begg, I. M., Anas, A., \& Farinacci, S. (1992). Dissociation of processes in belief: Source recollection, statement familiarity, and the illusion of truth. \emph{Journal of Experimental Psychology: General}, \emph{121}(4), 446.
-
-\leavevmode\vadjust pre{\hypertarget{ref-berghel2018weaponizing}{}}%
-Berghel, H. (2018). Weaponizing twitter litter: Abuse-forming networks and social media. \emph{Computer}, \emph{51}(4), 70--73.
-
-\leavevmode\vadjust pre{\hypertarget{ref-britt2019reasoned}{}}%
-Britt, M. A., Rouet, J.-F., Blaum, D., \& Millis, K. (2019). A reasoned approach to dealing with fake news. \emph{Policy Insights from the Behavioral and Brain Sciences}, \emph{6}(1), 94--101.
-
-\leavevmode\vadjust pre{\hypertarget{ref-brunell2017narcissism}{}}%
-Brunell, A. B., \& Buelow, M. T. (2017). Narcissism and performance on behavioral decision-making tasks. \emph{Journal of Behavioral Decision Making}, \emph{30}(1), 3--14.
-
-\leavevmode\vadjust pre{\hypertarget{ref-bryanov2021determinants}{}}%
-Bryanov, K., \& Vziatysheva, V. (2021). Determinants of individuals' belief in fake news: A scoping review determinants of belief in fake news. \emph{PLoS One}, \emph{16}(6), e0253717.
-
-\leavevmode\vadjust pre{\hypertarget{ref-buunk2002age}{}}%
-Buunk, B. P., Dijkstra, P., Fetchenhauer, D., \& Kenrick, D. T. (2002). Age and gender differences in mate selection criteria for various involvement levels. \emph{Personal Relationships}, \emph{9}(3), 271--278.
-
-\leavevmode\vadjust pre{\hypertarget{ref-calbi2017}{}}%
-Calbi, M., Heimann, K., Barratt, D., Siri, F., Umiltà, M. A., \& Gallese, V. (2017). How context influences our perception of emotional faces: A behavioral study on the kuleshov effect. \emph{Frontiers in Psychology}, \emph{8}. \url{https://www.frontiersin.org/articles/10.3389/fpsyg.2017.01684}
-
-\leavevmode\vadjust pre{\hypertarget{ref-campbell2004narcissism}{}}%
-Campbell, W. K., Goodie, A. S., \& Foster, J. D. (2004). Narcissism, confidence, and risk attitude. \emph{Journal of Behavioral Decision Making}, \emph{17}(4), 297--311.
-
-\leavevmode\vadjust pre{\hypertarget{ref-carleton2007fearing}{}}%
-Carleton, R. N., Norton, M. P. J., \& Asmundson, G. J. (2007). Fearing the unknown: A short version of the intolerance of uncertainty scale. \emph{Journal of Anxiety Disorders}, \emph{21}(1), 105--117.
-
-\leavevmode\vadjust pre{\hypertarget{ref-carolan2017searching}{}}%
-Carolan, P. L. (2017). \emph{Searching {``inaffectively''}: A behavioral, psychometric, and electroencephalographic investigation of psychopathic personality and visual-spatial attention} {[}PhD thesis{]}. Arts \& Social Sciences: Department of Psychology.
-
-\leavevmode\vadjust pre{\hypertarget{ref-chatterjee2017master}{}}%
-Chatterjee, A., \& Pollock, T. G. (2017). Master of puppets: How narcissistic CEOs construct their professional worlds. \emph{Academy of Management Review}, \emph{42}(4), 703--725.
-
-\leavevmode\vadjust pre{\hypertarget{ref-chen2021broadening}{}}%
-Chen, J. M., Norman, J. B., \& Nam, Y. (2021). Broadening the stimulus set: Introducing the american multiracial faces database. \emph{Behavior Research Methods}, \emph{53}(1), 371--389.
-
-\leavevmode\vadjust pre{\hypertarget{ref-chen2015news}{}}%
-Chen, Y., Conroy, N. K., \& Rubin, V. L. (2015). News in an online world: The need for an {``automatic crap detector.''} \emph{Proceedings of the Association for Information Science and Technology}, \emph{52}(1), 1--4.
-
-\leavevmode\vadjust pre{\hypertarget{ref-de2015jspsych}{}}%
-De Leeuw, J. R. (2015). jsPsych: A JavaScript library for creating behavioral experiments in a web browser. \emph{Behavior Research Methods}, \emph{47}(1), 1--12.
-
-\leavevmode\vadjust pre{\hypertarget{ref-ecker2022psychological}{}}%
-Ecker, U. K., Lewandowsky, S., Cook, J., Schmid, P., Fazio, L. K., Brashier, N., Kendeou, P., Vraga, E. K., \& Amazeen, M. A. (2022). The psychological drivers of misinformation belief and its resistance to correction. \emph{Nature Reviews Psychology}, \emph{1}(1), 13--29.
-
-\leavevmode\vadjust pre{\hypertarget{ref-eddy2021self}{}}%
-Eddy, C. M. (2021). Self-serving social strategies: A systematic review of social cognition in narcissism. \emph{Current Psychology}, 1--19.
-
-\leavevmode\vadjust pre{\hypertarget{ref-fink2006facial}{}}%
-Fink, B., Neave, N., Manning, J. T., \& Grammer, K. (2006). Facial symmetry and judgements of attractiveness, health and personality. \emph{Personality and Individual Differences}, \emph{41}(3), 491--499.
-
-\leavevmode\vadjust pre{\hypertarget{ref-fornells2015people}{}}%
-Fornells-Ambrojo, M., Freeman, D., Slater, M., Swapp, D., Antley, A., \& Barker, C. (2015). How do people with persecutory delusions evaluate threat in a controlled social environment? A qualitative study using virtual reality. \emph{Behavioural and Cognitive Psychotherapy}, \emph{43}(1), 89--107.
-
-\leavevmode\vadjust pre{\hypertarget{ref-freeman2005psychology}{}}%
-Freeman, D., Garety, P. A., Bebbington, P., Slater, M., Kuipers, E., Fowler, D., Green, C., Jordan, J., Ray, K., \& Dunn, G. (2005). The psychology of persecutory ideation II: A virtual reality experimental study. \emph{The Journal of Nervous and Mental Disease}, \emph{193}(5), 309--315.
-
-\leavevmode\vadjust pre{\hypertarget{ref-freeman2021revised}{}}%
-Freeman, D., Loe, B. S., Kingdon, D., Startup, H., Molodynski, A., Rosebrock, L., Brown, P., Sheaves, B., Waite, F., \& Bird, J. C. (2021). The revised green et al., Paranoid thoughts scale (r-GPTS): Psychometric properties, severity ranges, and clinical cut-offs. \emph{Psychological Medicine}, \emph{51}(2), 244--253.
-
-\leavevmode\vadjust pre{\hypertarget{ref-freeman2003can}{}}%
-Freeman, D., Slater, M., Bebbington, P. E., Garety, P. A., Kuipers, E., Fowler, D., Met, A., Read, C. M., Jordan, J., \& Vinayagamoorthy, V. (2003). Can virtual reality be used to investigate persecutory ideation? \emph{The Journal of Nervous and Mental Disease}, \emph{191}(8), 509--514.
-
-\leavevmode\vadjust pre{\hypertarget{ref-garrido2017kdef}{}}%
-Garrido, M. V., \& Prada, M. (2017). KDEF-PT: Valence, emotional intensity, familiarity and attractiveness ratings of angry, neutral, and happy faces. \emph{Frontiers in Psychology}, \emph{8}, 2181.
-
-\leavevmode\vadjust pre{\hypertarget{ref-gobbini2013prioritized}{}}%
-Gobbini, M. I., Gors, J. D., Halchenko, Y. O., Rogers, C., Guntupalli, J. S., Hughes, H., \& Cipolli, C. (2013). Prioritized detection of personally familiar faces. \emph{PloS One}, \emph{8}(6), e66620.
-
-\leavevmode\vadjust pre{\hypertarget{ref-goldstein2009pleasure}{}}%
-Goldstein, T. R. (2009). The pleasure of unadulterated sadness: Experiencing sorrow in fiction, nonfiction, and" in person.". \emph{Psychology of Aesthetics, Creativity, and the Arts}, \emph{3}(4), 232.
-
-\leavevmode\vadjust pre{\hypertarget{ref-grapsas2020and}{}}%
-Grapsas, S., Brummelman, E., Back, M. D., \& Denissen, J. J. (2020). The {``why''} and {``how''} of narcissism: A process model of narcissistic status pursuit. \emph{Perspectives on Psychological Science}, \emph{15}(1), 150--172.
-
-\leavevmode\vadjust pre{\hypertarget{ref-han2018beauty}{}}%
-Han, S., Li, Y., Liu, S., Xu, Q., Tan, Q., \& Zhang, L. (2018). Beauty is in the eye of the beholder: The halo effect and generalization effect in the facial attractiveness evaluation. \emph{Acta Psychologica Sinica}, \emph{50}(4), 363.
-
-\leavevmode\vadjust pre{\hypertarget{ref-herbst2020gender}{}}%
-Herbst, T. H. (2020). Gender differences in self-perception accuracy: The confidence gap and women leaders' underrepresentation in academia. \emph{SA Journal of Industrial Psychology}, \emph{46}(1), 1--8.
-
-\leavevmode\vadjust pre{\hypertarget{ref-hodson2018dark}{}}%
-Hodson, G., Book, A., Visser, B. A., Volk, A. A., Ashton, M. C., \& Lee, K. (2018). Is the dark triad common factor distinct from low honesty-humility? \emph{Journal of Research in Personality}, \emph{73}, 123--129.
-
-\leavevmode\vadjust pre{\hypertarget{ref-hoogers2021effect}{}}%
-Hoogers, E. (2021). \emph{The effect of attitude towards computer generated faces on face perception} {[}\{B.S.\} thesis{]}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-hou2019survival}{}}%
-Hou, C., \& Liu, Z. (2019). The survival processing advantage of face: The memorization of the (un) trustworthy face contributes more to survival adaptation. \emph{Evolutionary Psychology}, \emph{17}(2), 1474704919839726.
-
-\leavevmode\vadjust pre{\hypertarget{ref-indovina2007dissociation}{}}%
-Indovina, I., \& Macaluso, E. (2007). Dissociation of stimulus relevance and saliency factors during shifts of visuospatial attention. \emph{Cerebral Cortex}, \emph{17}(7), 1701--1711.
-
-\leavevmode\vadjust pre{\hypertarget{ref-jauk2022validation}{}}%
-Jauk, E., Olaru, G., Schürch, E., Back, M. D., \& Morf, C. C. (2022). Validation of the german five-factor narcissism inventory and construction of a brief form using ant colony optimization. \emph{Assessment}, 10731911221075761.
-
-\leavevmode\vadjust pre{\hypertarget{ref-king2017paranoia}{}}%
-King, A., \& Dudley, R. (2017). Paranoia, worry, cognitive avoidance and intolerance of uncertainty in a student population. \emph{Journal of Applied Psychology and Social Science}, \emph{3}(2), 70--89.
-
-\leavevmode\vadjust pre{\hypertarget{ref-levidi2022understanding}{}}%
-Levidi, M. D. C., McGrath, A., Kyriakoulis, P., \& Sulikowski, D. (2022). Understanding criminal decision-making: Links between honesty-humility, perceived risk and negative affect: Psychology, crime \& law. \emph{Psychology, Crime and Law}, 1--29.
-
-\leavevmode\vadjust pre{\hypertarget{ref-lewandowsky2017beyond}{}}%
-Lewandowsky, S., Ecker, U. K., \& Cook, J. (2017). Beyond misinformation: Understanding and coping with the {``post-truth''} era. \emph{Journal of Applied Research in Memory and Cognition}, \emph{6}(4), 353--369.
-
-\leavevmode\vadjust pre{\hypertarget{ref-lewin2002sex}{}}%
-Lewin, C., \& Herlitz, A. (2002). Sex differences in face recognition---women's faces make the difference. \emph{Brain and Cognition}, \emph{50}(1), 121--128.
-
-\leavevmode\vadjust pre{\hypertarget{ref-liefooghe2022faces}{}}%
-Liefooghe, B., Oliveira, M., Leisten, L. M., Hoogers, E., Aarts, H., \& Hortensius, R. (2022). \emph{Faces merely labelled as artificial are trusted less}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-little2011facial}{}}%
-Little, A. C., Jones, B. C., \& DeBruine, L. M. (2011). Facial attractiveness: Evolutionary based research. \emph{Philosophical Transactions of the Royal Society B: Biological Sciences}, \emph{366}(1571), 1638--1659.
-
-\leavevmode\vadjust pre{\hypertarget{ref-littrell2020overconfidently}{}}%
-Littrell, S., Fugelsang, J., \& Risko, E. F. (2020). Overconfidently underthinking: Narcissism negatively predicts cognitive reflection. \emph{Thinking \& Reasoning}, \emph{26}(3), 352--380.
-
-\leavevmode\vadjust pre{\hypertarget{ref-lou2015perceptual}{}}%
-Lou, B., Hsu, W.-Y., \& Sajda, P. (2015). Perceptual salience and reward both influence feedback-related neural activity arising from choice. \emph{Journal of Neuroscience}, \emph{35}(38), 13064--13075.
-
-\leavevmode\vadjust pre{\hypertarget{ref-parametersArticle}{}}%
-Lüdecke, D., Ben-Shachar, M., Patil, I., \& Makowski, D. (2020). Extracting, computing and exploring the parameters of statistical models using {R}. \emph{Journal of Open Source Software}, \emph{5}(53), 2445. \url{https://doi.org/10.21105/joss.02445}
-
-\leavevmode\vadjust pre{\hypertarget{ref-performanceArticle}{}}%
-Lüdecke, D., Ben-Shachar, M., Patil, I., Waggoner, P., \& Makowski, D. (2021). {performance}: An {R} package for assessment, comparison and testing of statistical models. \emph{Journal of Open Source Software}, \emph{6}(60), 3139. \url{https://doi.org/10.21105/joss.03139}
-
-\leavevmode\vadjust pre{\hypertarget{ref-insightArticle}{}}%
-Lüdecke, D., Waggoner, P., \& Makowski, D. (2019). Insight: A unified interface to access information from model objects in {R}. \emph{Journal of Open Source Software}, \emph{4}(38), 1412. \url{https://doi.org/10.21105/joss.01412}
-
-\leavevmode\vadjust pre{\hypertarget{ref-makowski2018cognitive}{}}%
-Makowski, D. (2018). \emph{Cognitive neuropsychology of implicit emotion regulation through fictional reappraisal} {[}PhD thesis{]}. Sorbonne Paris Cit{é}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-bayestestRArticle}{}}%
-Makowski, D., Ben-Shachar, M., \& Lüdecke, D. (2019). {bayestestR}: Describing effects and their uncertainty, existence and significance within the {Bayesian} framework. \emph{Journal of Open Source Software}, \emph{4}(40), 1541. \url{https://doi.org/10.21105/joss.01541}
-
-\leavevmode\vadjust pre{\hypertarget{ref-correlationArticle}{}}%
-Makowski, D., Ben-Shachar, M., Patil, I., \& Lüdecke, D. (2020). Methods and algorithms for correlation analysis in {R}. \emph{Journal of Open Source Software}, \emph{5}(51), 2306. \url{https://doi.org/10.21105/joss.02306}
-
-\leavevmode\vadjust pre{\hypertarget{ref-makowski2017being}{}}%
-Makowski, D., Sperduti, M., Nicolas, S., \& Piolino, P. (2017). {``Being there''} and remembering it: Presence improves memory encoding. \emph{Consciousness and Cognition}, \emph{53}, 194--202.
-
-\leavevmode\vadjust pre{\hypertarget{ref-makowski2019phenomenal}{}}%
-Makowski, D., Sperduti, M., Pelletier, J., Blondé, P., La Corte, V., Arcangeli, M., Zalla, T., Lemaire, S., Dokic, J., Nicolas, S., et al. (2019). Phenomenal, bodily and brain correlates of fictional reappraisal as an implicit emotion regulation strategy. \emph{Cognitive, Affective, \& Behavioral Neuroscience}, \emph{19}(4), 877--897.
-
-\leavevmode\vadjust pre{\hypertarget{ref-marcinkowska2021self}{}}%
-Marcinkowska, U. M., Jones, B. C., \& Lee, A. J. (2021). Self-rated attractiveness predicts preferences for sexually dimorphic facial characteristics in a culturally diverse sample. \emph{Scientific Reports}, \emph{11}(1), 1--8.
-
-\leavevmode\vadjust pre{\hypertarget{ref-martel2020reliance}{}}%
-Martel, C., Pennycook, G., \& Rand, D. G. (2020). Reliance on emotion promotes belief in fake news. \emph{Cognitive Research: Principles and Implications}, \emph{5}(1), 1--20.
-
-\leavevmode\vadjust pre{\hypertarget{ref-mcdonnell2010face}{}}%
-McDonnell, R., \& Breidt, M. (2010). Face reality: Investigating the uncanny valley for virtual faces. In \emph{ACM SIGGRAPH ASIA 2010 sketches} (pp. 1--2).
-
-\leavevmode\vadjust pre{\hypertarget{ref-michael2021source}{}}%
-Michael, R. B., \& Sanson, M. (2021). Source information affects interpretations of the news across multiple age groups in the united states. \emph{Societies}, \emph{11}(4), 119.
-
-\leavevmode\vadjust pre{\hypertarget{ref-mishra2019gender}{}}%
-Mishra, M. V., Likitlersuang, J., B Wilmer, J., Cohan, S., Germine, L., \& DeGutis, J. M. (2019). Gender differences in familiar face recognition and the influence of sociocultural gender inequality. \emph{Scientific Reports}, \emph{9}(1), 1--12.
-
-\leavevmode\vadjust pre{\hypertarget{ref-moshel2022}{}}%
-Moshel, M. L., Robinson, A. K., Carlson, T. A., \& Grootswagers, T. (2022). Are you for real? Decoding realistic AI-generated faces from neural activity. \emph{Vision Research}, \emph{199}, 108079. \url{https://doi.org/10.1016/j.visres.2022.108079}
-
+\begin{CSLReferences}{0}{0}
 \leavevmode\vadjust pre{\hypertarget{ref-nightingale2022}{}}%
-Nightingale, S. J., \& Farid, H. (2022). AI-synthesized faces are indistinguishable from real faces and more trustworthy. \emph{Proceedings of the National Academy of Sciences}, \emph{119}(8), e2120481119. \url{https://doi.org/10.1073/pnas.2120481119}
-
-\leavevmode\vadjust pre{\hypertarget{ref-o2021grandiose}{}}%
-O'Reilly, C. A., \& Hall, N. (2021). Grandiose narcissists and decision making: Impulsive, overconfident, and skeptical of experts--but seldom in doubt. \emph{Personality and Individual Differences}, \emph{168}, 110280.
+\CSLLeftMargin{1. }%
+\CSLRightInline{Nightingale, S. J. \& Farid, H. \href{https://doi.org/10.1073/pnas.2120481119}{AI-synthesized faces are indistinguishable from real faces and more trustworthy}. \emph{Proceedings of the National Academy of Sciences} \textbf{119}, e2120481119 (2022).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-pantserev2020}{}}%
-Pantserev, K. (2020). \emph{The malicious use of AI-based deepfake technology as the new threat to psychological security and political stability} (pp. 37--55). \url{https://doi.org/10.1007/978-3-030-35746-7_3}
+\CSLLeftMargin{2. }%
+\CSLRightInline{Pantserev, K. The malicious use of AI-based deepfake technology as the new threat to psychological security and political stability. in 37--55 (2020). doi:\href{https://doi.org/10.1007/978-3-030-35746-7_3}{10.1007/978-3-030-35746-7\_3}.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-peer2022}{}}%
-Peer, E., Rothschild, D., Gordon, A., Evernden, Z., \& Damer, E. (2022). Data quality of platforms and panels for online behavioral research. \emph{Behavior Research Methods}, \emph{54}(4), 1643--1662. \url{https://doi.org/10.3758/s13428-021-01694-3}
+\leavevmode\vadjust pre{\hypertarget{ref-lewandowsky2017beyond}{}}%
+\CSLLeftMargin{3. }%
+\CSLRightInline{Lewandowsky, S., Ecker, U. K. \& Cook, J. Beyond misinformation: Understanding and coping with the {`post-truth'} era. \emph{Journal of applied research in memory and cognition} \textbf{6}, 353--369 (2017).}
 
-\leavevmode\vadjust pre{\hypertarget{ref-pehlivanoglu2021role}{}}%
-Pehlivanoglu, D., Lin, T., Deceus, F., Heemskerk, A., Ebner, N. C., \& Cahill, B. S. (2021). The role of analytical reasoning and source credibility on the evaluation of real and fake full-length news articles. \emph{Cognitive Research: Principles and Implications}, \emph{6}(1), 1--12.
-
-\leavevmode\vadjust pre{\hypertarget{ref-pennycook2019lazy}{}}%
-Pennycook, G., \& Rand, D. G. (2019). Lazy, not biased: Susceptibility to partisan fake news is better explained by lack of reasoning than by motivated reasoning. \emph{Cognition}, \emph{188}, 39--50.
-
-\leavevmode\vadjust pre{\hypertarget{ref-peters2012development}{}}%
-Peters, L., Sunderland, M., Andrews, G., Rapee, R. M., \& Mattick, R. P. (2012). Development of a short form social interaction anxiety (SIAS) and social phobia scale (SPS) using nonparametric item response theory: The SIAS-6 and the SPS-6. \emph{Psychological Assessment}, \emph{24}(1), 66.
-
-\leavevmode\vadjust pre{\hypertarget{ref-petty1986elaboration}{}}%
-Petty, R. E., \& Cacioppo, J. T. (1986). The elaboration likelihood model of persuasion. In \emph{Communication and persuasion} (pp. 1--24). Springer.
-
-\leavevmode\vadjust pre{\hypertarget{ref-piksa2022cognitive}{}}%
-Piksa, M., Noworyta, K., Piasecki, J., Gwiazdzinski, P., Gundersen, A. B., Kunst, J., \& Rygula, R. (2022). Cognitive processes and personality traits underlying four phenotypes of susceptibility to (mis) information. \emph{Frontiers in Psychiatry}, 1142.
-
-\leavevmode\vadjust pre{\hypertarget{ref-qi2022gender}{}}%
-Qi, Y., \& Ying, J. (2022). Gender biases in the accuracy of facial judgments: Facial attractiveness and perceived socioeconomic status. \emph{Frontiers in Psychology}, \emph{13}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-RCoreTeam2022}{}}%
-R Core Team. (2022). \emph{R: A language and environment for statistical computing}. R Foundation for Statistical Computing. \url{https://www.R-project.org/}
-
-\leavevmode\vadjust pre{\hypertarget{ref-rhodes2006evolutionary}{}}%
-Rhodes, G. et al. (2006). The evolutionary psychology of facial beauty. \emph{Annual Review of Psychology}, \emph{57}, 199.
-
-\leavevmode\vadjust pre{\hypertarget{ref-said2022artificial}{}}%
-Said, N., Potinteu, A.-E., Brich, I., Buder, J., Schumm, H., \& Huff, M. (2022). \emph{An artificial intelligence perspective: How knowledge and confidence shape risk and opportunity perception}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-sanchez2005presence}{}}%
-Sanchez-Vives, M. V., \& Slater, M. (2005). From presence to consciousness through virtual reality. \emph{Nature Reviews Neuroscience}, \emph{6}(4), 332--339.
-
-\leavevmode\vadjust pre{\hypertarget{ref-schepman2020initial}{}}%
-Schepman, A., \& Rodway, P. (2020). Initial validation of the general attitudes towards artificial intelligence scale. \emph{Computers in Human Behavior Reports}, \emph{1}, 100014.
-
-\leavevmode\vadjust pre{\hypertarget{ref-sibley2011}{}}%
-Sibley, C., Luyten, N., Wolfman, M., Mobberley, A., Wootton, L. W., Hammond, M., Sengupta, N., Perry, R., West-Newman, T., Wilson, M., McLellan, L., Hoverd, W. J., \& Robertson, A. (2011). The mini-IPIP6: Validation and extension of a short measure of the big-six factors of personality in new zealand. \emph{New Zealand Journal of Psychology}, \emph{40}, 142--159.
-
-\leavevmode\vadjust pre{\hypertarget{ref-sindermann2020short}{}}%
-Sindermann, C., Cooper, A., \& Montag, C. (2020). A short review on susceptibility to falling for fake political news. \emph{Current Opinion in Psychology}, \emph{36}, 44--48.
-
-\leavevmode\vadjust pre{\hypertarget{ref-skora2022functional}{}}%
-Skora, L., Livermore, J., \& Roelofs, K. (2022). The functional role of cardiac activity in perception and action. \emph{Neuroscience \& Biobehavioral Reviews}, 104655.
-
-\leavevmode\vadjust pre{\hypertarget{ref-sobieraj2014beautiful}{}}%
-Sobieraj, S., \& Krämer, N. C. (2014). What is beautiful in cyberspace? Communication with attractive avatars. \emph{International Conference on Social Computing and Social Media}, 125--136.
-
-\leavevmode\vadjust pre{\hypertarget{ref-sommer2013sex}{}}%
-Sommer, W., Hildebrandt, A., Kunina-Habenicht, O., Schacht, A., \& Wilhelm, O. (2013). Sex differences in face cognition. \emph{Acta Psychologica}, \emph{142}(1), 62--73.
-
-\leavevmode\vadjust pre{\hypertarget{ref-sperduti2016paradox}{}}%
-Sperduti, M., Arcangeli, M., Makowski, D., Wantzen, P., Zalla, T., Lemaire, S., Dokic, J., Pelletier, J., \& Piolino, P. (2016). The paradox of fiction: Emotional response toward fiction and the modulatory role of self-relevance. \emph{Acta Psychologica}, \emph{165}, 53--59.
-
-\leavevmode\vadjust pre{\hypertarget{ref-sperduti2017distinctive}{}}%
-Sperduti, M., Makowski, D., Arcangeli, M., Wantzen, P., Zalla, T., Lemaire, S., Dokic, J., Pelletier, J., \& Piolino, P. (2017). The distinctive role of executive functions in implicit emotion regulation. \emph{Acta Psychologica}, \emph{173}, 13--20.
-
-\leavevmode\vadjust pre{\hypertarget{ref-spielmann2020predictive}{}}%
-Spielmann, S. S., Maxwell, J. A., MacDonald, G., Peragine, D., \& Impett, E. A. (2020). The predictive effects of fear of being single on physical attractiveness and less selective partner selection strategies. \emph{Journal of Social and Personal Relationships}, \emph{37}(1), 100--123.
-
-\leavevmode\vadjust pre{\hypertarget{ref-susmann2021persuasion}{}}%
-Susmann, M. W., Xu, M., Clark, J. K., Wallace, L. E., Blankenship, K. L., Philipp-Muller, A. Z., Luttrell, A., Wegener, D. T., \& Petty, R. E. (2021). Persuasion amidst a pandemic: Insights from the elaboration likelihood model. \emph{European Review of Social Psychology}, 1--37.
-
-\leavevmode\vadjust pre{\hypertarget{ref-taylor2009neural}{}}%
-Taylor, M. J., Arsalidou, M., Bayless, S. J., Morris, D., Evans, J. W., \& Barbeau, E. J. (2009). Neural correlates of personally familiar faces: Parents, partner and own faces. \emph{Human Brain Mapping}, \emph{30}(7), 2008--2020.
-
-\leavevmode\vadjust pre{\hypertarget{ref-tsikandilakis2019beauty}{}}%
-Tsikandilakis, M., Bali, P., \& Chapman, P. (2019). Beauty is in the eye of the beholder: The appraisal of facial attractiveness and its relation to conscious awareness. \emph{Perception}, \emph{48}(1), 72--92.
+\leavevmode\vadjust pre{\hypertarget{ref-mcdonnell2010face}{}}%
+\CSLLeftMargin{4. }%
+\CSLRightInline{McDonnell, R. \& Breidt, M. Face reality: Investigating the uncanny valley for virtual faces. in \emph{ACM SIGGRAPH ASIA 2010 sketches} 1--2 (2010).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-tucciarelli2020}{}}%
-Tucciarelli, R., Vehar, N., \& Tsakiris, M. (2020). \emph{On the realness of people who do not exist: the social processing of artificial faces}. \url{https://doi.org/10.31234/osf.io/dnk9x}
+\CSLLeftMargin{5. }%
+\CSLRightInline{Tucciarelli, R., Vehar, N. \& Tsakiris, M. \emph{On the realness of people who do not exist: the social processing of artificial faces}. \url{https://osf.io/dnk9x} (2020) doi:\href{https://doi.org/10.31234/osf.io/dnk9x}{10.31234/osf.io/dnk9x}.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-van2020sex}{}}%
-Van Den Akker, O. R., Assen, M. A. van, Van Vugt, M., \& Wicherts, J. M. (2020). Sex differences in trust and trustworthiness: A meta-analysis of the trust game and the gift-exchange game. \emph{Journal of Economic Psychology}, \emph{81}, 102329.
+\leavevmode\vadjust pre{\hypertarget{ref-moshel2022}{}}%
+\CSLLeftMargin{6. }%
+\CSLRightInline{Moshel, M. L., Robinson, A. K., Carlson, T. A. \& Grootswagers, T. \href{https://doi.org/10.1016/j.visres.2022.108079}{Are you for real? Decoding realistic AI-generated faces from neural activity}. \emph{Vision Research} \textbf{199}, 108079 (2022).}
 
-\leavevmode\vadjust pre{\hypertarget{ref-weller2012honest}{}}%
-Weller, J. A., \& Thulin, E. W. (2012). Do honest people take fewer risks? Personality correlates of risk-taking to achieve gains and avoid losses in HEXACO space. \emph{Personality and Individual Differences}, \emph{53}(7), 923--926.
+\leavevmode\vadjust pre{\hypertarget{ref-makowski2018cognitive}{}}%
+\CSLLeftMargin{7. }%
+\CSLRightInline{Makowski, D. Cognitive neuropsychology of implicit emotion regulation through fictional reappraisal. (Sorbonne Paris Cit{é}, 2018).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-makowski2019phenomenal}{}}%
+\CSLLeftMargin{8. }%
+\CSLRightInline{Makowski, D. \emph{et al.} Phenomenal, bodily and brain correlates of fictional reappraisal as an implicit emotion regulation strategy. \emph{Cognitive, Affective, \& Behavioral Neuroscience} \textbf{19}, 877--897 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-michael2021source}{}}%
+\CSLLeftMargin{9. }%
+\CSLRightInline{Michael, R. B. \& Sanson, M. Source information affects interpretations of the news across multiple age groups in the united states. \emph{Societies} \textbf{11}, 119 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-susmann2021persuasion}{}}%
+\CSLLeftMargin{10. }%
+\CSLRightInline{Susmann, M. W. \emph{et al.} Persuasion amidst a pandemic: Insights from the elaboration likelihood model. \emph{European Review of Social Psychology} 1--37 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-petty1986elaboration}{}}%
+\CSLLeftMargin{11. }%
+\CSLRightInline{Petty, R. E. \& Cacioppo, J. T. The elaboration likelihood model of persuasion. in \emph{Communication and persuasion} 1--24 (Springer, 1986).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-berghel2018weaponizing}{}}%
+\CSLLeftMargin{12. }%
+\CSLRightInline{Berghel, H. Weaponizing twitter litter: Abuse-forming networks and social media. \emph{Computer} \textbf{51}, 70--73 (2018).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-chen2015news}{}}%
+\CSLLeftMargin{13. }%
+\CSLRightInline{Chen, Y., Conroy, N. K. \& Rubin, V. L. News in an online world: The need for an {`automatic crap detector'}. \emph{Proceedings of the Association for Information Science and Technology} \textbf{52}, 1--4 (2015).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bryanov2021determinants}{}}%
+\CSLLeftMargin{14. }%
+\CSLRightInline{Bryanov, K. \& Vziatysheva, V. Determinants of individuals' belief in fake news: A scoping review determinants of belief in fake news. \emph{PLoS one} \textbf{16}, e0253717 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ecker2022psychological}{}}%
+\CSLLeftMargin{15. }%
+\CSLRightInline{Ecker, U. K. \emph{et al.} The psychological drivers of misinformation belief and its resistance to correction. \emph{Nature Reviews Psychology} \textbf{1}, 13--29 (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sindermann2020short}{}}%
+\CSLLeftMargin{16. }%
+\CSLRightInline{Sindermann, C., Cooper, A. \& Montag, C. A short review on susceptibility to falling for fake political news. \emph{Current Opinion in Psychology} \textbf{36}, 44--48 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-pehlivanoglu2021role}{}}%
+\CSLLeftMargin{17. }%
+\CSLRightInline{Pehlivanoglu, D. \emph{et al.} The role of analytical reasoning and source credibility on the evaluation of real and fake full-length news articles. \emph{Cognitive research: principles and implications} \textbf{6}, 1--12 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-pennycook2019lazy}{}}%
+\CSLLeftMargin{18. }%
+\CSLRightInline{Pennycook, G. \& Rand, D. G. Lazy, not biased: Susceptibility to partisan fake news is better explained by lack of reasoning than by motivated reasoning. \emph{Cognition} \textbf{188}, 39--50 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-britt2019reasoned}{}}%
+\CSLLeftMargin{19. }%
+\CSLRightInline{Britt, M. A., Rouet, J.-F., Blaum, D. \& Millis, K. A reasoned approach to dealing with fake news. \emph{Policy Insights from the Behavioral and Brain Sciences} \textbf{6}, 94--101 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-piksa2022cognitive}{}}%
+\CSLLeftMargin{20. }%
+\CSLRightInline{Piksa, M. \emph{et al.} Cognitive processes and personality traits underlying four phenotypes of susceptibility to (mis) information. \emph{Frontiers in psychiatry} 1142 (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sanchez2005presence}{}}%
+\CSLLeftMargin{21. }%
+\CSLRightInline{Sanchez-Vives, M. V. \& Slater, M. From presence to consciousness through virtual reality. \emph{Nature Reviews Neuroscience} \textbf{6}, 332--339 (2005).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-makowski2017being}{}}%
+\CSLLeftMargin{22. }%
+\CSLRightInline{Makowski, D., Sperduti, M., Nicolas, S. \& Piolino, P. {`Being there'} and remembering it: Presence improves memory encoding. \emph{Consciousness and cognition} \textbf{53}, 194--202 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sperduti2017distinctive}{}}%
+\CSLLeftMargin{23. }%
+\CSLRightInline{Sperduti, M. \emph{et al.} The distinctive role of executive functions in implicit emotion regulation. \emph{Acta Psychologica} \textbf{173}, 13--20 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-martel2020reliance}{}}%
+\CSLLeftMargin{24. }%
+\CSLRightInline{Martel, C., Pennycook, G. \& Rand, D. G. Reliance on emotion promotes belief in fake news. \emph{Cognitive research: principles and implications} \textbf{5}, 1--20 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bago2022emotion}{}}%
+\CSLLeftMargin{25. }%
+\CSLRightInline{Bago, B., Rosenzweig, L. R., Berinsky, A. J. \& Rand, D. G. Emotion may predict susceptibility to fake news but emotion regulation does not seem to help. \emph{Cognition and Emotion} 1--15 (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sperduti2016paradox}{}}%
+\CSLLeftMargin{26. }%
+\CSLRightInline{Sperduti, M. \emph{et al.} The paradox of fiction: Emotional response toward fiction and the modulatory role of self-relevance. \emph{Acta psychologica} \textbf{165}, 53--59 (2016).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-goldstein2009pleasure}{}}%
+\CSLLeftMargin{27. }%
+\CSLRightInline{Goldstein, T. R. The pleasure of unadulterated sadness: Experiencing sorrow in fiction, nonfiction, and" in person.". \emph{Psychology of Aesthetics, Creativity, and the Arts} \textbf{3}, 232 (2009).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-begg1992dissociation}{}}%
+\CSLLeftMargin{28. }%
+\CSLRightInline{Begg, I. M., Anas, A. \& Farinacci, S. Dissociation of processes in belief: Source recollection, statement familiarity, and the illusion of truth. \emph{Journal of Experimental Psychology: General} \textbf{121}, 446 (1992).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sobieraj2014beautiful}{}}%
+\CSLLeftMargin{29. }%
+\CSLRightInline{Sobieraj, S. \& Krämer, N. C. What is beautiful in cyberspace? Communication with attractive avatars. in \emph{International conference on social computing and social media} 125--136 (Springer, 2014).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-balas2017}{}}%
+\CSLLeftMargin{30. }%
+\CSLRightInline{Balas, B. \& Pacella, J. \href{https://doi.org/10.1016/j.chb.2017.08.045}{Trustworthiness perception is disrupted in artificial faces}. \emph{Computers in Human Behavior} \textbf{77}, (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-tsikandilakis2019beauty}{}}%
+\CSLLeftMargin{31. }%
+\CSLRightInline{Tsikandilakis, M., Bali, P. \& Chapman, P. Beauty is in the eye of the beholder: The appraisal of facial attractiveness and its relation to conscious awareness. \emph{Perception} \textbf{48}, 72--92 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-calbi2017}{}}%
+\CSLLeftMargin{32. }%
+\CSLRightInline{Calbi, M. \emph{et al.} \href{https://www.frontiersin.org/articles/10.3389/fpsyg.2017.01684}{How context influences our perception of emotional faces: A behavioral study on the kuleshov effect}. \emph{Frontiers in Psychology} \textbf{8}, (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-liefooghe2022faces}{}}%
+\CSLLeftMargin{33. }%
+\CSLRightInline{Liefooghe, B. \emph{et al.} Faces merely labelled as artificial are trusted less. (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bartosik2021you}{}}%
+\CSLLeftMargin{34. }%
+\CSLRightInline{Bartosik, B., Wojcik, G. M., Brzezicka, A. \& Kawiak, A. Are you able to trust me? Analysis of the relationships between personality traits and the assessment of attractiveness and trust. \emph{Frontiers in Human Neuroscience} \textbf{15}, 685530 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-garrido2017kdef}{}}%
+\CSLLeftMargin{35. }%
+\CSLRightInline{Garrido, M. V. \& Prada, M. KDEF-PT: Valence, emotional intensity, familiarity and attractiveness ratings of angry, neutral, and happy faces. \emph{Frontiers in Psychology} \textbf{8}, 2181 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-little2011facial}{}}%
+\CSLLeftMargin{36. }%
+\CSLRightInline{Little, A. C., Jones, B. C. \& DeBruine, L. M. Facial attractiveness: Evolutionary based research. \emph{Philosophical Transactions of the Royal Society B: Biological Sciences} \textbf{366}, 1638--1659 (2011).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sibley2011}{}}%
+\CSLLeftMargin{37. }%
+\CSLRightInline{Sibley, C. \emph{et al.} The mini-IPIP6: Validation and extension of a short measure of the big-six factors of personality in new zealand. \emph{New Zealand Journal of Psychology} \textbf{40}, 142--159 (2011).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-peters2012development}{}}%
+\CSLLeftMargin{38. }%
+\CSLRightInline{Peters, L., Sunderland, M., Andrews, G., Rapee, R. M. \& Mattick, R. P. Development of a short form social interaction anxiety (SIAS) and social phobia scale (SPS) using nonparametric item response theory: The SIAS-6 and the SPS-6. \emph{Psychological assessment} \textbf{24}, 66 (2012).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-jauk2022validation}{}}%
+\CSLLeftMargin{39. }%
+\CSLRightInline{Jauk, E., Olaru, G., Schürch, E., Back, M. D. \& Morf, C. C. Validation of the german five-factor narcissism inventory and construction of a brief form using ant colony optimization. \emph{Assessment} 10731911221075761 (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-freeman2021revised}{}}%
+\CSLLeftMargin{40. }%
+\CSLRightInline{Freeman, D. \emph{et al.} The revised green et al., Paranoid thoughts scale (r-GPTS): Psychometric properties, severity ranges, and clinical cut-offs. \emph{Psychological Medicine} \textbf{51}, 244--253 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-carleton2007fearing}{}}%
+\CSLLeftMargin{41. }%
+\CSLRightInline{Carleton, R. N., Norton, M. P. J. \& Asmundson, G. J. Fearing the unknown: A short version of the intolerance of uncertainty scale. \emph{Journal of anxiety disorders} \textbf{21}, 105--117 (2007).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-marcinkowska2021self}{}}%
+\CSLLeftMargin{42. }%
+\CSLRightInline{Marcinkowska, U. M., Jones, B. C. \& Lee, A. J. Self-rated attractiveness predicts preferences for sexually dimorphic facial characteristics in a culturally diverse sample. \emph{Scientific Reports} \textbf{11}, 1--8 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-spielmann2020predictive}{}}%
+\CSLLeftMargin{43. }%
+\CSLRightInline{Spielmann, S. S., Maxwell, J. A., MacDonald, G., Peragine, D. \& Impett, E. A. The predictive effects of fear of being single on physical attractiveness and less selective partner selection strategies. \emph{Journal of Social and Personal Relationships} \textbf{37}, 100--123 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-schepman2020initial}{}}%
+\CSLLeftMargin{44. }%
+\CSLRightInline{Schepman, A. \& Rodway, P. Initial validation of the general attitudes towards artificial intelligence scale. \emph{Computers in human behavior reports} \textbf{1}, 100014 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-chen2021broadening}{}}%
+\CSLLeftMargin{45. }%
+\CSLRightInline{Chen, J. M., Norman, J. B. \& Nam, Y. Broadening the stimulus set: Introducing the american multiracial faces database. \emph{Behavior Research Methods} \textbf{53}, 371--389 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rhodes2006evolutionary}{}}%
+\CSLLeftMargin{46. }%
+\CSLRightInline{Rhodes, G. \emph{et al.} The evolutionary psychology of facial beauty. \emph{Annual review of psychology} \textbf{57}, 199 (2006).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-han2018beauty}{}}%
+\CSLLeftMargin{47. }%
+\CSLRightInline{Han, S. \emph{et al.} Beauty is in the eye of the beholder: The halo effect and generalization effect in the facial attractiveness evaluation. \emph{Acta Psychologica Sinica} \textbf{50}, 363 (2018).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-de2015jspsych}{}}%
+\CSLLeftMargin{48. }%
+\CSLRightInline{De Leeuw, J. R. jsPsych: A JavaScript library for creating behavioral experiments in a web browser. \emph{Behavior research methods} \textbf{47}, 1--12 (2015).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-peer2022}{}}%
+\CSLLeftMargin{49. }%
+\CSLRightInline{Peer, E., Rothschild, D., Gordon, A., Evernden, Z. \& Damer, E. \href{https://doi.org/10.3758/s13428-021-01694-3}{Data quality of platforms and panels for online behavioral research}. \emph{Behavior Research Methods} \textbf{54}, 1643--1662 (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-RCoreTeam2022}{}}%
+\CSLLeftMargin{50. }%
+\CSLRightInline{R Core Team. \emph{\href{https://www.R-project.org/}{R: A language and environment for statistical computing}}. (R Foundation for Statistical Computing, 2022).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-wickham2019}{}}%
-Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., Grolemund, G., Hayes, A., Henry, L., Hester, J., Kuhn, M., Pedersen, T. L., Miller, E., Bache, S. M., Müller, K., Ooms, J., Robinson, D., Seidel, D. P., Spinu, V., \ldots{} Yutani, H. (2019). Welcome to the {tidyverse}. \emph{Journal of Open Source Software}, \emph{4}(43), 1686. \url{https://doi.org/10.21105/joss.01686}
+\CSLLeftMargin{51. }%
+\CSLRightInline{Wickham, H. \emph{et al.} \href{https://doi.org/10.21105/joss.01686}{Welcome to the {tidyverse}}. \emph{Journal of Open Source Software} \textbf{4}, 1686 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-insightArticle}{}}%
+\CSLLeftMargin{52. }%
+\CSLRightInline{Lüdecke, D., Waggoner, P. \& Makowski, D. \href{https://doi.org/10.21105/joss.01412}{Insight: A unified interface to access information from model objects in {R}}. \emph{JOSS} \textbf{4}, 1412 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bayestestRArticle}{}}%
+\CSLLeftMargin{53. }%
+\CSLRightInline{Makowski, D., Ben-Shachar, M. \& Lüdecke, D. \href{https://doi.org/10.21105/joss.01541}{{bayestestR}: Describing effects and their uncertainty, existence and significance within the {Bayesian} framework}. \emph{JOSS} \textbf{4}, 1541 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-performanceArticle}{}}%
+\CSLLeftMargin{54. }%
+\CSLRightInline{Lüdecke, D., Ben-Shachar, M., Patil, I., Waggoner, P. \& Makowski, D. \href{https://doi.org/10.21105/joss.03139}{{performance}: An {R} package for assessment, comparison and testing of statistical models}. \emph{JOSS} \textbf{6}, 3139 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-parametersArticle}{}}%
+\CSLLeftMargin{55. }%
+\CSLRightInline{Lüdecke, D., Ben-Shachar, M., Patil, I. \& Makowski, D. \href{https://doi.org/10.21105/joss.02445}{Extracting, computing and exploring the parameters of statistical models using {R}}. \emph{JOSS} \textbf{5}, 2445 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-correlationArticle}{}}%
+\CSLLeftMargin{56. }%
+\CSLRightInline{Makowski, D., Ben-Shachar, M., Patil, I. \& Lüdecke, D. \href{https://doi.org/10.21105/joss.02306}{Methods and algorithms for correlation analysis in {R}}. \emph{JOSS} \textbf{5}, 2306 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-buunk2002age}{}}%
+\CSLLeftMargin{57. }%
+\CSLRightInline{Buunk, B. P., Dijkstra, P., Fetchenhauer, D. \& Kenrick, D. T. Age and gender differences in mate selection criteria for various involvement levels. \emph{Personal relationships} \textbf{9}, 271--278 (2002).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-qi2022gender}{}}%
+\CSLLeftMargin{58. }%
+\CSLRightInline{Qi, Y. \& Ying, J. Gender biases in the accuracy of facial judgments: Facial attractiveness and perceived socioeconomic status. \emph{Frontiers in Psychology} \textbf{13}, (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-fink2006facial}{}}%
+\CSLLeftMargin{59. }%
+\CSLRightInline{Fink, B., Neave, N., Manning, J. T. \& Grammer, K. Facial symmetry and judgements of attractiveness, health and personality. \emph{Personality and Individual differences} \textbf{41}, 491--499 (2006).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-lou2015perceptual}{}}%
+\CSLLeftMargin{60. }%
+\CSLRightInline{Lou, B., Hsu, W.-Y. \& Sajda, P. Perceptual salience and reward both influence feedback-related neural activity arising from choice. \emph{Journal of Neuroscience} \textbf{35}, 13064--13075 (2015).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-indovina2007dissociation}{}}%
+\CSLLeftMargin{61. }%
+\CSLRightInline{Indovina, I. \& Macaluso, E. Dissociation of stimulus relevance and saliency factors during shifts of visuospatial attention. \emph{Cerebral Cortex} \textbf{17}, 1701--1711 (2007).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-skora2022functional}{}}%
+\CSLLeftMargin{62. }%
+\CSLRightInline{Skora, L., Livermore, J. \& Roelofs, K. The functional role of cardiac activity in perception and action. \emph{Neuroscience \& Biobehavioral Reviews} 104655 (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hoogers2021effect}{}}%
+\CSLLeftMargin{63. }%
+\CSLRightInline{Hoogers, E. The effect of attitude towards computer generated faces on face perception. (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-van2020sex}{}}%
+\CSLLeftMargin{64. }%
+\CSLRightInline{Van Den Akker, O. R., Assen, M. A. van, Van Vugt, M. \& Wicherts, J. M. Sex differences in trust and trustworthiness: A meta-analysis of the trust game and the gift-exchange game. \emph{Journal of Economic Psychology} \textbf{81}, 102329 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hou2019survival}{}}%
+\CSLLeftMargin{65. }%
+\CSLRightInline{Hou, C. \& Liu, Z. The survival processing advantage of face: The memorization of the (un) trustworthy face contributes more to survival adaptation. \emph{Evolutionary Psychology} \textbf{17}, 1474704919839726 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-mishra2019gender}{}}%
+\CSLLeftMargin{66. }%
+\CSLRightInline{Mishra, M. V. \emph{et al.} Gender differences in familiar face recognition and the influence of sociocultural gender inequality. \emph{Scientific reports} \textbf{9}, 1--12 (2019).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-lewin2002sex}{}}%
+\CSLLeftMargin{67. }%
+\CSLRightInline{Lewin, C. \& Herlitz, A. Sex differences in face recognition---women's faces make the difference. \emph{Brain and cognition} \textbf{50}, 121--128 (2002).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sommer2013sex}{}}%
+\CSLLeftMargin{68. }%
+\CSLRightInline{Sommer, W., Hildebrandt, A., Kunina-Habenicht, O., Schacht, A. \& Wilhelm, O. Sex differences in face cognition. \emph{Acta psychologica} \textbf{142}, 62--73 (2013).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bailey2021gender}{}}%
+\CSLLeftMargin{69. }%
+\CSLRightInline{Bailey, A. A gender in-group effect on facial recall. (University of Tasmania, 2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-herbst2020gender}{}}%
+\CSLLeftMargin{70. }%
+\CSLRightInline{Herbst, T. H. Gender differences in self-perception accuracy: The confidence gap and women leaders' underrepresentation in academia. \emph{SA Journal of Industrial Psychology} \textbf{46}, 1--8 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-levidi2022understanding}{}}%
+\CSLLeftMargin{71. }%
+\CSLRightInline{Levidi, M. D. C., McGrath, A., Kyriakoulis, P. \& Sulikowski, D. Understanding criminal decision-making: Links between honesty-humility, perceived risk and negative affect: Psychology, crime \& law. \emph{Psychology, Crime and Law} 1--29 (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-weller2012honest}{}}%
+\CSLLeftMargin{72. }%
+\CSLRightInline{Weller, J. A. \& Thulin, E. W. Do honest people take fewer risks? Personality correlates of risk-taking to achieve gains and avoid losses in HEXACO space. \emph{Personality and individual differences} \textbf{53}, 923--926 (2012).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-littrell2020overconfidently}{}}%
+\CSLLeftMargin{73. }%
+\CSLRightInline{Littrell, S., Fugelsang, J. \& Risko, E. F. Overconfidently underthinking: Narcissism negatively predicts cognitive reflection. \emph{Thinking \& Reasoning} \textbf{26}, 352--380 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ahadzadeh2021social}{}}%
+\CSLLeftMargin{74. }%
+\CSLRightInline{Ahadzadeh, A. S., Ong, F. S. \& Wu, S. L. Social media skepticism and belief in conspiracy theories about COVID-19: The moderating role of the dark triad. \emph{Current Psychology} 1--13 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-carolan2017searching}{}}%
+\CSLLeftMargin{75. }%
+\CSLRightInline{Carolan, P. L. Searching {`inaffectively'}: A behavioral, psychometric, and electroencephalographic investigation of psychopathic personality and visual-spatial attention. (Arts \& Social Sciences: Department of Psychology, 2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-grapsas2020and}{}}%
+\CSLLeftMargin{76. }%
+\CSLRightInline{Grapsas, S., Brummelman, E., Back, M. D. \& Denissen, J. J. The {`why'} and {`how'} of narcissism: A process model of narcissistic status pursuit. \emph{Perspectives on Psychological Science} \textbf{15}, 150--172 (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-eddy2021self}{}}%
+\CSLLeftMargin{77. }%
+\CSLRightInline{Eddy, C. M. Self-serving social strategies: A systematic review of social cognition in narcissism. \emph{Current Psychology} 1--19 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hodson2018dark}{}}%
+\CSLLeftMargin{78. }%
+\CSLRightInline{Hodson, G. \emph{et al.} Is the dark triad common factor distinct from low honesty-humility? \emph{Journal of Research in Personality} \textbf{73}, 123--129 (2018).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-campbell2004narcissism}{}}%
+\CSLLeftMargin{79. }%
+\CSLRightInline{Campbell, W. K., Goodie, A. S. \& Foster, J. D. Narcissism, confidence, and risk attitude. \emph{Journal of behavioral decision making} \textbf{17}, 297--311 (2004).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-chatterjee2017master}{}}%
+\CSLLeftMargin{80. }%
+\CSLRightInline{Chatterjee, A. \& Pollock, T. G. Master of puppets: How narcissistic CEOs construct their professional worlds. \emph{Academy of Management Review} \textbf{42}, 703--725 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-brunell2017narcissism}{}}%
+\CSLLeftMargin{81. }%
+\CSLRightInline{Brunell, A. B. \& Buelow, M. T. Narcissism and performance on behavioral decision-making tasks. \emph{Journal of Behavioral Decision Making} \textbf{30}, 3--14 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-o2021grandiose}{}}%
+\CSLLeftMargin{82. }%
+\CSLRightInline{O'Reilly, C. A. \& Hall, N. Grandiose narcissists and decision making: Impulsive, overconfident, and skeptical of experts--but seldom in doubt. \emph{Personality and Individual Differences} \textbf{168}, 110280 (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-fornells2015people}{}}%
+\CSLLeftMargin{83. }%
+\CSLRightInline{Fornells-Ambrojo, M. \emph{et al.} How do people with persecutory delusions evaluate threat in a controlled social environment? A qualitative study using virtual reality. \emph{Behavioural and Cognitive Psychotherapy} \textbf{43}, 89--107 (2015).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-freeman2003can}{}}%
+\CSLLeftMargin{84. }%
+\CSLRightInline{Freeman, D. \emph{et al.} Can virtual reality be used to investigate persecutory ideation? \emph{The Journal of nervous and mental disease} \textbf{191}, 509--514 (2003).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-king2017paranoia}{}}%
+\CSLLeftMargin{85. }%
+\CSLRightInline{King, A. \& Dudley, R. Paranoia, worry, cognitive avoidance and intolerance of uncertainty in a student population. \emph{Journal of Applied Psychology and Social Science} \textbf{3}, 70--89 (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-freeman2005psychology}{}}%
+\CSLLeftMargin{86. }%
+\CSLRightInline{Freeman, D. \emph{et al.} The psychology of persecutory ideation II: A virtual reality experimental study. \emph{The Journal of nervous and mental disease} \textbf{193}, 309--315 (2005).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-said2022artificial}{}}%
+\CSLLeftMargin{87. }%
+\CSLRightInline{Said, N. \emph{et al.} An artificial intelligence perspective: How knowledge and confidence shape risk and opportunity perception. (2022).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-abraham2009reality}{}}%
+\CSLLeftMargin{88. }%
+\CSLRightInline{Abraham, A. \& Von Cramon, D. Y. Reality= relevance? Insights from spontaneous modulations of the brain's default network when telling apart reality from fiction. \emph{PloS one} \textbf{4}, e4741 (2009).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gobbini2013prioritized}{}}%
+\CSLLeftMargin{89. }%
+\CSLRightInline{Gobbini, M. I. \emph{et al.} Prioritized detection of personally familiar faces. \emph{PloS one} \textbf{8}, e66620 (2013).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-taylor2009neural}{}}%
+\CSLLeftMargin{90. }%
+\CSLRightInline{Taylor, M. J. \emph{et al.} Neural correlates of personally familiar faces: Parents, partner and own faces. \emph{Human brain mapping} \textbf{30}, 2008--2020 (2009).}
 
 \end{CSLReferences}
 

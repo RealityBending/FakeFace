@@ -89,7 +89,7 @@ tablelist         : no
 footnotelist      : no
 classoption       : "man"
 output            : papaja::apa6_pdf
-csl: utils/scientific-reports.csl
+csl: utils/apa.csl
 header-includes:
   - \usepackage[labelfont=bf, font={scriptsize, color=gray}]{caption}
 editor_options:
@@ -119,11 +119,11 @@ For the first time in human history, technology has enabled the creation of near
 
 <!-- Ambiguous stimuli and irrelevance of objective features -->
 
-While not all simulations have achieved perfect realism (e.g., Computer Generated Images - CGI in movies often lack certain key details that makes them visually distinct from real images) [@mcdonnell2010face], it is fair to assume that these technical limitations will become negligible in the near future, particularly in the field of face generation [@nightingale2022; @tucciarelli2020; @moshel2022]. Such performance, however, leads to a new question: if real and fake stimuli cannot be distinguished based on their objective characteristics, how can we make judgements regarding their nature?
+While not all simulations have achieved perfect realism [e.g., Computer Generated Images - CGI in movies often lack certain key details that makes them visually distinct from real images, @mcdonnell2010face], it is fair to assume that these technical limitations will become negligible in the near future, particularly in the field of face generation [@nightingale2022; @tucciarelli2020; @moshel2022]. Such performance, however, leads to a new question: if real and fake stimuli cannot be distinguished based on their objective characteristics, how can we make judgements regarding their nature?
 
 <!-- Context -->
 
-Literature shows that the context surrounding a stimulus often plays an important role in the assessment of its reality (a process henceforth referred to as *simulation monitoring*) [@makowski2018cognitive; @makowski2019phenomenal]. With the extensive search and processing of cues within ambiguous stimuli being an increasingly complex and cognitively effortful strategy [@michael2021source; @susmann2021persuasion], people tend to draw on peripheral contextual cues (**Figure 1**), such as the source of the stimulus (e.g., in what journal has information been published), and its credibility, authority and expertise, to help facilitate their evaluation [@petty1986elaboration; @susmann2021persuasion; @michael2021source]. However, the automization and decontextualization of information allowed by online social media (where text snippets or video excerpts are mass-shared with little context) makes this task increasingly difficult [@berghel2018weaponizing; @chen2015news]. Thus, in the absence of clear contextual information, what drives our beliefs of reality?
+Literature shows that the context surrounding a stimulus often plays an important role in the assessment of its reality [a process henceforth referred to as *simulation monitoring*, @makowski2018cognitive; @makowski2019phenomenal]. With the extensive search and processing of cues within ambiguous stimuli being an increasingly complex and cognitively effortful strategy [@michael2021source; @susmann2021persuasion], people tend to draw on peripheral contextual cues (**Figure 1**), such as the source of the stimulus (e.g., in what journal has information been published), and its credibility, authority and expertise, to help facilitate their evaluation [@petty1986elaboration; @susmann2021persuasion; @michael2021source]. However, the automization and decontextualization of information allowed by online social media (where text snippets or video excerpts are mass-shared with little context) makes this task increasingly difficult [@berghel2018weaponizing; @chen2015news]. Thus, in the absence of clear contextual information, what drives our beliefs of reality?
 
 ```{r message=FALSE, warning=FALSE, fig.cap="The decision to believe that an ambiguous stimulus (of any form, e.g., images, text, videos, environments, ...) is real or fake depends of individual characteristics (e.g., personality and cognitive styles), stimulus-related features (context, emotionality), and their interaction, which can manifest for instance in our bodily reaction.", out.width="100%"}
 knitr::include_graphics("../figures/Figure1.png")
@@ -144,8 +144,7 @@ AI-generated images of faces, due to their popularity as a target of CGI technol
 <!-- Goals and hypotheses -->
 
 This study primarily aims at exploring the effect of facial attractiveness on simulation monitoring, i.e., on the beliefs that an image is real or artificially generated. Based on the embodied reality theory 
-[@makowski2018cognitive; @makowski2019phenomenal],
-<!-- [outlined in @makowski2018cognitive; @makowski2019phenomenal], -->
+[outlined in @makowski2018cognitive; @makowski2019phenomenal],
 which suggests that salient and emotional stimuli are perceived to be more real, we hypothesize a quadratic relationship between perceived realness and attractiveness: faces rated as highly attractive or unattractive will more likely be believed to be real. We expect a similar relationship with trustworthiness ratings given its well-established link with attractiveness [@liefooghe2022faces; @bartosik2021you; @garrido2017kdef; @little2011facial], and a positive relationship with familiarity (as more familiar faces would appear as more salient, self-relevant and anchored in reality). Additionally, we will further explore the link shared by dispositional traits, such as personality and attitude towards AI, with simulation monitoring tendencies. This study aims beyond the investigation of the discriminative accuracy between "true" photos and "true" artificially-generated images, focusing on the beliefs that a stimulus is real or fake, independently of its true nature.
 
 ## Methods
@@ -160,34 +159,34 @@ This study was approved by the NTU Institutional Review Board (NTU IRB-2022-187)
 ### Procedure
 
 In the first part of the study, participants answered a series of personality questionnaires, including the *Mini-IPIP6* 
-(24 items) [@sibley2011] 
-<!-- [24 items, @sibley2011]  -->
+<!-- (24 items) [@sibley2011]  -->
+[24 items, @sibley2011]
 measuring 6 personality traits, the *SIAS-6* and the *SPS-6* 
-(6 items each) [@peters2012development]
-<!-- [6 items each, @peters2012development]  -->
+<!-- (6 items each) [@peters2012development] -->
+[6 items each, @peters2012development]
 assessing social anxiety levels, the *FFNI-BF* 
-(30 items) [@jauk2022validation]
-<!-- [30 items, @jauk2022validation]  -->
+<!-- (30 items) [@jauk2022validation] -->
+[30 items, @jauk2022validation]
 measuring 9 facets of narcissism; the *R-GPTS* 
-(18 items) [@freeman2021revised]
-<!-- [18 items, @freeman2021revised]  -->
+<!-- (18 items) [@freeman2021revised] -->
+[18 items, @freeman2021revised]
 measuring 2 dimensions related to paranoid thinking; and the *IUS-12* 
-(12 items) [@carleton2007fearing]
-<!-- [12 items, @carleton2007fearing]  -->
+<!-- (12 items) [@carleton2007fearing] -->
+[12 items, @carleton2007fearing]
 measuring intolerance to uncertainty. Self-rated attractiveness was also assessed using 2 items - one measuring general attractiveness 
-("How attractive would you say you are?") [@marcinkowska2021self]
-<!-- ["How attractive would you say you are?", @marcinkowska2021self] -->
+<!-- ("How attractive would you say you are?") [@marcinkowska2021self] -->
+["How attractive would you say you are?", @marcinkowska2021self]
 and the other measuring physical attractiveness 
-("How would you rate your own physical attractiveness relative to the average") [@spielmann2020predictive]
-<!-- ["How would you rate your own physical attractiveness relative to the average", @spielmann2020predictive].  -->
+<!-- ("How would you rate your own physical attractiveness relative to the average") [@spielmann2020predictive] -->
+["How would you rate your own physical attractiveness relative to the average", @spielmann2020predictive].
 Finally, we devised 5 items pertaining to expectations about AI-generated image technology ("I think current Artificial Intelligence algorithms can generate very realistic images"). To lower their saliency and the possibility of it priming the subjects about the task, we mixed these items with 5 items from the general attitudes towards AI scale 
-(*GAAIS*) [@schepman2020initial].
-<!-- [*GAAIS*, @schepman2020initial].  -->
+<!-- (*GAAIS*) [@schepman2020initial]. -->
+[*GAAIS*, @schepman2020initial].
 This scale was presented after the social anxiety questionnaires. 3 attention check questions were also embedded in the surveys.
 
 In the second part of this study, 109 images of neutral-expression faces from the validated American Multiracial Face Database 
-(AMFD) [@chen2021broadening] 
-<!-- [AMFD, @chen2021broadening]  -->
+<!-- (AMFD) [@chen2021broadening]  -->
+[AMFD, @chen2021broadening]
 were presented to the participants for 500ms each, in a randomized order, following a fixation cross display (750 ms). After each stimulus presentation, ratings of *Trustworthiness* ("I find this person trustworthy") and *Familiarity* ("This person reminds me of someone I know") were collected using visual analog scales. Notably, as facial attractiveness is a multidimensional construct, encompassing evolutionary, sociocultural, biological as well as cognitive aspects [@rhodes2006evolutionary; @han2018beauty], we assessed attractiveness using 2 visual analog scales, measuring general *Attractiveness* ("I find this person attractive") and physical *Beauty* ("This face is good-looking").
 
 In the last part of the study, participants were informed that "about half" of the images previously seen were AI-generated (the instructions used a cover story explaining that the aim of the research was to validate a new face generation algorithm). The same set of stimuli was displayed again for 500 ms in a new randomized order. This time, after each display, participants were asked to express their belief regarding the nature of the stimulus using a visual analog scale (with *Fake* and *Real* as the two extremes). The study was implemented using *jsPsych* [@de2015jspsych], and the exact instructions are available in the experiment code.
@@ -255,15 +254,15 @@ Although attractiveness did not seem to be the primary drive underlying simulati
 <!-- Attractiveness: males -->
 
 Interestingly, we found a significant positive linear relationship in male participants for both attractiveness and beauty on simulation monitoring that we could interpret under an evolutionary lens. Specifically, males purportedly place more emphasis on facial attractiveness as a sign of reproductive potential, as compared with females, who tend to value characteristics signaling resource acquisition capabilities [@qi2022gender; @fink2006facial; @buunk2002age]. It is thus possible that the evolutionary weight associated with attractiveness skewed the perceived saliency of men towards attractive faces, rendering them significantly more salient than unattractive faces, and in turn distorted the relationship with simulation monitoring. However, future studies should test this saliency-based hypothesis by measuring constructs closer to salience and its effects, for instance using neuroimaging [@lou2015perceptual; @indovina2007dissociation] or physiological markers 
-(e.g., heart rate deceleration) [@skora2022functional].
-<!-- [e.g., heart rate deceleration, @skora2022functional]. -->
+<!-- (e.g., heart rate deceleration) [@skora2022functional]. -->
+[e.g., heart rate deceleration, @skora2022functional].
 
 
 <!-- trustworthiness -->
 
 Our results found a positive linear trend between trustworthiness and simulation monitoring for females only. Given prior evidence that faces presented as computer-generated were rated less trustworthy [@liefooghe2022faces; @hoogers2021effect; @balas2017], we expected such a linear association to be more clearly present for both genders. One of the underlying mechanisms that possibly contributed to this dimorphism could be the increased risk-taking aversion reported in females 
-(explained evolutionarily as a compromise to their reproductive potential [@van2020sex]),
-<!-- [explained evolutionarily as a compromise to their reproductive potential, @van2020sex],  -->
+<!-- (explained evolutionarily as a compromise to their reproductive potential [@van2020sex]), -->
+[explained evolutionarily as a compromise to their reproductive potential, @van2020sex],
 to which perceived facial trustworthiness relates [@hou2019survival]. However, if that was the case, faces judged as highly untrustworthy should have appeared as even more salient (representing an evolutionary threat), and hence be judged as more real, leading to a quadratic relationship between trustworthiness and simulation monitoring instead. Further studies are needed to investigate the causes of the increased simulation monitoring sensitivity to trustworthiness in females.
 
 <!-- familiarity -->

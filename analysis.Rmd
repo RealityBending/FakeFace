@@ -87,22 +87,22 @@ df <- df |>
 ```{r message=FALSE, warning=FALSE}
 outliers <- c(
   # More than 2 attention check fails
-  "611d03b822d4c8e041ea0c32_m0knb",
-  "5f0f0a2a8b2a480447f31b21_lqgpz",
+  "S113",
+  "S049",
   # Very short duration for questionnaire + low rating correlations (< 0.1)
-  "5eaef8702b68455d6e130595_ptsga",
-  "61356174c090b0083f131e01_asm81",
+  "S035",
+  "S117",
   # Prefered not answering to sexual orientation: further analysis impossible
-  "60eb34f117838a34a29a69d3_rxv85"
+  "S101"
 )
 outliers_partial <- c(
   # 1 attention check failed
-  "5dc3485219ca0326027ce91f_37ho9",
-  "5c6414540821d30001046198_x9q7r",
-  "60dd7b03f1e72d38230df476_9yh9n",
-  "5962799cb752840001ca478b_jh4sl",
-  "5f44c23fbf2ddb80bcdf0edc_dnbny",
-  "5e80370d48b5f47170e30e5c_5w2gf"
+  "S027",
+  "S017",
+  "S097",
+  "S006",
+  "S055",
+  "S033"
 )
 ```
 
@@ -617,15 +617,15 @@ make_model <- function(df, var = "Attractive", formula = var, fill = "#2196F3") 
   
   # Plot
   p <- df |>
-    ggplot(aes_string(x = var, y = "Real")) +
-    stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+    ggplot(aes(x = .data[[var]], y = .data[["Real"]])) +
+    stat_density_2d(aes(fill = after_stat(density)), geom = "raster", contour = FALSE) +
     scale_fill_gradientn(colors = c("white", fill), guide = "none") +
     ggnewscale::new_scale_fill() +
     geom_hline(yintercept = 0.5, linetype = "dotted") +
     # geom_point2(alpha = 0.25, size = 4, color = "black") +
     geom_line(data = y_conf, aes(y = Predicted, group = interaction(Belief, Sex), color = Sex), linetype = "dashed") +
     geom_ribbon(data = y_real, aes(y = Predicted, group = Sex, fill = Sex, ymin = CI_low, ymax = CI_high), alpha = 1 / 3) +
-    geom_line(data = y_real, aes(y = Predicted, color = Sex), size=1) +
+    geom_line(data = y_real, aes(y = Predicted, color = Sex), linewidth=1) +
     # geom_ribbon(data = trend, aes(y = Predicted, group=Sex, fill=Sex, ymin = CI_low, ymax = CI_high), alpha = 1/6) +
     # geom_line(data = trend, aes(y = Predicted, color=Sex, linetype=Trend, group=interaction(Sex, group)), size=0.6) +
     geom_text(data = sig1, aes(y = y, x = x, label = label, color = Sex), size = ifelse(sig1$p < .05, 8.5, 3.5)) +
@@ -681,6 +681,7 @@ parameters::parameters(rez_at$model_confidence, effects = "fixed", keep = "Attra
 rez_at$p
 ```
 
+
 ### Beauty
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
@@ -727,6 +728,27 @@ parameters::parameters(rez_fa$model_confidence, effects = "fixed", keep = "Famil
 rez_fa$p
 ```
 
+### Cross-Validate with Normmative Scores
+
+```{r make_models_norms, message=FALSE, warning=FALSE, fig.width=fig.width, fig.height=fig.width, cache=cache}
+rez_at_norm <- filter(df, Stimulus_Interest == TRUE) |> 
+  mutate(Norms_Attractive = normalize(Norms_Attractive)) |> 
+  make_model(
+    formula = "Sex / poly(Norms_Attractive, 2) + (1|Participant) + (1|Stimulus)",
+    var = "Norms_Attractive", fill = "#F44336"
+)
+
+rez_at_norm$p
+
+rez_tr_norm <- filter(df, Stimulus_Interest == TRUE) |> 
+  mutate(Norms_Trustworthy = normalize(Norms_Trustworthy)) |> 
+  make_model(
+    formula = "Sex / poly(Norms_Trustworthy, 2) + (1|Participant) + (1|Stimulus)",
+    var = "Norms_Trustworthy", fill = "#4CAF50"
+)
+
+rez_tr_norm$p
+```
 
 ## Interaction with Self-Attractiveness
 

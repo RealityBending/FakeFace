@@ -148,8 +148,8 @@ p_item <- df |>
 # p_item
 
 
-df <- df |>
-  filter(!Stimulus %in% extreme_items$Stimulus)
+# df <- df |>
+#   filter(!Stimulus %in% extreme_items$Stimulus)
 
 extreme_items
 ```
@@ -738,7 +738,10 @@ rez_at_norm <- filter(df, Stimulus_Interest == TRUE) |>
     var = "Norms_Attractive", fill = "#F44336"
 )
 
+parameters::parameters(rez_at_norm$model_belief, effects = "fixed", keep = "Attractive") |> 
+  display()
 rez_at_norm$p
+
 
 rez_tr_norm <- filter(df, Stimulus_Interest == TRUE) |> 
   mutate(Norms_Trustworthy = normalize(Norms_Trustworthy)) |> 
@@ -747,6 +750,8 @@ rez_tr_norm <- filter(df, Stimulus_Interest == TRUE) |>
     var = "Norms_Trustworthy", fill = "#4CAF50"
 )
 
+parameters::parameters(rez_tr_norm$model_belief, effects = "fixed", keep = "Trustworthy") |> 
+  display()
 rez_tr_norm$p
 ```
 

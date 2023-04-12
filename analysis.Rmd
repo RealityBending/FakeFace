@@ -482,7 +482,7 @@ preds <- mutate(preds, x = fct_relevel(x, IVs), y = fct_relevel(y, IVs))
 ```{r message=FALSE, warning=FALSE, cache=cache}
 dats |>
   ggplot(aes(x = Score, y = Predicted)) +
-  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  stat_density_2d(aes(fill = after_stat(density)), geom = "raster", contour = FALSE) +
   # geom_ribbon(data = preds, aes(ymin = CI_low, ymax = CI_high, group = Stimulus_SameSex), alpha = 0.3) +
   geom_line(data = preds, aes(color = Sex, linetype = Stimulus_Interest)) +
   scale_fill_gradientn(colors = c("white", "#FF9800", "#F44336"), guide = "none") +
@@ -531,7 +531,7 @@ y_conf <- y_conf |>
 
 df |>
   ggplot(aes(x = Delay, y = Real)) +
-  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  stat_density_2d(aes(fill = after_stat(density)), geom = "raster", contour = FALSE) +
   geom_hline(yintercept = 0.5, linetype = "dotted") +
   # geom_ribbon(data=y_conf, aes(y=Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.3) +
   geom_line(data = y_conf, aes(y = Predicted, group = Belief), linetype = "dashed", color = "red") +
@@ -562,6 +562,57 @@ parameters::parameters(model, effects="fixed", exponentiate=TRUE) |>
   display()
 parameters::parameters(m_conf, effects="fixed") |> 
   display()
+```
+
+### Effect of Presentation Order
+
+```{r message=FALSE, warning=FALSE, cache=cache}
+model <- glmmTMB::glmmTMB(Belief ~ Block2_Trial + (1 | Participant) + (1 | Stimulus),
+  data = df,
+  family = "binomial"
+)
+pred <- estimate_relation(model, at = "Block2_Trial", length = 20)
+
+m_conf <- glmmTMB::glmmTMB(Belief_Confidence ~ Belief / Block2_Trial + ((Belief / Block2_Trial) | Participant) + (1 | Stimulus),
+  data = df,
+  family = glmmTMB::beta_family()
+)
+y_conf <- estimate_relation(m_conf, at = c("Block2_Trial", "Belief"), length = 20)
+y_conf <- y_conf |>
+  mutate_at(c("Predicted", "CI_low", "CI_high"), function(x) ifelse(y_conf$Belief == "Real", datawizard::rescale(x, range = c(0, 1), to = c(0.5, 1)), datawizard::rescale(x, range = c(1, 0), to = c(0, 0.5))))
+
+
+df |>
+  ggplot(aes(x = Block2_Trial, y = Real)) +
+  stat_density_2d(aes(fill = after_stat(density)), geom = "raster", contour = FALSE) +
+  geom_hline(yintercept = 0.5, linetype = "dotted") +
+  # geom_ribbon(data=y_conf, aes(y=Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.3) +
+  geom_line(data = y_conf, aes(y = Predicted, group = Belief), linetype = "dashed", color = "red") +
+  geom_ribbon(data = pred, aes(y = Predicted, ymin = CI_low, ymax = CI_high), alpha = 0.3) +
+  geom_line(data = pred, aes(y = Predicted), color = "red") +
+  scale_fill_gradientn(colors = c("white", "#FF9800"), guide = "none") +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0), labels = scales::percent) +
+  theme_modern() +
+  labs(title = "Effect of Presentation Order", x = "Minutes", y="Presentation Order") +
+  theme(
+    aspect.ratio = 1,
+    strip.background = element_blank(),
+    strip.placement = "outside",
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  ) +
+  ggside::geom_xsidedensity(fill = "#FF9800", color = "white") +
+  ggside::geom_ysidedensity(fill = "#9C27B0", color = "white") +
+  ggside::theme_ggside_void() +
+  ggside::scale_ysidex_continuous(expand = c(0, 0)) +
+  ggside::scale_xsidey_continuous(expand = c(0, 0)) +
+  ggside::ggside(collapse = "all")
+
+
+parameters::parameters(model, effects="fixed", exponentiate=TRUE) |> 
+  display(digits=4)
+parameters::parameters(m_conf, effects="fixed") |> 
+  display(digits=6)
 ```
 
 
@@ -813,10 +864,10 @@ plot_interindividual <- function(m_real, m_conf, var = "IPIP6_HonestyHumility", 
   # Plot
   p <- df |>
     ggplot(aes_string(x = var, y = "Real")) +
-    stat_density_2d(data=filter(df, Belief=="Real"), aes(fill = ..density..), geom = "raster", contour = FALSE, alpha=0.5) +
+    stat_density_2d(data=filter(df, Belief=="Real"), aes(fill = after_stat(density)), geom = "raster", contour = FALSE, alpha=0.5) +
     scale_fill_gradientn(colors = c("white", "#4CAF50"), guide = "none") +
     ggnewscale::new_scale_fill() +
-    stat_density_2d(data=filter(df, Belief=="Fake"), aes(fill = ..density..), geom = "raster", contour = FALSE, alpha=0.5) +
+    stat_density_2d(data=filter(df, Belief=="Fake"), aes(fill = after_stat(density)), geom = "raster", contour = FALSE, alpha=0.5) +
     scale_fill_gradientn(colors = c("white", "#F44336"), guide = "none") +
     ggnewscale::new_scale_fill() +
     geom_hline(yintercept = 0.5, linetype = "dotted") +

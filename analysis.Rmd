@@ -92,7 +92,7 @@ outliers <- c(
   # Very short duration for questionnaire + low rating correlations (< 0.1)
   "S035",
   "S117",
-  # Prefered not answering to sexual orientation: further analysis impossible
+  # Preferred not answering to sexual orientation: further analysis impossible
   "S101"
 )
 outliers_partial <- c(
@@ -116,42 +116,46 @@ We removed `r length(outliers)` participants based on failed attention checks.
 ```{r message=FALSE, warning=FALSE, cache=cache}
 extreme_items <- df |>
   group_by(Stimulus, Belief) |>
-  summarize(n = n() / length(unique(df$Participant))) |>
+  summarize(n = n() / length(unique(df$Participant)), .groups = "keep") |>
   pivot_wider(values_from = "n", names_from = "Belief") |>
   mutate(File = paste0("experiment/stimuli/AMFD/", Stimulus)) |>
   arrange(Real) |>
-  filter(Real < 0.15 | Real > 0.85)
+  filter(Real < 0.2 | Real > 0.8) |> 
+  ungroup() |> 
+  mutate(Belief_Answer = c(-0.2, 0, 0, 0.2))
 
 
 p_item <- df |>
-  filter(Stimulus %in% extreme_items$Stimulus) |>
-  mutate(Stimulus = fct_relevel(Stimulus, as.character(extreme_items$Stimulus))) |>
+  group_by(Stimulus) |> 
+  mutate(Average_belief = mean(Belief_Answer)) |> 
+  ungroup() |> 
+  mutate(Stimulus = fct_reorder(Stimulus, Average_belief)) |>
+  # filter(Stimulus %in% extreme_items$Stimulus) |>
   ggplot(aes(x = Belief_Answer, y = Stimulus, fill = Stimulus)) +
-  ggdist::stat_slab(scale = 2, slab_alpha = 0.9, normalize = "groups") +
+  ggdist::stat_slab(scale = 4, slab_alpha = 2/3, normalize = "groups", color = "black", size=0.2) +
   geom_vline(xintercept = 0, linetype = "dotted") +
-  ggimage::geom_image(data = extreme_items, aes(image = File, x = 0, y = Stimulus), size = 0.1, by = "height") +
-  # scale_y_discrete(expand = c(0.5, 0.5)) +
+  ggimage::geom_image(data = extreme_items, aes(image = File, y = Stimulus), position = position_jitter(width = 0.2), size = 0.05, by = "height") +
+  scale_y_discrete(expand = c(0.1, 0.1)) +
   scale_x_continuous(
     limits = c(-1, 1),
     expand = c(0, 0),
-    breaks = c(-1, 0, 1),
+    breaks = c(-0.95, 0, 0.95),
     label = c("Fake", "", "Real")
   ) +
   scale_fill_viridis_d(option = "inferno") +
-  labs(x = "Simulation Monitoring", y = "Participants", title = "Distribution of Reality Judgments") +
+  labs(x = "Simulation Monitoring", y = "Items", title = "Distribution of Reality Judgments") +
   guides(fill = "none") +
   see::theme_modern() +
   theme(
-    # axis.text.y = element_blank(),
+    axis.text.y = element_blank(),
     plot.title = element_text(face = "bold", hjust = 0.5)
   )
-# p_item
+p_item
 
+extreme_items
 
 # df <- df |>
 #   filter(!Stimulus %in% extreme_items$Stimulus)
-
-extreme_items
 ```
 
 We removed `r nrow(extreme_items)` trials per participant. 
@@ -402,7 +406,7 @@ df |>
     as.character())) |>
   # mutate(Participant = fct_relevel(Participant, as.character(dfsub$Participant))) |>
   ggplot(aes(x = Belief_Answer, y = Participant, fill = Participant)) +
-  ggdist::stat_slab(scale = 2, slab_alpha = 0.9, normalize = "groups", color = "black", size = 0.1) +
+  ggdist::stat_slab(scale = 4, slab_alpha = 2/3, normalize = "groups", color = "black", size = 0.2) +
   geom_vline(xintercept = 0, linetype = "dotted") +
   scale_y_discrete(expand = c(0.02, 0)) +
   scale_x_continuous(
@@ -1199,116 +1203,8 @@ fig <- wrap_elements(fig1a) /
   ) +
   plot_layout(heights = c(1.1, 0.9)) 
 
-ggsave("figures/Figure2.png", width=fig.height * 1.8, height=fig.width * 1.5)
+ggsave("figures/Figure2.png", fig, width=fig.height * 1.8, height=fig.width * 1.5)
 ```
 
-
-
-```{r message=FALSE, warning=FALSE, eval=FALSE}
-plot_correlation <- function(dfsub, x = "Confidence_Real", y = "IPIP6_Openness", xlab = x, ylab = y, fill = "grey", fillx = "purple") {
-  param <- cor_test(dfsub, x, y, bayesian = TRUE)
-
-  # Format stat output
-  r <- str_replace(str_remove(insight::format_value(param$rho), "^0+"), "^-0+", "-")
-  CI_low <- str_replace(str_remove(insight::format_value(param$CI_low), "^0+"), "^-0+", "-")
-  CI_high <- str_replace(str_remove(insight::format_value(param$CI_high), "^0+"), "^-0+", "-")
-
-  stat <- paste0("italic(r)~'= ", r, ", 95% CI [", CI_low, ", ", CI_high, "], BF'['10']~'", paste0(insight::format_bf(param$BF, name = "")), "'")
-
-  label <- data.frame(
-    x = min(dfsub[[x]], na.rm = TRUE),
-    y = max(dfsub[[y]], na.rm = TRUE),
-    label = stat
-  )
-
-  # Plot
-  dfsub |>
-    ggplot(aes_string(x = x, y = y)) +
-    geom_point2(
-      size = 3,
-      color = fillx,
-      # color = DVs[x],
-      alpha = 2 / 3
-    ) +
-    geom_smooth(method = "lm", color = "black", formula = "y ~ x", alpha = 0.3) +
-    labs(y = ylab, x = xlab) +
-    geom_label(data = label, aes(x = x, y = y), label = str2expression(label$label), hjust = 0, vjust = 1, size=rel(3.5)) +
-    theme_modern(axis.title.space = 5) +
-    ggside::geom_xsidedensity(fill = fillx, color = "white") +
-    ggside::geom_ysidedensity(fill = fill, color = "white") +
-    ggside::theme_ggside_void() +
-    ggside::scale_ysidex_continuous(expand = c(0, 0)) +
-    ggside::scale_xsidey_continuous(expand = c(0, 0))
-}
-
-p1 <- plot_correlation(dfsub,
-  x = "IPIP6_HonestyHumility",
-  y = "Confidence_Real",
-  ylab = "Confidence that the stimulus is real",
-  xlab = "Honesty-Humility",
-  fillx = "#00BCD4",
-  fill = "#D81B60"
-) + 
-  scale_y_continuous(labels=scales::percent)
-
-p2 <- plot_correlation(dfsub,
-  y = "Confidence_Fake",
-  x = "AI_Enthusiasm",
-  ylab = "Confidence that the stimulus is fake",
-  xlab = "Enthusiasm about AI technology",
-  fillx = "#607D8B",
-  fill = "#3F51B5"
-) + 
-  scale_y_continuous(labels=scales::percent)
-
-p3 <- plot_correlation(dfsub,
-  y = "Confidence_Real",
-  x = "AI_Enthusiasm",
-  ylab = "Confidence that the stimulus is real",
-  xlab = "Enthusiasm about AI technology",
-  fillx = "#607D8B",
-  fill = "#D81B60"
-) + 
-  scale_y_continuous(labels=scales::percent)
-
-p4 <- plot_correlation(dfsub,
-  y = "Confidence_Real",
-  x = "FFNI_AcclaimSeeking",
-  ylab = "Confidence that the stimulus is real",
-  xlab = "Narcissism (Acclaim Seeking)",
-  fillx = "#FF9800",
-  fill = "#D81B60"
-) + 
-  scale_y_continuous(labels=scales::percent)
-
-p5 <- plot_correlation(dfsub,
-  y = "Confidence_Fake",
-  x = "FFNI_AcclaimSeeking",
-  ylab = "Confidence that the stimulus is fake",
-  xlab = "Narcissism (Acclaim Seeking)",
-  fillx = "#FF9800",
-  fill = "#3F51B5"
-) + 
-  scale_y_continuous(labels=scales::percent)
-
-p6 <- plot_correlation(dfsub,
-  y = "Confidence_Real",
-  x = "FFNI_GrandioseFantasies",
-  ylab = "Confidence that the stimulus is real",
-  xlab = "Narcissism (Grandiose Fantasies)",
-  fillx = "#FFC107",
-  fill = "#D81B60"
-) + 
-  scale_y_continuous(labels=scales::percent)
-
-fig <- wrap_elements(fig1a) /
-  wrap_elements(
-    ((p3 / p2) | (p1 / p6) | (p4 / p5)) + 
-  plot_annotation(title = "Personality Correlates of Simulation Monitoring", theme = theme(plot.title = element_text(face = "bold", hjust = 0.5)))
-  ) +
-  plot_layout(heights = c(1.1, 0.9))
-
-ggsave("figures/Figure2.png", width=fig.height * 1.8, height=fig.width * 1.5)
-```
 
 # References

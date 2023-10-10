@@ -45,7 +45,7 @@ author:
       - "Project administration"
       - "Resources"
       - "Writing – review & editing"
-  - name          : "Panagiotis Mavros"  # panos.mavros@telecom-paris.fr
+  - name          : "Panagiotis Mavros"  # panos.mavros@sec.ethz.ch 
     affiliation   : "3"
     orcid         : 0000-0002-1540-5516
     role:
@@ -98,20 +98,7 @@ editor_options:
 
 
 
-```{r, echo = FALSE, warning=FALSE, message=FALSE}
-# options and parameters
-options(digits = 3)
 
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  dpi = 450,
-  fig.width = see::golden_ratio(9),
-  fig.height = 9,
-  fig.path = "figures/"
-)
-
-cache <- TRUE
-```
 
 <!-- stakes and Post-truth era -->
 
@@ -125,9 +112,9 @@ While not all simulations have achieved perfect realism [e.g., Computer Generate
 
 Literature shows that the context surrounding a stimulus often plays an important role in the assessment of its reality [a process henceforth referred to as *simulation monitoring*, @makowski2018cognitive; @makowski2019phenomenal]. With the extensive search and processing of cues within ambiguous stimuli being an increasingly complex and cognitively effortful strategy [@michael2021source; @susmann2021persuasion], people tend to draw on peripheral contextual cues (**Figure 1**), such as the source of the stimulus (e.g., which journal was the information published in), and its credibility, authority and expertise, to help facilitate their evaluation [@petty1986elaboration; @susmann2021persuasion; @michael2021source]. However, the atomization and decontextualization of information allowed by online social media (where text snippets or video excerpts are often mass-shared with little context) makes this task progressively difficult [@berghel2018weaponizing; @chen2015news]. Thus, in the absence of clear contextual information, what drives our beliefs of reality?
 
-```{r message=FALSE, warning=FALSE, fig.cap="The decision to believe that an ambiguous stimulus (of any form, e.g., images, text, videos, environments, ...) is real or fake depends of individual characteristics (e.g., personality and cognitive styles), stimulus-related features (context, emotionality), and their interaction, which can manifest for instance in our bodily reaction.", out.width="100%"}
-knitr::include_graphics("../figures/Figure1.png")
-```
+\begin{figure}
+\includegraphics[width=1\linewidth]{../figures/Figure1} \caption{The decision to believe that an ambiguous stimulus (of any form, e.g., images, text, videos, environments, ...) is real or fake depends of individual characteristics (e.g., personality and cognitive styles), stimulus-related features (context, emotionality), and their interaction, which can manifest for instance in our bodily reaction.}(\#fig:unnamed-chunk-2)
+\end{figure}
 
 <!-- Internal features -->
 
@@ -206,9 +193,9 @@ We started by investigating the effect of the procedure and instructions to chec
 
 The determinants of reality beliefs were modelled separately for attractiveness, beauty, trustworthiness, and familiarity, using second order raw polynomials coefficients to allow for possible quadratic relationships (**Figure 2**). Aside from attractiveness (conceptualized as a general construct), models for beauty, trustworthiness and familiarity were adjusted for the the two remaining variables *mutatis mutandis*. The analysis focused on sexual-orientation relevant stimuli, i.e., on faces that were aligned with respect to the participants' sexual orientation (i.e., female faces for heterosexual males, male faces for homosexual males, etc.), and the models included the interaction with the participants' gender (as a sexual dimorphism has been reported in face appraisal processes). For the attractiveness and beauty models, we then added the interaction with the reported self-attractiveness (the average of the two questions pertaining to it) to investigate its potential modulatory effect. Finally, we investigated the inter-individual correlates of simulation monitoring with similar models (but this time, for all items regardless of the participant's gender or sexual orientation) for each questionnaire, with all of the subscales as orthogonal predictors.
 
-```{r message=FALSE, warning=FALSE, fig.cap="Top part shows the efffect of face ratings on 1) the probability of judging a face as real vs. fake (solid line) and 2) on the confidence associated with that judgement (dashed lines) depending on the sex. Bottom part shows the effect of personality traits on the belief (black line) and the confidence associated with it (colored lines). The points are the average per participant confidence for both types of judgements. Stars indicate significance (p < .001***, p < .01**, p < .05*).", out.width="100%"}
-knitr::include_graphics("../figures/Figure2.png")
-```
+\begin{figure}
+\includegraphics[width=1\linewidth]{../figures/Figure2} \caption{Top part shows the efffect of face ratings on 1) the probability of judging a face as real vs. fake (solid line) and 2) on the confidence associated with that judgement (dashed lines) depending on the sex. Bottom part shows the effect of personality traits on the belief (black line) and the confidence associated with it (colored lines). The points are the average per participant confidence for both types of judgements. Stars indicate significance (p < .001***, p < .01**, p < .05*).}(\#fig:unnamed-chunk-3)
+\end{figure}
 
 The analysis was carried out using *R 4.2* [@RCoreTeam2022], the *tidyverse* [@wickham2019], and the *easystats* collection of packages [@insightArticle; @bayestestRArticle; @performanceArticle; @parametersArticle; @correlationArticle]. As all the details, scripts and complimentary analyses are open-access, we will focus in the manuscript on findings that are highly statistically significant ($p <.01$).
 

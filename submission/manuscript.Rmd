@@ -83,12 +83,12 @@ bibliography      : references.bib
 floatsintext      : yes
 linenumbers       : yes
 draft             : no
-mask              : no
+mask              : yes
 figurelist        : yes
 tablelist         : no
 footnotelist      : no
 classoption       : "man"
-output            : papaja::apa6_pdf
+output            : papaja::apa6_word
 csl: utils/apa.csl
 header-includes:
   - \usepackage[labelfont=bf, font={scriptsize, color=gray}]{caption}
@@ -151,11 +151,15 @@ which suggests that salient and emotional stimuli are perceived to be more real 
 
 ## Methods
 
-All the material (preregistration, experiment demo, experiment code, raw data, analysis script with complementary figures and analyses, etc.) is available at [**https://github.com/RealityBending/FakeFace**](https://github.com/RealityBending/FakeFace){.uri}.
+All the material (preregistration, experiment demo, experiment code, raw data, analysis script with complementary figures and analyses, etc.) is available at [**MASKED FOR REVIEW**]
+<!-- [**https://github.com/RealityBending/FakeFace**](https://github.com/RealityBending/FakeFace){.uri}. -->
 
 ### Ethics Statement
 
-This study was approved by the NTU Institutional Review Board (NTU IRB-2022-187) and all procedures performed were in accordance with the ethical standards of the institutional board and with the 1964 Helsinki Declaration. All participants provided their informed consent prior to participation and were incentivized after completing the study.
+This study was approved by the 
+<!-- NTU Institutional Review Board (NTU IRB-2022-187)  -->
+[**IRB NUMBER**]
+and all procedures performed were in accordance with the ethical standards of the institutional board and with the 1964 Helsinki Declaration. All participants provided their informed consent prior to participation and were incentivized after completing the study.
 
 ### Procedure
 
@@ -314,12 +318,14 @@ In summary, the aim of the present study was to examine whether a subset of spec
 
 # Data Availability
 
-The datasets generated and/or analysed during the current study are available in the GitHub repository https://github.com/RealityBending/FakeFace
-
+The datasets generated and/or analysed during the current study are available in the GitHub repository 
+<!-- https://github.com/RealityBending/FakeFace -->
+[**MASKED FOR REVIEW**]
 
 # Funding
 
-This work was supported by the Presidential Postdoctoral Fellowship Grant (NTU-PPF-2020-10014) from Nanyang Technological University (awarded to DM) and the Intra-CREATE Seed Collaboration Grant (NRF2021-ITS008-0010) from the National Research Foundation, Prime Minister’s Office, Singapore, under its Campus for Research Excellence and Technological Enterprise (CREATE) programme (awarded to DM and PM).
+[**MASKED FOR REVIEW**]
+<!-- This work was supported by the Presidential Postdoctoral Fellowship Grant (NTU-PPF-2020-10014) from Nanyang Technological University (awarded to DM) and the Intra-CREATE Seed Collaboration Grant (NRF2021-ITS008-0010) from the National Research Foundation, Prime Minister’s Office, Singapore, under its Campus for Research Excellence and Technological Enterprise (CREATE) programme (awarded to DM and PM). -->
 
 # Acknowledgments
 

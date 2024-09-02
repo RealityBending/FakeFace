@@ -577,6 +577,7 @@ psych::alpha(check.keys = TRUE) # 0.94
 
 ## Manipulation Check
 
+
 ### Real / Fake
 
 ```{r message=FALSE, warning=FALSE, fig.height=fig.width*1.5, cache=cache}
@@ -624,6 +625,40 @@ df |>
 m <- glmmTMB::glmmTMB(Belief ~ 1 + (1|Participant) + (1|Stimulus), data=df, family="binomial")
 icc(m, by_group = TRUE)
 ```
+
+```{r message=FALSE, warning=FALSE}
+# plot(estimate_density(filter(df, Participant == "60dd7b03f1e72d38230df476_9yh9n")$Belief_Answer))
+df |>
+  mutate(Stimulus = fct_relevel(Stimulus, df |>
+    group_by(Stimulus) |>
+    summarize(Belief_Answer = mean(Belief_Answer)) |>
+    ungroup() |>
+    arrange(Belief_Answer) |>
+    pull(Stimulus) |>
+    as.character())) |>
+  # mutate(Participant = fct_relevel(Participant, as.character(dfsub$Participant))) |>
+  ggplot(aes(x = Belief_Answer, y = Stimulus, fill = Stimulus)) +
+  ggdist::stat_slab(scale = 4, slab_alpha = 2/3, normalize = "groups", color = "black", size = 0.2) +
+  geom_vline(xintercept = 0, linetype = "dotted") +
+  scale_y_discrete(expand = c(0.02, 0)) +
+  scale_x_continuous(
+    limits = c(-1, 1),
+    expand = c(0, 0),
+    breaks = c(-0.95, 0, 0.95),
+    label = c("Fake", "", "Real")
+  ) +
+  scale_fill_viridis_d() +
+  labs(x = "Simulation Monitoring", y = "Participants", title = "Distribution of Reality Judgments") +
+  guides(fill = "none") +
+  see::theme_modern() +
+  theme(
+    # axis.text.y = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  ) +
+  ggside::geom_xsidedensity(fill = "grey", color = "white") +
+  ggside::scale_xsidey_continuous(expand = c(0, 0))
+```
+
 
 ### Colinearity
 

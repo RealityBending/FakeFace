@@ -35,10 +35,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-
-
 # Methods
-
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -47,6 +44,9 @@ library(ggside)
 library(easystats)
 library(patchwork)
 library(brms)
+library(psych) # reliability analysis
+
+set.seed(33)
 
 df <- read.csv("data/data.csv") |>
   mutate(
@@ -80,8 +80,6 @@ df <- df |>
   merge(df, by = "Participant")
 ```
 
-
-
 ## Exclusions {.tabset}
 
 ```{r message=FALSE, warning=FALSE}
@@ -108,10 +106,7 @@ outliers_partial <- c(
 
 We removed `r length(outliers)` participants based on failed attention checks.
 
-
-
 ### Extreme Items
-
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
 extreme_items <- df |>
@@ -158,9 +153,7 @@ extreme_items
 #   filter(!Stimulus %in% extreme_items$Stimulus)
 ```
 
-We removed `r nrow(extreme_items)` trials per participant. 
-
-
+We removed `r nrow(extreme_items)` trials per participant.
 
 ### Attention Checks and Duration
 
@@ -176,7 +169,6 @@ dfsub <- df |>
   arrange(Attention_Check)
 ```
 
-
 ### Ratings
 
 ```{r message=FALSE, warning=FALSE}
@@ -189,8 +181,6 @@ for (participant in dfsub$Participant) {
   dfsub[dfsub$Participant == participant, "r_Beauty"] <- cor(df[df$Participant == participant, "Beauty"], df[df$Participant == participant, "Norms_Attractive"])
 }
 ```
-
-
 
 ### Summary
 
@@ -289,7 +279,6 @@ df <- df |>
   filter(!Participant %in% c(outliers))
 ```
 
-
 ## Participants
 
 ```{r message=FALSE, warning=FALSE}
@@ -385,14 +374,210 @@ p8 <- plot_waffle(dfsub, "Device_OS", title = "Device OS") +
 patchwork::wrap_plots(list(p1, p2, p3, p5, p4, p6))
 ```
 
+## Scales - Reliability analysis {.tabset}
+
+### IPIP
+
+```{r}
+#extraversion
+dplyr::select(df, starts_with("Extraversion_")) |>
+psych::alpha(check.keys = TRUE) # 0.82
+
+#Conscientiousness
+dplyr::select(df, starts_with("Conscientiousness_")) |>
+psych::alpha(check.keys = TRUE) # 0.73
+
+#Neuroticism 
+dplyr::select(df, starts_with("Neuroticism_")) |>
+psych::alpha(check.keys = TRUE) # 0.59
+
+#Openness
+dplyr::select(df, starts_with("Conscientiousness_")) |>
+psych::alpha(check.keys = TRUE) # 0.73
+
+#Honest-Humility
+dplyr::select(df, starts_with("HonestyHumility_")) |>
+psych::alpha(check.keys = TRUE) # 0.7
+
+#Agreableness 
+dplyr::select(df, starts_with("Agreeableness_")) |>
+psych::alpha(check.keys = TRUE) # 0.82
+
+
+```
+
+### SIAS-6 and SPS-6
+
+```{r}
+#SIAS- social interaction scale
+dplyr::select(df, starts_with("SIAS_")) |>
+psych::alpha(check.keys = TRUE) # 0.84
+
+
+#SPS - social phobia scale
+dplyr::select(df, starts_with("Social_Phobia_")) |>
+psych::alpha(check.keys = TRUE) # 0.87
+
+```
+
+### Expectations about AI technology and GAAIS
+
+<!-- Expectations about AI = items that did not said OG scale item from the parameters.js (GAAIS_1;3;5;7;10) -->
+
+```{r}
+
+#expectations about AI
+dplyr::select(df, AI_1_RealisticImages, AI_3_VideosReal, AI_5_ImitatingReality, AI_7_RealisticVideos, AI_10_FaceErrors) |>
+psych::alpha(check.keys = TRUE) # 0.61
+
+
+#GAAIS
+dplyr::select(df, AI_2_Unethical, AI_4_DailyLife, AI_6_Dangerous, AI_8_Exciting, AI_9_Applications) |>
+psych::alpha(check.keys = TRUE) # 0.74
+
+## positive GAAIS
+dplyr::select(df, AI_4_DailyLife, AI_8_Exciting, AI_9_Applications) |>
+psych::alpha(check.keys = TRUE) # 0.74
+
+## negtavive GAAIS
+dplyr::select(df, AI_2_Unethical, AI_6_Dangerous) |>
+psych::alpha(check.keys = TRUE) # 0.74
+
+
+```
+
+### FFNI-BF
+
+#### Low-order dimensions
+
+```{r}
+
+#acclaim seeking 
+dplyr::select(df, Acclaim_Seeking_1, Acclaim_Seeking_16) |>
+psych::alpha(check.keys = TRUE) # 0.68
+
+#authoritativeness
+dplyr::select(df, Authoritativeness_3, Authoritativeness_18) |>
+psych::alpha(check.keys = TRUE) # 0.77
+
+#grandiose fantasies
+dplyr::select(df, Grandiose_Fantasies_8, Grandiose_Fantasies_23) |>
+psych::alpha(check.keys = TRUE) # 0.8
+
+#Exhibition 
+dplyr::select(df, Exhibitionism_6, Exhibitionism_21) |>
+psych::alpha(check.keys = TRUE) # 0.65
+
+#Manipulativeness
+dplyr::select(df, Manipulativeness_11, Manipulativeness_26) |>
+psych::alpha(check.keys = TRUE) # 0.58
+
+#Exploitativeness
+dplyr::select(df, Exploitativeness_7, Exploitativeness_22) |>
+psych::alpha(check.keys = TRUE) # 0.74
+
+# Entitlement 
+dplyr::select(df, Entitlement_5, Entitlement_20) |>
+psych::alpha(check.keys = TRUE) # 0.8
+
+#  Lack of empathy
+dplyr::select(df, Lack_of_Empathy_10, Lack_of_Empathy_25) |>
+psych::alpha(check.keys = TRUE) # 0.68
+
+#Arrogance 
+dplyr::select(df, Arrogance_2, Arrogance_17) |>
+psych::alpha(check.keys = TRUE) # 0.59
+
+# Reactive Anger
+dplyr::select(df, Reactive_Anger_13, Reactive_Anger_28) |>
+psych::alpha(check.keys = TRUE) # 0.66
+
+# Distrut
+dplyr::select(df, Distrust_19, Distrust_4) |>
+psych::alpha(check.keys = TRUE) # 0.55
+
+# Thrill Seeking 
+dplyr::select(df, Thrill_Seeking_15, Thrill_Seeking_30) |>
+psych::alpha(check.keys = TRUE) # 0.77
+
+# Shame
+dplyr::select(df, Shame_14, Shame_29) |>
+psych::alpha(check.keys = TRUE) # 0.72
+
+# Indifference 
+dplyr::select(df, Indifference_9, Indifference_24) |>
+psych::alpha(check.keys = TRUE) # 0.63
+
+# Need for admiration
+dplyr::select(df, Need_for_Admiration_12, Need_for_Admiration_27) |>
+psych::alpha(check.keys = TRUE) # 0.57
+
+```
+
+#### High-order dimensions
+
+```{r}
+
+##agentic narcissism 
+
+dplyr::select(df, Acclaim_Seeking_1, Acclaim_Seeking_16, Authoritativeness_3, Authoritativeness_18, Grandiose_Fantasies_8, Grandiose_Fantasies_23,  Exhibitionism_6, Exhibitionism_21) |>
+psych::alpha(check.keys = TRUE) #0.78 
+
+#Antognistic Narcissism 
+
+dplyr::select(df, Manipulativeness_11, Manipulativeness_26, Exploitativeness_7, Exploitativeness_22, Entitlement_5, Entitlement_20, Lack_of_Empathy_10, Lack_of_Empathy_25, Arrogance_2, Arrogance_17, Reactive_Anger_13, Reactive_Anger_28, Distrust_19, Distrust_4, Thrill_Seeking_15, Thrill_Seeking_30) |>
+psych::alpha(check.keys = TRUE) # 0.83
+
+# Neurotic Narcissism
+
+dplyr::select(df, Shame_14, Shame_29, Indifference_9, Indifference_24, Need_for_Admiration_12, Need_for_Admiration_27) |>
+psych::alpha(check.keys = TRUE) # 0.79
+
+```
+
+### R-GPTS
+
+```{r}
+# Reference
+dplyr::select(df, starts_with("Reference_")) |>
+psych::alpha(check.keys = TRUE) # 0.85
+
+#Prosecution 
+dplyr::select(df, starts_with("Persecution_")) |>
+psych::alpha(check.keys = TRUE) # 0.93
+
+```
+
+### IUS-12
+
+```{r}
+
+# Prospective anxiety 
+dplyr::select(df, starts_with("Prospective_Anxiety_")) |>
+psych::alpha(check.keys = TRUE) # 0.8
+
+#Inhibitory anxiety
+dplyr::select(df, starts_with("Inhibitory_Anxiety_")) |>
+psych::alpha(check.keys = TRUE) # 0.82
+
+```
+
+### Sel-rated attractiveness
+
+```{r}
+
+dplyr::select(df, self_rated_general_attractiveness, self_rated_physical_attractiveness) |>
+psych::alpha(check.keys = TRUE) # 0.94
+
+```
+
+:::
+
 # Results
-
-
 
 ## Manipulation Check
 
 ### Real / Fake
-
 
 ```{r message=FALSE, warning=FALSE, fig.height=fig.width*1.5, cache=cache}
 # plot(estimate_density(filter(df, Participant == "60dd7b03f1e72d38230df476_9yh9n")$Belief_Answer))
@@ -439,8 +624,6 @@ df |>
 m <- glmmTMB::glmmTMB(Belief ~ 1 + (1|Participant) + (1|Stimulus), data=df, family="binomial")
 icc(m, by_group = TRUE)
 ```
-
-
 
 ### Colinearity
 
@@ -619,7 +802,6 @@ parameters::parameters(m_conf, effects="fixed") |>
   display(digits=6)
 ```
 
-
 ## Determinants of Reality {.tabset}
 
 ```{r message=FALSE, warning=FALSE}
@@ -702,7 +884,7 @@ make_model <- function(df, var = "Attractive", formula = var, fill = "#2196F3") 
 }
 ```
 
-```{r make_models, message=FALSE, warning=FALSE, fig.width=fig.width, fig.height=fig.width, cache=cache}
+```{r make_models, fig.height=fig.width, fig.width=fig.width, message=FALSE, warning=FALSE, cache=FALSE}
 rez_at <- make_model(filter(df, Stimulus_Interest == TRUE),
   formula = "Sex / poly(Attractive, 2) + (1|Participant) + (1|Stimulus)",
   var = "Attractive", fill = "#F44336"
@@ -736,7 +918,6 @@ parameters::parameters(rez_at$model_confidence, effects = "fixed", keep = "Attra
 rez_at$p
 ```
 
-
 ### Beauty
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
@@ -751,7 +932,6 @@ parameters::parameters(rez_gl$model_confidence, effects = "fixed", keep = "Beaut
 
 rez_gl$p
 ```
-
 
 ### Trustworthiness
 
@@ -837,8 +1017,6 @@ parameters::parameters(m_real, effects = "fixed", keep = "Self_Attractiveness") 
 
 ## Inter-Individual Correlates {.tabset}
 
-
-
 ```{r message=FALSE, warning=FALSE}
 plot_interindividual <- function(m_real, m_conf, var = "IPIP6_HonestyHumility", fill = "#D81B60") {
   y_real <- estimate_relation(m_real, at = c(var), length = 21)
@@ -899,7 +1077,6 @@ plot_interindividual <- function(m_real, m_conf, var = "IPIP6_HonestyHumility", 
 }
 ```
 
-
 ```{r message=FALSE, warning=FALSE}
 make_correlation <- function(x, y) {
   cor <- correlation::correlation(x,
@@ -922,8 +1099,6 @@ make_correlation <- function(x, y) {
     arrange(desc(BF))
 }
 ```
-
-
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
 analyze_interindividual <- function(df, questionnaire = "IPIP6_") {
@@ -955,7 +1130,6 @@ analyze_interindividual <- function(df, questionnaire = "IPIP6_") {
 ```
 
 ### IPIP-6
-
 
 ```{r ipip, message=FALSE, warning=FALSE, cache=cache}
 f <- paste0("(",paste(names(select(df, starts_with("IPIP"))), collapse = " + "), 
@@ -1026,7 +1200,6 @@ cor_test(dfsub, "FFNI_Authoritativeness", "IPIP6_HonestyHumility")
 # cor_test(dfsub, "FFNI_ThrillSeeking", "IPIP6_HonestyHumility")
 ```
 
-
 ### Social Anxiety
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
@@ -1077,14 +1250,10 @@ parameters::parameters(m_conf, effects="fixed") |>
   display()
 ```
 
-
 ```{r message=FALSE, warning=FALSE, cache=cache}
 r <- make_correlation(dfsub[sr], select(dfsub, starts_with("IUS_")))
 filter(r, BF > 1)
 ```
-
-
-
 
 ### Paranoid Beliefs
 
@@ -1115,8 +1284,6 @@ r <- make_correlation(dfsub[sr], select(dfsub, starts_with("GPTS_")))
 filter(r, BF > 1)
 ```
 
-
-
 ### AI
 
 ```{r ai, message=FALSE, warning=FALSE, cache=cache}
@@ -1130,7 +1297,6 @@ dfsub <- predict(efa, names = c("AI_Enthusiasm", "AI_Realness", "AI_Danger")) |>
 df <- predict(efa, newdata=df, names = c("AI_Enthusiasm", "AI_Realness", "AI_Danger")) |> 
   cbind(df)
 ```
-
 
 ```{r message=FALSE, warning=FALSE, cache=cache}
 f <- paste0("(AI_Enthusiasm + AI_Realness + AI_Danger) + (1|Participant) + (1|Stimulus)")
@@ -1160,13 +1326,7 @@ r <- make_correlation(dfsub[sr], select(dfsub, AI_Enthusiasm, AI_Realness, AI_Da
 filter(r, BF > 1)
 ```
 
-
-
-
-
 ## Figures
-
-
 
 ```{r message=FALSE, warning=FALSE}
 fig1a <- (rez_at$p +
@@ -1205,6 +1365,5 @@ fig <- wrap_elements(fig1a) /
 
 ggsave("figures/Figure2.png", fig, width=fig.height * 1.8, height=fig.width * 1.5)
 ```
-
 
 # References

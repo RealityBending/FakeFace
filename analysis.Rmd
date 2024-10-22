@@ -208,15 +208,16 @@ data.frame(Participant = c(paste0("Total (n=", nrow(dfsub), ")")), t(sapply(dfsu
 ```
 
 ```{r message=FALSE, warning=FALSE, cache=cache, fig.width=20, fig.height=20}
+
 p_att <- dfsub |>
   select(Participant, starts_with("Att")) |>
-  pivot_longer(-Participant) |>
+  tidyr::pivot_longer(-Participant) |>
   # mutate(name = str_remove(name, "Cor_")) |>
-  ggplot(aes(x = Participant, y = value)) +
+  ggplot2::ggplot(aes(x = Participant, y = value)) +
   geom_bar(aes(fill = name), stat = "identity", position = "dodge") +
   scale_y_continuous(expand = c(0, 0)) +
-  scale_fill_manual(values = c("black", "#2196F3", "#3F51B5", "#673AB7")) +
-  scale_color_manual(values = c("black", "#2196F3", "#3F51B5", "#673AB7")) +
+  scale_fill_manual(values = c("black", "#2196F3", "#3F51B5", "#673AB7", "#843c54","#03989e", "#588163")) +
+  scale_color_manual(values = c("black", "#2196F3", "#3F51B5", "#673AB7","#843c54","#03989e", "#588163")) +
   see::theme_modern() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
@@ -277,6 +278,7 @@ p_cor <- dfsub |>
 
 df <- df |>
   filter(!Participant %in% c(outliers))
+
 ```
 
 ## Participants

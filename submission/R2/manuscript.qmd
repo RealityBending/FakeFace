@@ -111,7 +111,7 @@ floatsintext: true
 numbered-lines: true
 bibliography: references.bib
 suppress-title-page: false
-mask: false
+mask: true
 # Language options. See https://quarto.org/docs/authoring/language.html
 lang: en
 language:

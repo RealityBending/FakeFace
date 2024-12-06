@@ -913,15 +913,20 @@ We believe that these findings provide the foundations to help us
 understand what drives reality beliefs in an increasingly
 reality-ambiguous world.
 
-# Data Availability
+## Data Availability
 
 The datasets generated and/or analysed during the current study are
 available in the GitHub repository
 https://github.com/RealityBending/FakeFace
 
+
+## Funding
+
+This work was supported by the Presidential Postdoctoral Fellowship Grant (NTU-PPF-2020-10014) from Nanyang Technological University (awarded to DM).
+
 \pagebreak
 
-# References
+## References
 
 <!-- References will auto-populate in the refs div below -->
 

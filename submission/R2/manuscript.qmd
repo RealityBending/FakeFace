@@ -106,7 +106,7 @@ author-note:
     gratitude: null
     authorship-agreements: null
 abstract: " Technological advances render the distinction between artificial (e.g., computer-generated faces) and real stimuli increasingly difficult, yet the factors driving our beliefs regarding the nature of ambiguous stimuli remain largely unknown. In this study, 150 participants rated 109 pictures of faces on 4 characteristics (attractiveness, beauty, trustworthiness, familiarity). The stimuli were then presented again with the new information that some of them were AI-generated, and participants had to rate each image according to whether they believed them to be real or fake. Despite all images being pictures of real faces from the same database, most participants did indeed rate a large portion of them as 'fake' (often with high confidence), with strong intra- and inter-individual variability. Our results suggest a gender-dependent role of attractiveness on reality judgements, with faces rated as more attractive being classified as more real. We also report links between reality beliefs tendencies and dispositional traits such as narcissism and paranoid ideation."
-keywords: [attractiveness, AI-generated images, fiction, fake news, sense of reality]
+keywords: [Attractiveness, AI-generated images, Fiction, Fake News, Sense of Reality]
 floatsintext: true
 numbered-lines: true
 bibliography: references.bib
